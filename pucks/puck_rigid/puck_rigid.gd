@@ -1,14 +1,8 @@
 extends RigidBody
 
+export var camera_node_path:NodePath
 export var isInteractable:bool
-
 export var push_force:float
-# Declare member variables here. Examples:
-# var a: int = 2
-# var b: String = "text"
-
-onready var camera = $"../Camera"
-onready var pointer = $Pointer
 
 var rayOrigin = Vector3.ZERO
 var rayEnd = Vector3.ZERO
@@ -16,15 +10,13 @@ var targetDest = Vector3.ZERO
 
 var isSelected:bool = false
 
+onready var camera = get_node(camera_node_path)
+onready var pointer = $Pointer
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	$Pointer.visible = false
 	pass # Replace with function body.
-
-
-#func _process(delta: float) -> void:
-	
 
 
 func _physics_process(delta: float) -> void:
