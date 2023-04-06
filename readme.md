@@ -27,4 +27,4 @@ It is 1unit x 1unit x 1unit in Blender, exported and then imported into Godot wi
 # Material Import
 
 Please remember to set the `unshaded` flag to on for the `.material` of any imported 3D model.
-![alt text](https://github.com/gamkedo-la/puck2000/tree/main/_assets_src/readme/material_unshadedFlag.png "Screenshot of unshaded flag option")
+![alt text](https://github.com/gamkedo-la/puck2000/blob/main/_assets_src/readme/material_unshadedFlag.png "Screenshot of unshaded flag option")
