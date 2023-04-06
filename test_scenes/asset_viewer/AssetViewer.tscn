@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://test_scenes/scale_ref/scale_ref_cube.glb" type="PackedScene" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Spatial
+# Simple script to rotate object for inspection
+
+export var rotation_speed = 0.025 # in radians
+
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+func _process(delta: float) -> void:
+	rotate_y(rotation_speed)
+	pass
+"
+
+[node name="Spatial" type="Spatial"]
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 0.708366, -0.349159, 0.613437, 0, 0.869082, 0.494669, -0.705845, -0.350406, 0.615628, 2.58893, 2.98774, 2.59818 )
+
+[node name="PlaceModeHere" type="Spatial" parent="."]
+script = SubResource( 1 )
+
+[node name="scale_ref_cube" parent="PlaceModeHere" instance=ExtResource( 1 )]
