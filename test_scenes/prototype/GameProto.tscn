@@ -1,12 +1,12 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://texture-test-1x1.png" type="Texture" id=1]
-[ext_resource path="res://Table.tscn" type="PackedScene" id=2]
-[ext_resource path="res://pucks/puck_rigid/PuckRigid.tscn" type="PackedScene" id=3]
+[ext_resource path="res://pucks/puck_rigid/PuckRigid.tscn" type="PackedScene" id=1]
+[ext_resource path="res://test_scenes/prototype/Table.tscn" type="PackedScene" id=2]
+[ext_resource path="res://test_scenes/prototype/texture-test-1x1.png" type="Texture" id=3]
 
 [sub_resource type="SpatialMaterial" id=1]
 flags_unshaded = true
-albedo_texture = ExtResource( 1 )
+albedo_texture = ExtResource( 3 )
 uv1_offset = Vector3( 0.5, 0.5, 0.5 )
 uv1_triplanar = true
 
@@ -33,28 +33,28 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.625, 0 )
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 0.999991, -0.00372044, 0.00227988, 0, 0.522498, 0.852641, -0.00436343, -0.852633, 0.522493, -0.0479178, 3.2184, 1.59893 )
 
-[node name="Puck" parent="." instance=ExtResource( 3 )]
+[node name="Puck" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, 1.072, 0.75 )
 camera_node_path = NodePath("../Camera")
 isInteractable = true
 
-[node name="Puck2" parent="." instance=ExtResource( 3 )]
+[node name="Puck2" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.276323, 1.072, 0.782605 )
 camera_node_path = NodePath("../Camera")
 
-[node name="Puck3" parent="." instance=ExtResource( 3 )]
+[node name="Puck3" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.053124, 1.072, 0.96634 )
 camera_node_path = NodePath("../Camera")
 
-[node name="Puck4" parent="." instance=ExtResource( 3 )]
+[node name="Puck4" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0577708, 1.072, -0.602801 )
 camera_node_path = NodePath("../Camera")
 
-[node name="Puck5" parent="." instance=ExtResource( 3 )]
+[node name="Puck5" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.442229, 1.072, -1.1028 )
 camera_node_path = NodePath("../Camera")
 
-[node name="Puck6" parent="." instance=ExtResource( 3 )]
+[node name="Puck6" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.557771, 1.072, -0.602801 )
 camera_node_path = NodePath("../Camera")
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://texture-test-1x1.png" type="Texture" id=1]
+[ext_resource path="res://test_scenes/prototype/texture-test-1x1.png" type="Texture" id=1]
 [ext_resource path="res://pucks/puck_rigid/PuckRigid.tscn" type="PackedScene" id=2]
 
 [sub_resource type="CubeMesh" id=1]
