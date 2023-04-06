@@ -6,14 +6,17 @@ Each player has to get their pucks through the opening in the middle to land it 
 
 # Design Notes
 
-Game Engine: Godot 3.5.2 Stable (LTS)
-Target Platform: HTML5 WebGL build only
-Renderer: GLES2 - 3D unshaded (no lightning) low poly smooth shaded
+Game Engine: Godot 3.5.2 Stable (LTS)  
+
+Target Platform: HTML5 WebGL build only  
+
+Renderer: GLES2 - 3D unshaded (no lightning) low poly smooth shaded  
+
 Project Lead: Liyi Zhang (@liyiz)
 
 # Organisation
 
-Please note that `_assets_src` is for source assets only (the "raw" files that generate the game-ready assets for the engine). There is a `.gdignore` inside the directory so Godot knows to ignore it and not generate meta data for those files. Please refer to the file structure to know where to palce your game-ready assets (or if not available, please ask the project lead)
+Please note that `_assets_src` is for source assets only (the "raw" files that generate the game-ready assets for the engine). There is a `.gdignore` inside the directory so Godot knows to ignore it and not generate meta data for those files. Please refer to the file structure to know where to place your game-ready assets (or if not available, please ask the project lead)
 
 # Scale Reference
 
