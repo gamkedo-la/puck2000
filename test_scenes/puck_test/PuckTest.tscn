@@ -92,4 +92,5 @@ shape = SubResource( 5 )
 
 [node name="Puck" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0 )
+camera_node_path = NodePath("../Camera")
 isInteractable = true

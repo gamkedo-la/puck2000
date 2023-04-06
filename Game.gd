@@ -5,5 +5,6 @@ extends Spatial
 func _ready() -> void:
 	pass # Replace with function body.
 
+# warning-ignore:unused_argument
 func _physics_process(delta: float) -> void:
 	pass

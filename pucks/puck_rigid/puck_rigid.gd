@@ -19,7 +19,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 
 	targetDest = Vector3.ZERO
 	rayOrigin = Vector3.ZERO
@@ -51,6 +51,7 @@ func _physics_process(delta: float) -> void:
 
 # this will need refactoring to work for instanced pucks
 # right now all pucks are firing "released button"
+# warning-ignore:unused_argument
 func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_released ("puck") && isInteractable:
 		var position = self.translation
@@ -65,7 +66,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 
-func _on_Puck_input_event(camera: Node, event: InputEvent, position: Vector3, normal: Vector3, shape_idx: int) -> void:
+# warning-ignore:unused_argument
+
+func _on_Puck_input_event(_camera: Node, event: InputEvent, _position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
 
 	if Input.is_action_pressed("select"):
 		pointer.visible = true
