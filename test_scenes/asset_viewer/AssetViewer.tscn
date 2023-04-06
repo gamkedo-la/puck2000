@@ -22,7 +22,7 @@ func _process(delta: float) -> void:
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 0.708366, -0.349159, 0.613437, 0, 0.869082, 0.494669, -0.705845, -0.350406, 0.615628, 2.58893, 2.98774, 2.59818 )
 
-[node name="PlaceModeHere" type="Spatial" parent="."]
+[node name="PlaceModelHere" type="Spatial" parent="."]
 script = SubResource( 1 )
 
-[node name="scale_ref_cube" parent="PlaceModeHere" instance=ExtResource( 1 )]
+[node name="scale_ref_cube" parent="PlaceModelHere" instance=ExtResource( 1 )]
