@@ -43,6 +43,11 @@ select={
  ]
 }
 
+[layer_names]
+
+3d_physics/layer_1="table"
+3d_physics/layer_2="puck"
+
 [physics]
 
 common/enable_pause_aware_picking=true

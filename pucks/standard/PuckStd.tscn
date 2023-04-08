@@ -6,7 +6,9 @@
 height = 0.4
 radius = 0.5
 
-[node name="PuckStd" type="RigidBody"]
+[node name="PuckStd" type="RigidBody" groups=["pucks"]]
+collision_layer = 2
+collision_mask = 3
 axis_lock_linear_y = true
 axis_lock_angular_x = true
 axis_lock_angular_y = true

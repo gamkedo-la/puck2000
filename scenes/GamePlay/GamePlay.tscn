@@ -13,3 +13,5 @@ Puck = ExtResource( 3 )
 transform = Transform( 0.952937, -0.165773, 0.253831, 0, 0.837262, 0.546802, -0.303167, -0.521068, 0.797858, 5.51985, 11.8909, 17.3504 )
 
 [node name="Pucks" type="Spatial" parent="."]
+
+[node name="Table" type="Spatial" parent="."]
