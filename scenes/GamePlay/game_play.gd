@@ -11,20 +11,25 @@ var p1_puck_count:int
 var p2_puck_count:int
 var p1_area:Area
 var p2_area:Area
+var current_round:int
 
 onready var pucks = $Pucks
 onready var table_holder = $Table
+onready var timer_round = $TimerRoundDuration
+onready var timer_countdown = $TimerRoundCountdown
+
 
 func _ready() -> void:
-	_connect_signals()
-	_place_table()
+	setup_field()
+#	opening_cinematic()
+	start_game()
 	pass
 
 
-func _connect_signals() -> void:
-#	if not self.is_connected("puck_spawning_finished", self, "_get_puck_count"):
-#		var con_res = self.connect("puck_spawning_finished", self, "_get_puck_count")
-#		assert(con_res == OK)
+func setup_field() -> void:
+	current_round = 0
+	
+	_place_table()
 	pass
 
 
@@ -59,7 +64,6 @@ func _place_pucks(table:StaticBody) -> void:
 	for positionNode in p2_spawn:
 		var puck = _get_puck_instance(positionNode)
 		pucks.add_child(puck)
-	emit_signal("puck_spawning_finished")
 	pass
 
 
@@ -82,12 +86,44 @@ func _count_puck(body:Node, isEnter:bool, area:String) -> void:
 				p1_puck_count -= 1
 			else:
 				p2_puck_count -= 1
-		prints("p1:",p1_puck_count)
-		prints("p2:",p2_puck_count)
+#		prints("p1:",p1_puck_count)
+#		prints("p2:",p2_puck_count)
 	pass
-	
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_released("ui_accept"):
 		print(p1_area)
 		print(p1_puck_count)
+
+
+func start_game() -> void:
+	_countdown_to_round()
+#	_start_round()
+	pass
+
+
+func set_label_text(value:int) -> void:
+	$CountdownText.text = str(value)
+	pass
+
+
+func _countdown_to_round() -> void:
+#	yield or another timer, or something
+#	timer_countdown.timeout() # use timeout signal
+	var tween = create_tween()
+	tween.tween_method(self, "set_label_text", 3, 1, 1.5).set_delay(1)
+	tween.tween_callback(self, "set_label_text_go")
+	tween.tween_callback(self, "start_round").set_delay(0.75)
+	pass
+
+
+func set_label_text_go() -> void:
+	$CountdownText.text = "Go!"
+
+
+func start_round() -> void:
+	$CountdownText.visible = false
+	print("game round start!")
+	pass
+

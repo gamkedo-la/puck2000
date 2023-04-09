@@ -15,3 +15,23 @@ transform = Transform( 0.952937, -0.165773, 0.253831, 0, 0.837262, 0.546802, -0.
 [node name="Pucks" type="Spatial" parent="."]
 
 [node name="Table" type="Spatial" parent="."]
+
+[node name="TimerRoundDuration" type="Timer" parent="."]
+wait_time = 90.0
+one_shot = true
+
+[node name="TimerRoundCountdown" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="CountdownText" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -7.0
+margin_right = 20.0
+margin_bottom = 7.0
+text = "3"
+align = 1
+valign = 1
