@@ -1,19 +1,21 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/GamePlay/game_play.gd" type="Script" id=1]
 [ext_resource path="res://tables/classic/TableClassic.tscn" type="PackedScene" id=2]
 [ext_resource path="res://pucks/standard/PuckStd.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/GamePlay/puck_manager.gd" type="Script" id=4]
 
 [node name="GamePlay" type="Spatial"]
 script = ExtResource( 1 )
 Table = ExtResource( 2 )
 Puck = ExtResource( 3 )
-round_time = 10.0
+round_time = 3.0
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 0.952937, -0.165773, 0.253831, 0, 0.837262, 0.546802, -0.303167, -0.521068, 0.797858, 5.51985, 11.8909, 17.3504 )
 
 [node name="Pucks" type="Spatial" parent="."]
+script = ExtResource( 4 )
 
 [node name="Table" type="Spatial" parent="."]
 
