@@ -9,13 +9,17 @@ export (PackedScene) var Puck
 
 export var round_time:float = 90.0
 
+var puck_spawn_pos = []
+
 var p1_puck_count:int
 var p2_puck_count:int
 var p1_area:Area
 var p2_area:Area
-var p1_round_win:int
-var p2_round_win:int
+var p1_round_wins:int
+var p2_round_wins:int
 var current_round:int
+
+var table:StaticBody
 
 onready var pucks = $Pucks
 onready var table_holder = $Table
@@ -55,13 +59,14 @@ func setup_field() -> void:
 
 
 func reset_round() -> void:
+	_place_pucks()
 	timer_round.set_wait_time(round_time)
 #	reset_pucks() # reset puck positions
 	start_game()
 
 
 func _place_table() -> void:
-	var table = Table.instance()
+	table = Table.instance()
 	table_holder.add_child(table)
 	
 	p1_area = table.get_node("P1Area")
@@ -86,22 +91,34 @@ func _place_table() -> void:
 	if not p2_area.is_connected("body_exited", self, "_count_puck"):
 		var table_check = p2_area.connect("body_exited", self, "_count_puck", [false, "P2Area"])
 		assert(table_check == OK)
-	
-	_place_pucks(table)
+	_spawn_pucks()
 	pass
 
 
-func _place_pucks(table:StaticBody) -> void:
+#func _add_puck(puck:RigidBody, spawn_pos:Position) -> void:
+
+
+func _place_pucks() -> void:
+	var pucks_list = pucks.get_children()
+	for i in pucks_list.size():
+		# cancel all physics
+		# then apply positions
+		pucks_list[i].transform.origin = puck_spawn_pos[i].transform.origin
+		print(pucks_list[i])
+	pass
+
+
+func _spawn_pucks() -> void:
 	var p1_spawn = table.get_node("P1PuckSpawn").get_children()
 	var p2_spawn = table.get_node("P2PuckSpawn").get_children()
 	for positionNode in p1_spawn:
 #		print(pos.transform.origin)
+		puck_spawn_pos.append(positionNode)
 		var puck = _get_puck_instance(positionNode)
-		puck.camera_node_path = "../../Camera"
 		pucks.add_child(puck)
 	for positionNode in p2_spawn:
+		puck_spawn_pos.append(positionNode)
 		var puck = _get_puck_instance(positionNode)
-		puck.camera_node_path = "../../Camera"
 		pucks.add_child(puck)
 	$Pucks.setup_field()
 	pass
@@ -110,6 +127,7 @@ func _place_pucks(table:StaticBody) -> void:
 func _get_puck_instance(positionNode:Position3D) -> RigidBody:
 		var puck = Puck.instance()
 		puck.transform.origin = positionNode.transform.origin
+		puck.camera_node_path = "../../Camera"
 		return puck
 
 
@@ -175,40 +193,56 @@ func start_round() -> void:
 	pass
 
 
-func end_round() -> void:
+func end_round(player:String) -> void:
 	print("game round ended!")
+	
+	if player == "P1Area":
+		print("P1 is the round winner!")
+		p1_round_wins += 1
+		$P1RoundWins.text = "P1: " + str(p1_round_wins)
+	else:
+		print("P2 is the round winner!")
+		p2_round_wins += 1
+		$P2RoundWins.text = "P2: " + str(p2_round_wins)
 	
 	# disable controls
 	
 	# Check how many rounds left
-	if p1_round_win == 3 && p1_round_win > p2_round_win:
+	if p1_round_wins == 3 && p1_round_wins > p2_round_wins:
 		print("P1 wins!")
+		end_game("Player 1")
 		return
-	if p2_round_win == 3 && p2_round_win > p1_round_win:
+	if p2_round_wins == 3 && p2_round_wins > p1_round_wins:
 		print("P2 wins!")
+		end_game("Player 2")
 		return
+	# If max rounds go to results
+	# If not max rounds, start new round
 	
 	# restart round
 	reset_round()
 	
-	# If max rounds go to results
-	# If not max rounds, start new round
+
 	pass
 
 
 func _check_winner(body:Node, area:Area) -> void:
 #	prints(body, area)
-	var pucks_left = area.get_overlapping_bodies()
+	var bodies = area.get_overlapping_bodies()
 #	print(pucks_left)
 	# check if overlapping bodies has any pucks
-	for puck in pucks_left:
-		if puck.is_in_group("pucks"):
+	for n in bodies:
+		if n.is_in_group("pucks"):
 #			print_debug("no winner yet")
 			return
 	# ignore if it's a table body
 	# if none, then that person wins
 #	print("gotta report the winner!")
-	end_round()
+	end_round(area.name)
 #	print_debug(pucks_left)
 	pass
 
+
+func end_game(winner:String) -> void:
+	print(winner + " is the winner")
+	pass

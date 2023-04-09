@@ -23,7 +23,7 @@ axis_lock_angular_y = true
 axis_lock_angular_z = true
 script = ExtResource( 2 )
 isInteractable = true
-push_force = 1.0
+push_force = 9.0
 
 [node name="Mesh" parent="." instance=ExtResource( 1 )]
 

@@ -9,7 +9,7 @@
 script = ExtResource( 1 )
 Table = ExtResource( 2 )
 Puck = ExtResource( 3 )
-round_time = 3.0
+round_time = 15.0
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 0.952937, -0.165773, 0.253831, 0, 0.837262, 0.546802, -0.303167, -0.521068, 0.797858, 5.51985, 11.8909, 17.3504 )
@@ -42,3 +42,17 @@ margin_top = 50.0
 margin_right = 105.0
 margin_bottom = 64.0
 text = "90"
+
+[node name="P1RoundWins" type="Label" parent="."]
+margin_left = 66.0
+margin_top = 80.0
+margin_right = 106.0
+margin_bottom = 94.0
+text = "P1: 0"
+
+[node name="P2RoundWins" type="Label" parent="."]
+margin_left = 132.0
+margin_top = 80.0
+margin_right = 172.0
+margin_bottom = 94.0
+text = "P2: 0"

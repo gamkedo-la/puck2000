@@ -1,7 +1,6 @@
 extends RigidBody
 
 signal puck_selected
-signal puck_deselected
 
 export var camera_node_path:NodePath
 export var isInteractable:bool

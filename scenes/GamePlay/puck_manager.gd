@@ -14,7 +14,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		puck_selected.puck_push()
 	
 	if Input.is_action_just_pressed("select"):
-		print(puck_selected)
+#		print(puck_selected)
+		pass
 	
 	if Input.is_action_just_released("select"):
 		puck_deselection()
@@ -37,7 +38,6 @@ func puck_deselection() -> void:
 func setup_field() -> void: # called from GamePlay node
 	var pucks = get_children()
 	for puck in pucks:
-		print(puck)
+#		print(puck)
 		puck.connect("puck_selected", self, "puck_selection")
-		puck.connect("puck_deselected", self, "puck_deselection")
-	
+
