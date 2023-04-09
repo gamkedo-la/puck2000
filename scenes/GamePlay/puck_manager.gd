@@ -17,15 +17,19 @@ func _unhandled_input(event: InputEvent) -> void:
 		print(puck_selected)
 	
 	if Input.is_action_just_released("select"):
-		print(puck_selected)
+		puck_deselection()
 
 
 func puck_selection(puck:Node) -> void:
 	puck_selected = puck
+	puck_selected.pointer.visible = true
+	puck_selected.isSelected = true
 
 
-func puck_deselection(puck:Node) -> void:
+func puck_deselection() -> void:
 	if puck_selected:
+		puck_selected.pointer.visible = false
+		puck_selected.isSelected = false
 		puck_selected.puck_push()
 	puck_selected = null
 

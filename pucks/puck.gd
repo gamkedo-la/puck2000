@@ -73,13 +73,13 @@ func _on_Puck_input_event(_camera: Node, event: InputEvent, _position: Vector3, 
 	
 	if Input.is_action_just_pressed("select"):
 #		print("select")
-		pointer.visible = true
-		isSelected = true
+#		pointer.visible = true
+#		isSelected = true
 		emit_signal("puck_selected", self)
 		
-	if Input.is_action_just_released("select"):
-#		print("deselect")
-		emit_signal("puck_deselected", self)
-		pointer.visible = false
-		isSelected = false
+#	if Input.is_action_just_released("select"):
+##		print("deselect")
+#		emit_signal("puck_deselected", self)
+#		pointer.visible = false
+#		isSelected = false
 
