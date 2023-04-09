@@ -2,33 +2,43 @@ extends Spatial
 # Load the selected pucks and table
 # Randomly select and position background decor
 
-signal puck_spawning_finished
-
 export (PackedScene) var Table
 export (PackedScene) var Puck
+
+export var round_time:float = 90.0
 
 var p1_puck_count:int
 var p2_puck_count:int
 var p1_area:Area
 var p2_area:Area
+var p1_round_win:int
+var p2_round_win:int
 var current_round:int
 
 onready var pucks = $Pucks
 onready var table_holder = $Table
 onready var timer_round = $TimerRoundDuration
-onready var timer_countdown = $TimerRoundCountdown
 
 
 func _ready() -> void:
+	current_round = 0
+	
 	setup_field()
 #	opening_cinematic()
 	start_game()
 	pass
 
 
+func _process(_delta: float) -> void:
+	$TimerRoundLabel.text = "Time left: "+ str(timer_round.time_left)
+	pass
+
+
 func setup_field() -> void:
-	current_round = 0
 	
+#	_reset_round_vars() # things like timers and scores etc.
+	timer_round.set_wait_time(round_time)
+	timer_round.connect("timeout", self, "end_round")
 	_place_table()
 	pass
 
@@ -91,7 +101,7 @@ func _count_puck(body:Node, isEnter:bool, area:String) -> void:
 	pass
 
 
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_released("ui_accept"):
 		print(p1_area)
 		print(p1_puck_count)
@@ -125,5 +135,14 @@ func set_label_text_go() -> void:
 func start_round() -> void:
 	$CountdownText.visible = false
 	print("game round start!")
+	
+	$TimerRoundDuration.start() # connect to a UI element later
 	pass
 
+
+func end_round() -> void:
+	print("game round ended!")
+	# Check how many rounds left
+	# If max rounds go to results
+	# If not max rounds, start new round
+	pass
