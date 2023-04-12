@@ -102,6 +102,7 @@ func _place_pucks() -> void:
 	var pucks_list = pucks.get_children()
 	for i in pucks_list.size():
 		# cancel all physics
+		pucks_list[i].reset_inertia()
 		# then apply positions
 		pucks_list[i].transform.origin = puck_spawn_pos[i].transform.origin
 #		print(pucks_list[i])
@@ -237,17 +238,13 @@ func end_round(player:String) -> void:
 func _check_round_winner(body:Node, area:Area) -> void:
 	prints(body, area)
 	var bodies = area.get_overlapping_bodies()
-#	print(pucks_left)
-	# check if overlapping bodies has any pucks
-	for n in bodies:
-		if n.is_in_group("pucks"):
-#			print_debug("no winner yet")
-			return
-	# ignore if it's a table body
-	# if none, then that person wins
-#	print("gotta report the winner!")
-	end_round(area.name)
-#	print_debug(pucks_left)
+#	print(bodies)
+	# remember the collision layers are set to only detect puck rigidbodies
+	if bodies.size() > 0:
+		return
+	elif bodies.size() == 0:
+		print("time to end the round")
+		end_round(area.name)
 	pass
 
 

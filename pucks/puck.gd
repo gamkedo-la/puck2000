@@ -11,7 +11,6 @@ var rayEnd = Vector3.ZERO
 var targetDest = Vector3.ZERO
 
 var isSelected:bool = false
-var isReset:bool = false
 
 onready var camera = get_node(camera_node_path)
 onready var pointer = $Pointer
@@ -19,13 +18,12 @@ onready var pointer = $Pointer
 
 func _ready() -> void:
 	isSelected = false
-	isReset = false
 	$Pointer.visible = false
 	pass # Replace with function body.
 
 
 func _integrate_forces(state: PhysicsDirectBodyState) -> void:
-	if isSelected || isReset:
+	if isSelected:
 		set_linear_velocity(Vector3.ZERO)
 	pass
 
@@ -49,7 +47,7 @@ func _process(_delta: float) -> void:
 		# get the ray hit
 		var intersection = space_state.intersect_ray(rayOrigin, rayEnd) 
 		# if there is a proper ray hit get its position and rotate towards it
-		if not intersection.empty(): 
+		if not intersection.empty():
 			var pos = intersection.position
 			var look_here = Vector3(pos.x, translation.y, pos.z)
 			
@@ -65,10 +63,16 @@ func puck_push() -> void:
 	apply_impulse(position, Vector3.FORWARD * push_force)
 
 
+func reset_inertia() -> void:
+	# this is ok if fired only once
+	set_linear_velocity(Vector3.ZERO)
+
+
 # warning-ignore:unused_argument
 func _unhandled_input(event: InputEvent) -> void:
 	
 	if Input.is_action_just_released("select") && isSelected:
+#		print("deselect")
 		pointer.visible = false
 		isSelected = false
 		puck_push()
@@ -78,8 +82,8 @@ func _unhandled_input(event: InputEvent) -> void:
 func _on_Puck_input_event(_camera: Node, event: InputEvent, _position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
 	
 	if Input.is_action_just_pressed("select"):
-		print("select")
+#		print("select")
 		pointer.visible = true
 		isSelected = true
-		emit_signal("puck_selected", self)
+#		emit_signal("puck_selected", self)
 
