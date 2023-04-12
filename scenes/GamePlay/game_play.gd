@@ -29,7 +29,7 @@ onready var timer_round = $TimerRoundDuration
 func _ready() -> void:
 	current_round = 0
 	# disable controls
-	_disable_input()
+	_toggle_input_block(true)
 	setup_field()
 #	opening_cinematic()
 	start_game()
@@ -41,11 +41,11 @@ func _process(_delta: float) -> void:
 	pass
 
 
-func _disable_input() -> void:
+func _toggle_input_block(isVisible:bool) -> void:
 	# disable all inputs
 	# disable unhandled inputs
 	# disable mouse inputs
-	
+	$InputBlock.visible = isVisible
 	pass
 
 
@@ -53,12 +53,17 @@ func setup_field() -> void:
 	
 	timer_round.connect("timeout", self, "end_round")
 	
-	reset_round() # things like timers and scores etc.
 	_place_table()
+	reset_round() # things like timers and scores etc.
+	
 	pass
 
 
 func reset_round() -> void:
+	
+	p1_area.set_deferred("monitoring", true)
+	p2_area.set_deferred("monitoring", true)
+	
 	_place_pucks()
 	timer_round.set_wait_time(round_time)
 #	reset_pucks() # reset puck positions
@@ -72,11 +77,11 @@ func _place_table() -> void:
 	p1_area = table.get_node("P1Area")
 	p2_area = table.get_node("P2Area")
 	
-	if not p1_area.is_connected("body_exited", self, "_check_winner"):
-		var puck_check = p1_area.connect("body_exited", self, "_check_winner", [p1_area])
+	if not p1_area.is_connected("body_exited", self, "_check_round_winner"):
+		var puck_check = p1_area.connect("body_exited", self, "_check_round_winner", [p1_area])
 		assert(puck_check == OK)
-	if not p2_area.is_connected("body_exited", self, "_check_winner"):
-		var puck_check = p2_area.connect("body_exited", self, "_check_winner", [p1_area])
+	if not p2_area.is_connected("body_exited", self, "_check_round_winner"):
+		var puck_check = p2_area.connect("body_exited", self, "_check_round_winner", [p1_area])
 		assert(puck_check == OK)
 	
 	if not p1_area.is_connected("body_entered", self, "_count_puck"):
@@ -185,8 +190,9 @@ func set_label_text_go() -> void:
 
 func start_round() -> void:
 	$CountdownText.visible = false
+	_toggle_input_block(false)
 	print("game round start!")
-	$TimerRoundDuration.start() # connect to a UI element later
+	timer_round.start() # connect to a UI element later
 	
 	# enable controls
 	
@@ -195,6 +201,11 @@ func start_round() -> void:
 
 func end_round(player:String) -> void:
 	print("game round ended!")
+	
+	timer_round.stop()
+	
+	p1_area.set_deferred("monitoring", false)
+	p2_area.set_deferred("monitoring", false)
 	
 	if player == "P1Area":
 		print("P1 is the round winner!")
@@ -226,7 +237,7 @@ func end_round(player:String) -> void:
 	pass
 
 
-func _check_winner(body:Node, area:Area) -> void:
+func _check_round_winner(body:Node, area:Area) -> void:
 #	prints(body, area)
 	var bodies = area.get_overlapping_bodies()
 #	print(pucks_left)
