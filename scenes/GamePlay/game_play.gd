@@ -65,6 +65,9 @@ func setup_field() -> void:
 
 
 func reset_round() -> void:
+	set_label_text(3) # reset the countdown label text
+	_reset_puck_physics()
+	yield(get_tree().create_timer(0.5), "timeout") # give the game enough time to pass the physics calculation frames
 	_place_pucks()
 	timer_round.set_wait_time(round_time)
 
@@ -102,10 +105,18 @@ func _place_pucks() -> void:
 	var pucks_list = pucks.get_children()
 	for i in pucks_list.size():
 		# cancel all physics
-		pucks_list[i].reset_inertia()
 		# then apply positions
 		pucks_list[i].transform.origin = puck_spawn_pos[i].transform.origin
+		pucks_list[i].reset_inertia() 
 #		print(pucks_list[i])
+	pass
+
+
+func _reset_puck_physics() -> void:
+	var pucks_list = pucks.get_children()
+	for i in pucks_list.size():
+		# cancel all physics
+		pucks_list[i].reset_inertia() 	
 	pass
 
 
@@ -228,7 +239,8 @@ func end_round(player:String) -> void:
 	
 	# restart round
 	reset_round()
-	
+	yield(get_tree().create_timer(0.5), "timeout")
+	start_game()
 
 	pass
 
@@ -248,4 +260,6 @@ func _check_round_winner(body:Node, area:Area) -> void:
 
 func end_game(winner:String) -> void:
 	print(winner + " is the winner")
+#	end_cinematic()
+#	progress to next scene
 	pass

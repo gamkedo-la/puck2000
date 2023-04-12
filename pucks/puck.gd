@@ -11,6 +11,7 @@ var rayEnd = Vector3.ZERO
 var targetDest = Vector3.ZERO
 
 var isSelected:bool = false
+#var isReset:bool = false
 
 onready var camera = get_node(camera_node_path)
 onready var pointer = $Pointer
@@ -18,12 +19,14 @@ onready var pointer = $Pointer
 
 func _ready() -> void:
 	isSelected = false
+#	isReset = false
 	$Pointer.visible = false
 	pass # Replace with function body.
 
 
 func _integrate_forces(state: PhysicsDirectBodyState) -> void:
 	if isSelected:
+		print("aosdijasiodjaosidj")
 		set_linear_velocity(Vector3.ZERO)
 	pass
 
@@ -64,8 +67,9 @@ func puck_push() -> void:
 
 
 func reset_inertia() -> void:
-	# this is ok if fired only once
+	# this is ok if fired only once?
 	set_linear_velocity(Vector3.ZERO)
+#	isReset = true
 
 
 # warning-ignore:unused_argument
