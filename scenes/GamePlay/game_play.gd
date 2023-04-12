@@ -19,6 +19,8 @@ var p1_round_wins:int
 var p2_round_wins:int
 var current_round:int
 
+#var isFirstRound:bool
+
 var table:StaticBody
 
 onready var pucks = $Pucks
@@ -27,6 +29,7 @@ onready var timer_round = $TimerRoundDuration
 
 
 func _ready() -> void:
+#	isFirstRound = true
 	current_round = 0
 	# disable controls
 	_toggle_input_block(true)
@@ -52,25 +55,21 @@ func _toggle_input_block(isVisible:bool) -> void:
 func setup_field() -> void:
 	
 	timer_round.connect("timeout", self, "end_round")
+	# needs to check score and then end round
 	
-	_place_table()
-	reset_round() # things like timers and scores etc.
+	_spawn_table()
+	_spawn_pucks()
+	reset_round() # things like timers, scores, puck positions
 	
 	pass
 
 
 func reset_round() -> void:
-	
-	p1_area.set_deferred("monitoring", true)
-	p2_area.set_deferred("monitoring", true)
-	
 	_place_pucks()
 	timer_round.set_wait_time(round_time)
-#	reset_pucks() # reset puck positions
-	start_game()
 
 
-func _place_table() -> void:
+func _spawn_table() -> void:
 	table = Table.instance()
 	table_holder.add_child(table)
 	
@@ -96,11 +95,7 @@ func _place_table() -> void:
 	if not p2_area.is_connected("body_exited", self, "_count_puck"):
 		var table_check = p2_area.connect("body_exited", self, "_count_puck", [false, "P2Area"])
 		assert(table_check == OK)
-	_spawn_pucks()
 	pass
-
-
-#func _add_puck(puck:RigidBody, spawn_pos:Position) -> void:
 
 
 func _place_pucks() -> void:
@@ -109,7 +104,7 @@ func _place_pucks() -> void:
 		# cancel all physics
 		# then apply positions
 		pucks_list[i].transform.origin = puck_spawn_pos[i].transform.origin
-		print(pucks_list[i])
+#		print(pucks_list[i])
 	pass
 
 
@@ -163,8 +158,8 @@ func _unhandled_input(_event: InputEvent) -> void:
 
 
 func start_game() -> void:
+#	isFirstRound = false
 	_countdown_to_round()
-#	_start_round()
 	pass
 
 
@@ -185,6 +180,7 @@ func _countdown_to_round() -> void:
 
 
 func set_label_text_go() -> void:
+	print("do I run twice?")
 	$CountdownText.text = "Go!"
 
 
@@ -203,20 +199,21 @@ func end_round(player:String) -> void:
 	print("game round ended!")
 	
 	timer_round.stop()
-	
-	p1_area.set_deferred("monitoring", false)
-	p2_area.set_deferred("monitoring", false)
+	# disable controls
+	_toggle_input_block(true)
+#	p1_area.set_deferred("monitoring", false)
+#	p2_area.set_deferred("monitoring", false)
 	
 	if player == "P1Area":
 		print("P1 is the round winner!")
 		p1_round_wins += 1
 		$P1RoundWins.text = "P1: " + str(p1_round_wins)
-	else:
+	elif player == "P2Area":
 		print("P2 is the round winner!")
 		p2_round_wins += 1
 		$P2RoundWins.text = "P2: " + str(p2_round_wins)
 	
-	# disable controls
+
 	
 	# Check how many rounds left
 	if p1_round_wins == 3 && p1_round_wins > p2_round_wins:
@@ -238,7 +235,7 @@ func end_round(player:String) -> void:
 
 
 func _check_round_winner(body:Node, area:Area) -> void:
-#	prints(body, area)
+	prints(body, area)
 	var bodies = area.get_overlapping_bodies()
 #	print(pucks_left)
 	# check if overlapping bodies has any pucks

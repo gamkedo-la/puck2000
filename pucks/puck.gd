@@ -11,17 +11,26 @@ var rayEnd = Vector3.ZERO
 var targetDest = Vector3.ZERO
 
 var isSelected:bool = false
+var isReset:bool = false
 
 onready var camera = get_node(camera_node_path)
 onready var pointer = $Pointer
 
 
 func _ready() -> void:
+	isSelected = false
+	isReset = false
 	$Pointer.visible = false
 	pass # Replace with function body.
 
 
-func _physics_process(_delta: float) -> void:
+func _integrate_forces(state: PhysicsDirectBodyState) -> void:
+	if isSelected || isReset:
+		set_linear_velocity(Vector3.ZERO)
+	pass
+
+
+func _process(_delta: float) -> void:
 
 	targetDest = Vector3.ZERO
 	rayOrigin = Vector3.ZERO
@@ -50,35 +59,27 @@ func _physics_process(_delta: float) -> void:
 			pointer.look_at(Vector3(targetDest.x, translation.y, targetDest.z), Vector3(0, 1, 0))
 		pass
 
+
 func puck_push() -> void:
 	var position = self.translation
 	apply_impulse(position, Vector3.FORWARD * push_force)
 
-# this will need refactoring to work for instanced pucks
-# right now all pucks are firing "released button"
+
 # warning-ignore:unused_argument
-#func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	
-#	if Input.is_action_just_released("select"):
-##		print("released button")
-#		var position = self.translation
-#		apply_impulse(position, targetDest.normalized() * push_force)
-#		pointer.visible = false
-#		isSelected = false
+	if Input.is_action_just_released("select") && isSelected:
+		pointer.visible = false
+		isSelected = false
+		puck_push()
 
 
 # warning-ignore:unused_argument
 func _on_Puck_input_event(_camera: Node, event: InputEvent, _position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
 	
 	if Input.is_action_just_pressed("select"):
-#		print("select")
-#		pointer.visible = true
-#		isSelected = true
+		print("select")
+		pointer.visible = true
+		isSelected = true
 		emit_signal("puck_selected", self)
-		
-#	if Input.is_action_just_released("select"):
-##		print("deselect")
-#		emit_signal("puck_deselected", self)
-#		pointer.visible = false
-#		isSelected = false
 

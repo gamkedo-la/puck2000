@@ -1,7 +1,9 @@
 extends Spatial
+# Currently redundent script. 
+# All functionality is handled in individual puck.gd script
+
 
 var puck_selected = null
-
 
 
 func _ready() -> void:
@@ -9,16 +11,16 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	if Input.is_action_just_released ("puck"):
-		puck_selected.puck_push()
-	
-	if Input.is_action_just_pressed("select"):
-#		print(puck_selected)
-		pass
-	
-	if Input.is_action_just_released("select"):
-		puck_deselection()
+#func _unhandled_input(event: InputEvent) -> void:
+#	if Input.is_action_just_released ("puck"):
+#		puck_selected.puck_push()
+#
+#	if Input.is_action_just_pressed("select"):
+##		print(puck_selected)
+#		pass
+#
+#	if Input.is_action_just_released("select"):
+#		puck_deselection()
 
 
 func puck_selection(puck:Node) -> void:
