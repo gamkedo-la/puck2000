@@ -80,7 +80,7 @@ func _spawn_table() -> void:
 		var puck_check = p1_area.connect("body_exited", self, "_check_round_winner", [p1_area])
 		assert(puck_check == OK)
 	if not p2_area.is_connected("body_exited", self, "_check_round_winner"):
-		var puck_check = p2_area.connect("body_exited", self, "_check_round_winner", [p1_area])
+		var puck_check = p2_area.connect("body_exited", self, "_check_round_winner", [p2_area])
 		assert(puck_check == OK)
 	
 	if not p1_area.is_connected("body_entered", self, "_count_puck"):
@@ -213,9 +213,7 @@ func end_round(player:String) -> void:
 		print("P2 is the round winner!")
 		p2_round_wins += 1
 		$P2RoundWins.text = "P2: " + str(p2_round_wins)
-	
 
-	
 	# Check how many rounds left
 	if p1_round_wins == 3 && p1_round_wins > p2_round_wins:
 		print("P1 wins!")
@@ -236,7 +234,7 @@ func end_round(player:String) -> void:
 
 
 func _check_round_winner(body:Node, area:Area) -> void:
-	prints(body, area)
+#	prints(body, area)
 	var bodies = area.get_overlapping_bodies()
 #	print(bodies)
 	# remember the collision layers are set to only detect puck rigidbodies
