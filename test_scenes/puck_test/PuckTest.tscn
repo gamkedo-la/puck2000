@@ -1,7 +1,27 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://test_scenes/prototype/texture-test-1x1.png" type="Texture" id=1]
 [ext_resource path="res://pucks/standard/PuckStd.tscn" type="PackedScene" id=2]
+
+[sub_resource type="GDScript" id=9]
+script/source = "extends Spatial
+
+func _process(delta: float) -> void:
+	# Some test variables, usually you'd get them from game logic
+	var time = OS.get_ticks_msec() / 1000.0
+#	var box_pos = Vector3(0, sin(time * 4.0), 0)
+#	var line_begin = Vector3(-1, sin(time * 4.0), 0)
+#	var line_end = Vector3(1, cos(time * 4.0), 0)
+
+#	DebugDraw.draw_box(box_pos, Vector3(1, 2, 1), Color(0, 1, 0))
+#	DebugDraw.draw_line_3d(line_begin, line_end, Color(1, 1, 0))
+	DebugDraw.set_text(\"Time\", time)
+	DebugDraw.set_text(\"Frames drawn\", Engine.get_frames_drawn())
+	DebugDraw.set_text(\"FPS\", Engine.get_frames_per_second())
+	DebugDraw.set_text(\"delta\", delta)
+	
+	DebugDraw.draw_line_3d($MouseMarker.get_global_transform().origin + Vector3(0,0.2,0), $PuckStd.get_global_transform().origin + Vector3(0,0.2,0), Color(0, 1, 0))
+"
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 100, 2, 100 )
@@ -33,6 +53,42 @@ flags_unshaded = true
 albedo_color = Color( 1, 0, 0, 1 )
 
 [node name="PuckTest" type="Spatial"]
+script = SubResource( 9 )
+
+[node name="LabelMousePos" type="Label" parent="."]
+margin_left = 67.0
+margin_top = 144.0
+margin_right = 191.0
+margin_bottom = 158.0
+text = "mouse screen pos:"
+
+[node name="LabelMouseRay" type="Label" parent="."]
+margin_left = 67.0
+margin_top = 166.0
+margin_right = 191.0
+margin_bottom = 180.0
+text = "mouse raycast pos:"
+
+[node name="LabelPuckPos" type="Label" parent="."]
+margin_left = 67.0
+margin_top = 188.0
+margin_right = 191.0
+margin_bottom = 202.0
+text = "puck pos:"
+
+[node name="LabelMouseMarkerPos" type="Label" parent="."]
+margin_left = 67.0
+margin_top = 208.0
+margin_right = 191.0
+margin_bottom = 222.0
+text = "marker pos:"
+
+[node name="LabelTargetDir" type="Label" parent="."]
+margin_left = 67.0
+margin_top = 226.0
+margin_right = 191.0
+margin_bottom = 240.0
+text = "target_dir:"
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 0.999962, -0.00863966, 0.00122124, 0, 0.139962, 0.990157, -0.00872555, -0.990119, 0.139956, 0.00590593, 4.69829, 0.143482 )
@@ -100,34 +156,6 @@ shape = SubResource( 5 )
 
 [node name="PuckStd" parent="." instance=ExtResource( 2 )]
 camera_node_path = NodePath("../Camera")
-
-[node name="LabelMousePos" type="Label" parent="."]
-margin_left = 67.0
-margin_top = 144.0
-margin_right = 191.0
-margin_bottom = 158.0
-text = "mouse screen pos:"
-
-[node name="LabelMouseRay" type="Label" parent="."]
-margin_left = 67.0
-margin_top = 166.0
-margin_right = 191.0
-margin_bottom = 180.0
-text = "mouse raycast pos:"
-
-[node name="LabelPuckPos" type="Label" parent="."]
-margin_left = 67.0
-margin_top = 188.0
-margin_right = 191.0
-margin_bottom = 202.0
-text = "puck pos:"
-
-[node name="LabelMouseMarkerPos" type="Label" parent="."]
-margin_left = 67.0
-margin_top = 208.0
-margin_right = 191.0
-margin_bottom = 222.0
-text = "marker pos:"
 
 [node name="MouseMarker" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2 )
