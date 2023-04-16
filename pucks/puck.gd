@@ -12,6 +12,8 @@ var rayOrigin = Vector3.ZERO
 var rayEnd = Vector3.ZERO
 var targetDest = Vector3.ZERO
 
+var cur_dir:Vector3
+
 var isSelected:bool = false
 #var isReset:bool = false
 
@@ -37,7 +39,7 @@ func _ready() -> void:
 
 func look_follow(state, current_transform, target_position):
 	var up_dir = Vector3(0, 1, 0)
-	var cur_dir = current_transform.basis.xform(Vector3(0, 0, 1))
+	cur_dir = current_transform.basis.xform(Vector3(0, 0, 1))
 	var target_dir = (target_position - current_transform.origin).normalized()
 	
 	if isDebug:
@@ -123,9 +125,9 @@ func find_target_pos() -> void:
 	pass
 
 
-func puck_push() -> void:
+func puck_push(direction:Vector3) -> void:
 	var position = self.translation
-	apply_impulse(position, Vector3.FORWARD * push_force)
+	apply_impulse(position, direction * push_force)
 
 
 func reset_inertia() -> void:
@@ -141,7 +143,7 @@ func _unhandled_input(event: InputEvent) -> void:
 #		print("deselect")
 		pointer.visible = false
 		isSelected = false
-#		puck_push()
+		puck_push(cur_dir)
 
 
 # warning-ignore:unused_argument

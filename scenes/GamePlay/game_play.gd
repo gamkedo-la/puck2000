@@ -50,6 +50,7 @@ func _toggle_input_block(isVisible:bool) -> void:
 	# disable all inputs
 	# disable unhandled inputs
 	# disable mouse inputs
+	# TODO: deselect any pucks if still selected
 	$InputBlock.visible = isVisible
 	pass
 
