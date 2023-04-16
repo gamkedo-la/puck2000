@@ -76,7 +76,7 @@ func _integrate_forces(state: PhysicsDirectBodyState) -> void:
 
 func _process(_delta: float) -> void:
 
-	if isDebug:
+	if isDebug && isSelected:
 		DebugDraw.set_text("puck pos", translation)
 		DebugDraw.set_text("target pos", targetDest)
 	
@@ -146,6 +146,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 # warning-ignore:unused_argument
 func _on_Puck_input_event(_camera: Node, event: InputEvent, _position: Vector3, _normal: Vector3, _shape_idx: int) -> void:
+	
+#	if self == get_parent().current_selected_puck:
+#		print("currently selected puck")
 	
 	if Input.is_action_just_pressed("select"):
 #		print("select")

@@ -143,6 +143,7 @@ func _get_puck_instance(positionNode:Position3D) -> RigidBody:
 		var puck = Puck.instance()
 		puck.transform.origin = positionNode.transform.origin
 		puck.camera_node_path = "../../Camera"
+#		$Pucks.connect_puck_signal(puck)
 		if isDebug:
 			puck.isDebug = true
 		return puck
