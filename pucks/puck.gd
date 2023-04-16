@@ -26,7 +26,6 @@ func _ready() -> void:
 
 func _integrate_forces(state: PhysicsDirectBodyState) -> void:
 	if isSelected:
-		print("aosdijasiodjaosidj")
 		set_linear_velocity(Vector3.ZERO)
 	pass
 

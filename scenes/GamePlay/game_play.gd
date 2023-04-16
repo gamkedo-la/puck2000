@@ -54,8 +54,9 @@ func _toggle_input_block(isVisible:bool) -> void:
 
 func setup_field() -> void:
 	
-	timer_round.connect("timeout", self, "end_round")
+	timer_round.connect("timeout", self, "count_final_round_score")
 	# needs to check score and then end round
+	# like a count score function
 	
 	_spawn_table()
 	_spawn_pucks()
@@ -80,10 +81,10 @@ func _spawn_table() -> void:
 	p2_area = table.get_node("P2Area")
 	
 	if not p1_area.is_connected("body_exited", self, "_check_round_winner"):
-		var puck_check = p1_area.connect("body_exited", self, "_check_round_winner", [p1_area])
+		var puck_check = p1_area.connect("body_exited", self, "_check_round_winner", [p1_area, false])
 		assert(puck_check == OK)
 	if not p2_area.is_connected("body_exited", self, "_check_round_winner"):
-		var puck_check = p2_area.connect("body_exited", self, "_check_round_winner", [p2_area])
+		var puck_check = p2_area.connect("body_exited", self, "_check_round_winner", [p2_area, false])
 		assert(puck_check == OK)
 	
 	if not p1_area.is_connected("body_entered", self, "_count_puck"):
@@ -132,7 +133,7 @@ func _spawn_pucks() -> void:
 		puck_spawn_pos.append(positionNode)
 		var puck = _get_puck_instance(positionNode)
 		pucks.add_child(puck)
-	$Pucks.setup_field()
+#	$Pucks.setup_field()
 	pass
 
 
@@ -158,6 +159,20 @@ func _count_puck(body:Node, isEnter:bool, area:String) -> void:
 				p2_puck_count -= 1
 #		prints("p1:",p1_puck_count)
 #		prints("p2:",p2_puck_count)
+	pass
+
+
+func count_final_round_score() -> void:
+	var p1_score = p1_area.get_overlapping_bodies()
+	var p2_score = p2_area.get_overlapping_bodies()
+	# remember, the fewer pucks a player has, the better they're doing
+	if p1_score.size() < p2_score.size():
+		print("player 1 wins")
+		_check_round_winner(null, p1_area, true)
+	else:
+		print("player 2 wins")
+		_check_round_winner(null, p2_area, true)
+
 	pass
 
 
@@ -192,7 +207,6 @@ func _countdown_to_round() -> void:
 
 
 func set_label_text_go() -> void:
-	print("do I run twice?")
 	$CountdownText.text = "Go!"
 
 
@@ -245,17 +259,20 @@ func end_round(player:String) -> void:
 	pass
 
 
-func _check_round_winner(body:Node, area:Area) -> void:
-#	prints(body, area)
-	var bodies = area.get_overlapping_bodies()
-#	print(bodies)
-	# remember the collision layers are set to only detect puck rigidbodies
-	if bodies.size() > 0:
-		return
-	elif bodies.size() == 0:
-		print("time to end the round")
+func _check_round_winner(_body:Node, area:Area, isTimeout:bool) -> void:
+	
+	if !isTimeout:
+		var bodies = area.get_overlapping_bodies()
+	#	print(bodies)
+		# remember the collision layers are set to only detect puck rigidbodies
+		if bodies.size() > 0:
+			return
+		elif bodies.size() == 0:
+			print("time to end the round")
+			end_round(area.name)
+		pass
+	else:
 		end_round(area.name)
-	pass
 
 
 func end_game(winner:String) -> void:
