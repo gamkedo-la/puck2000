@@ -6,6 +6,7 @@ signal puck_selected
 export var camera_node_path:NodePath
 export var isInteractable:bool
 export var push_force:float
+export var isDebug:bool = false
 
 var rayOrigin = Vector3.ZERO
 var rayEnd = Vector3.ZERO
@@ -38,15 +39,13 @@ func look_follow(state, current_transform, target_position):
 	var up_dir = Vector3(0, 1, 0)
 	var cur_dir = current_transform.basis.xform(Vector3(0, 0, 1))
 	var target_dir = (target_position - current_transform.origin).normalized()
-	$"../LabelTargetDir".text = "target_dir: " + str(target_dir)
+	
+	if isDebug:
+		DebugDraw.set_text("target_dir", target_dir)
+		
 	
 	var rotation_axis = cur_dir.cross(target_dir)
 	var rotation_angle = cur_dir.dot(target_dir)
-	
-#	if rotation_angle > 1.0:
-#		rotation_angle = 1.0
-#	elif rotation_angle < -1.0:
-#		rotation_angle = -1.0
 
 	# Calculate the sign of the rotation angle using the cross product
 	var angle_sign = check_sign(cur_dir.cross(target_dir).y)
@@ -68,17 +67,18 @@ func check_sign(x) -> float:
 
 
 func _integrate_forces(state: PhysicsDirectBodyState) -> void:
-	var target_position = $"../MouseMarker".get_global_transform().origin
+	
 	if isSelected:
 		set_linear_velocity(Vector3.ZERO)
-		look_follow(state, get_global_transform(), target_position)
+		look_follow(state, get_global_transform(), targetDest)
 	pass
 
 
 func _process(_delta: float) -> void:
 
-	$"../LabelPuckPos".text = "puck pos: " + str(translation)
-	$"../LabelMouseMarkerPos".text = "marker pos: " + str($"../MouseMarker".get_global_transform().origin)
+	if isDebug:
+		DebugDraw.set_text("puck pos", translation)
+		DebugDraw.set_text("target pos", targetDest)
 	
 	if isSelected:
 		find_target_pos()
@@ -100,13 +100,19 @@ func find_target_pos() -> void:
 	# get the ray hit
 	var intersection = space_state.intersect_ray(rayOrigin, rayEnd) 
 	# if there is a proper ray hit get its position and rotate towards it
-	$"../LabelMousePos".text = "mouse screen pos: " + str(mouse_position)
+	
+	if isDebug:
+		DebugDraw.set_text("mouse screen pos", mouse_position)
 	
 	if not intersection.empty():
 		var pos = intersection.position
 		var look_here = Vector3(pos.x, translation.y, pos.z)
-		$"../LabelMouseRay".text = "mouse raycast pos: " + str(look_here)
-		$"../MouseMarker".set_global_translation(look_here)
+		
+		if isDebug:
+			DebugDraw.set_text("mouse raycast pos", look_here)
+			if has_node("../MouseMarker"):
+				$"../MouseMarker".set_global_translation(look_here)
+		
 		# need an "offset" for when the puck rotates whilst moving
 		# lock the Angular Y axis for now for prototype
 #			targetDest = translation - look_here

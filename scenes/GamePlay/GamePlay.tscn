@@ -9,6 +9,7 @@
 script = ExtResource( 1 )
 Table = ExtResource( 2 )
 Puck = ExtResource( 3 )
+isDebug = true
 round_time = 15.0
 
 [node name="Camera" type="Camera" parent="."]

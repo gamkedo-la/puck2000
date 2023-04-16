@@ -2,10 +2,12 @@ extends Spatial
 # Load the selected pucks and table
 # Randomly select and position background decor
 
+# warning-ignore:unused_signal
 signal puck_spawn_finished
 
 export (PackedScene) var Table
 export (PackedScene) var Puck
+export var isDebug:bool = false
 
 export var round_time:float = 90.0
 
@@ -141,6 +143,8 @@ func _get_puck_instance(positionNode:Position3D) -> RigidBody:
 		var puck = Puck.instance()
 		puck.transform.origin = positionNode.transform.origin
 		puck.camera_node_path = "../../Camera"
+		if isDebug:
+			puck.isDebug = true
 		return puck
 
 
