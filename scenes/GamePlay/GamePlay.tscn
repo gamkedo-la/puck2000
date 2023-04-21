@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/GamePlay/game_play.gd" type="Script" id=1]
-[ext_resource path="res://tables/beyond_classic/TableBeyondClassic.tscn" type="PackedScene" id=2]
-[ext_resource path="res://pucks/standard/PuckStd.tscn" type="PackedScene" id=3]
+[ext_resource path="res://tables/classic/TableClassic.tscn" type="PackedScene" id=2]
+[ext_resource path="res://pucks/standard_variations/ocean/PuckStd-ocean.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/GamePlay/puck_manager.gd" type="Script" id=4]
 
 [node name="GamePlay" type="Spatial"]

@@ -38,11 +38,11 @@ transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.42028
 shape = SubResource( 2 )
 
 [node name="CollisionMidWest" type="CollisionShape" parent="."]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.57719, 14.2254, -0.021072 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.57719, 1.053, -0.021072 )
 shape = SubResource( 3 )
 
 [node name="CollisionMidEast" type="CollisionShape" parent="."]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.58254, 14.2254, -0.021072 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3.58254, 1.053, -0.021072 )
 shape = SubResource( 3 )
 
 [node name="P1PuckSpawn" type="Spatial" parent="."]
