@@ -27,16 +27,15 @@ func _ready() -> void:
 	isSelected = false
 #	isReset = false
 	$Pointer.visible = false
+	if not self.is_connected("body_entered", self, "check_collision"):
+		var puck_collide = self.connect("body_entered", self, "check_collision")
+		assert(puck_collide == OK)
 	pass # Replace with function body.
 
 
-#func look_follow(state, current_transform, target_position):
-#	var up_dir = Vector3(0, 1, 0)
-#	var cur_dir = current_transform.basis.xform(Vector3(0, 0, 1)) # get vector that represents local FORWARD
-#	var target_dir = (target_position - current_transform.origin).normalized()
-#	$"../LabelTargetDir".text = "target_dir: " + str(target_dir)
-#	var rotation_angle = acos(cur_dir.x) - acos(target_dir.x)
-#	state.set_angular_velocity(up_dir * (rotation_angle / state.get_step()))
+func check_collision(body:Node) -> void:
+	print(body)
+	$"../Label".text = "Puck collided with: " + str(body)
 
 
 func look_follow(state, current_transform, target_position):

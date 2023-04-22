@@ -127,9 +127,23 @@ shape = SubResource( 5 )
 camera_node_path = NodePath("../Camera")
 isDebug = true
 
+[node name="PuckStd2" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -3 )
+camera_node_path = NodePath("../Camera")
+
 [node name="MouseMarker" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -2 )
 
 [node name="MeshInstance" type="MeshInstance" parent="MouseMarker"]
 mesh = SubResource( 7 )
 material/0 = SubResource( 8 )
+
+[node name="Label" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -62.0
+margin_top = 24.0
+margin_right = 62.0
+margin_bottom = 38.0
+text = "Puck collided with: "
+align = 1
