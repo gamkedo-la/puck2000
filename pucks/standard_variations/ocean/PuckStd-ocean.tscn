@@ -34,7 +34,7 @@ albedo_color = Color( 1, 0, 0, 1 )
 height = 0.4
 radius = 0.5
 
-[node name="PuckStd" type="RigidBody" groups=["pucks"]]
+[node name="PuckStd-Ocean" type="RigidBody" groups=["pucks"]]
 collision_layer = 2
 collision_mask = 3
 continuous_cd = true
