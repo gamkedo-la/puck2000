@@ -4,7 +4,6 @@ extends RigidBody
 signal puck_selected
 
 export var camera_node_path:NodePath
-export var isInteractable:bool
 export var max_push_force:float = 24.0
 export var push_force_multiplier:float = 2.0
 export var push_force:float
@@ -79,9 +78,11 @@ func check_sign(x) -> float:
 func check_force(current_transform, target_position):
 	# code to check how much force to push the puck
 	var new_push_force = (target_position - current_transform.origin).length()
-	DebugDraw.set_text("push_force input",new_push_force)
+	if isDebug:
+		DebugDraw.set_text("push_force input",new_push_force)
 	new_push_force = new_push_force * push_force_multiplier
-	DebugDraw.set_text("push_force output",new_push_force)
+	if isDebug:
+		DebugDraw.set_text("push_force output",new_push_force)
 	if new_push_force > max_push_force:
 		new_push_force = max_push_force
 	push_force = new_push_force

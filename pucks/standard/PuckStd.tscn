@@ -26,7 +26,6 @@ axis_lock_angular_x = true
 axis_lock_angular_z = true
 angular_damp = 20.0
 script = ExtResource( 2 )
-isInteractable = true
 push_force = 9.0
 
 [node name="Mesh" parent="." instance=ExtResource( 1 )]
