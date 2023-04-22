@@ -16,7 +16,7 @@ radius = 0.5
 
 [node name="PuckStd" type="RigidBody" groups=["pucks"]]
 collision_layer = 2
-collision_mask = 3
+collision_mask = 7
 continuous_cd = true
 can_sleep = false
 axis_lock_linear_y = true

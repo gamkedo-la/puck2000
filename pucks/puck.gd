@@ -100,14 +100,16 @@ func find_target_pos() -> void:
 	# set the ray end point
 	rayEnd = rayOrigin + camera.project_ray_normal(mouse_position) * 2000 
 	# get the ray hit
-	var intersection = space_state.intersect_ray(rayOrigin, rayEnd) 
+	var intersection = space_state.intersect_ray(rayOrigin, rayEnd, [], 1)
+	# we want to exclude anything marked on Collision layer 3 "wall" because it messes with the mouse raycast
 	# if there is a proper ray hit get its position and rotate towards it
 	
 	if isDebug:
 		DebugDraw.set_text("mouse screen pos", mouse_position)
-	
+		DebugDraw.set_text("intersection", intersection)
+		
 	if not intersection.empty():
-		var pos = intersection.position
+		var pos = Vector3(intersection.position.x, 0.0, intersection.position.z)
 		var look_here = Vector3(pos.x, translation.y, pos.z)
 		
 		if isDebug:
@@ -118,7 +120,7 @@ func find_target_pos() -> void:
 		# need an "offset" for when the puck rotates whilst moving
 		# lock the Angular Y axis for now for prototype
 #			targetDest = translation - look_here
-		targetDest = look_here
+		targetDest = Vector3(-look_here.x, look_here.y, -look_here.z) #unary minus operator
 #		DebugDraw.draw_line_3d(pos, rayEnd, Color(0, 1, 0))
 		
 #			pointer.look_at(Vector3(targetDest.x, translation.y, targetDest.z), Vector3(0, 1, 0))

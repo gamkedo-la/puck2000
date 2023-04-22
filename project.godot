@@ -53,6 +53,7 @@ pause={
 
 3d_physics/layer_1="table"
 3d_physics/layer_2="puck"
+3d_physics/layer_3="wall"
 
 [physics]
 
