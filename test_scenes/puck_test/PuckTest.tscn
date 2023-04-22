@@ -56,7 +56,7 @@ albedo_color = Color( 1, 0, 0, 1 )
 script = SubResource( 9 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 0.999962, -0.00863966, 0.00122124, 0, 0.139962, 0.990157, -0.00872555, -0.990119, 0.139956, 0.00590593, 4.69829, 0.143482 )
+transform = Transform( 0.999991, -0.00429887, 0.000742202, 0, 0.170133, 0.985421, -0.00436247, -0.985411, 0.170132, 0.00495545, 6.27356, 0.554742 )
 
 [node name="Floor" type="StaticBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )

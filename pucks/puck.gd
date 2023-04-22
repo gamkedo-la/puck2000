@@ -5,6 +5,8 @@ signal puck_selected
 
 export var camera_node_path:NodePath
 export var isInteractable:bool
+export var max_push_force:float = 24.0
+export var push_force_multiplier:float = 2.0
 export var push_force:float
 export var isDebug:bool = false
 
@@ -42,6 +44,9 @@ func look_follow(state, current_transform, target_position):
 	cur_dir = current_transform.basis.xform(Vector3(0, 0, 1))
 	var target_dir = (target_position - current_transform.origin).normalized()
 	
+	# unary minus operator
+	target_dir = Vector3(-target_dir.x, 0.0, -target_dir.z)
+	
 	if isDebug:
 		DebugDraw.set_text("target_dir", target_dir)
 		
@@ -68,11 +73,23 @@ func check_sign(x) -> float:
 		return 0.0
 
 
+func check_force(current_transform, target_position):
+	# code to check how much force to push the puck
+	var new_push_force = (target_position - current_transform.origin).length()
+	DebugDraw.set_text("push_force input",new_push_force)
+	new_push_force = new_push_force * push_force_multiplier
+	DebugDraw.set_text("push_force output",new_push_force)
+	if new_push_force > max_push_force:
+		new_push_force = max_push_force
+	push_force = new_push_force
+	pass
+
 func _integrate_forces(state: PhysicsDirectBodyState) -> void:
 	
 	if isSelected:
 		set_linear_velocity(Vector3.ZERO)
 		look_follow(state, get_global_transform(), targetDest)
+		check_force(get_global_transform(), targetDest)
 	pass
 
 
@@ -101,12 +118,13 @@ func find_target_pos() -> void:
 	rayEnd = rayOrigin + camera.project_ray_normal(mouse_position) * 2000 
 	# get the ray hit
 	var intersection = space_state.intersect_ray(rayOrigin, rayEnd, [], 1)
+#	var intersection = space_state.intersect_ray(rayOrigin, rayEnd)
 	# we want to exclude anything marked on Collision layer 3 "wall" because it messes with the mouse raycast
 	# if there is a proper ray hit get its position and rotate towards it
 	
 	if isDebug:
 		DebugDraw.set_text("mouse screen pos", mouse_position)
-		DebugDraw.set_text("intersection", intersection)
+#		DebugDraw.set_text("intersection", intersection)
 		
 	if not intersection.empty():
 		var pos = Vector3(intersection.position.x, 0.0, intersection.position.z)
@@ -120,7 +138,8 @@ func find_target_pos() -> void:
 		# need an "offset" for when the puck rotates whilst moving
 		# lock the Angular Y axis for now for prototype
 #			targetDest = translation - look_here
-		targetDest = Vector3(-look_here.x, look_here.y, -look_here.z) #unary minus operator
+#		targetDest = Vector3(-look_here.x, look_here.y, -look_here.z) #unary minus operator
+		targetDest = look_here
 #		DebugDraw.draw_line_3d(pos, rayEnd, Color(0, 1, 0))
 		
 #			pointer.look_at(Vector3(targetDest.x, translation.y, targetDest.z), Vector3(0, 1, 0))
