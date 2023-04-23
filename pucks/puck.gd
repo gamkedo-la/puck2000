@@ -8,6 +8,7 @@ export var max_push_force:float = 24.0
 export var push_force_multiplier:float = 2.0
 export var push_force:float
 export var isDebug:bool = false
+export var isOpponent:bool = false
 
 var rayOrigin = Vector3.ZERO
 var rayEnd = Vector3.ZERO
@@ -18,6 +19,7 @@ var cur_dir:Vector3
 var isSelected:bool = false
 #var isReset:bool = false
 var last_hit:Node = null
+var opponent_tick = null
 
 onready var camera = get_node(camera_node_path)
 onready var pointer = $Pointer
@@ -30,7 +32,14 @@ func _ready() -> void:
 	if not self.is_connected("body_entered", self, "check_collision"):
 		var puck_collide = self.connect("body_entered", self, "check_collision")
 		assert(puck_collide == OK)
+	if isOpponent:
+		_opponent_setup()
 	pass # Replace with function body.
+
+
+func _opponent_setup() -> void:
+
+	pass
 
 
 func check_collision(body:Node) -> void:
@@ -105,8 +114,14 @@ func _process(_delta: float) -> void:
 		DebugDraw.set_text("Puck last collided with", last_hit)
 		
 	
-	if isSelected:
+	if isSelected && !isOpponent:
 		find_target_pos()
+		pass
+	
+	if isSelected && isOpponent:
+		# put on a timer
+		# set areas to deem priority of pucks
+#		find_target_pos_auto()
 		pass
 
 
@@ -151,6 +166,11 @@ func find_target_pos() -> void:
 #			pointer.look_at(Vector3(targetDest.x, translation.y, targetDest.z), Vector3(0, 1, 0))
 	pass
 
+
+func find_target_pos_auto() -> void:
+	var look_here = Vector3(0, translation.y, -1)
+	targetDest = look_here
+	pass
 
 func puck_push(direction:Vector3) -> void:
 	var position = self.translation

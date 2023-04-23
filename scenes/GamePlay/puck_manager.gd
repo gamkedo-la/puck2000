@@ -11,6 +11,7 @@ func _ready() -> void:
 
 
 func connect_puck_signal(puck:Node) -> void:
+# warning-ignore:return_value_discarded
 	puck.connect("puck_selected", self, "handle_puck_selection")
 
 
