@@ -19,7 +19,6 @@ var cur_dir:Vector3
 var isSelected:bool = false
 #var isReset:bool = false
 var last_hit:Node = null
-var opponent_tick = null
 
 onready var camera = get_node(camera_node_path)
 onready var pointer = $Pointer
@@ -119,6 +118,7 @@ func _process(_delta: float) -> void:
 		pass
 	
 	if isSelected && isOpponent:
+		find_target_pos() # todo: to be removed
 		# put on a timer
 		# set areas to deem priority of pucks
 #		find_target_pos_auto()

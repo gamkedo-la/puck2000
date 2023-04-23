@@ -23,11 +23,12 @@ var current_round:int
 
 #var isFirstRound:bool
 
-var table:StaticBody
+var table:Spatial
 
 onready var pucks = $Pucks
 onready var table_holder = $Table
 onready var timer_round = $TimerRoundDuration
+onready var opponent = $OpponentAI
 
 
 func _ready() -> void:
@@ -74,6 +75,7 @@ func reset_round() -> void:
 	yield(get_tree().create_timer(0.5), "timeout") # give the game enough time to pass the physics calculation frames
 	_place_pucks()
 	timer_round.set_wait_time(round_time)
+	opponent.reset_opponent()
 
 
 func _spawn_table() -> void:
@@ -144,7 +146,6 @@ func _get_puck_instance(positionNode:Position3D) -> RigidBody:
 		var puck = Puck.instance()
 		puck.transform.origin = positionNode.transform.origin
 		puck.camera_node_path = "../../Camera"
-#		$Pucks.connect_puck_signal(puck)
 		if isDebug:
 			puck.isDebug = true
 		return puck
@@ -158,11 +159,17 @@ func _count_puck(body:Node, isEnter:bool, area:String) -> void:
 				p1_puck_count += 1
 			else:
 				p2_puck_count += 1
+				body.isOpponent = true # sets puck to be recognised as being on opponent side
+				# send body to opponent_ai.gd
+				opponent.update_opponent_pucklist(body)
 		else:
 			if area == "P1Area":
 				p1_puck_count -= 1
 			else:
 				p2_puck_count -= 1
+				body.isOpponent = false
+				# send body to opponent_ai.gd
+				opponent.update_opponent_pucklist(body)
 #		prints("p1:",p1_puck_count)
 #		prints("p2:",p2_puck_count)
 	pass
@@ -221,7 +228,8 @@ func start_round() -> void:
 	_toggle_input_block(false)
 	print("game round start!")
 	timer_round.start() # connect to a UI element later
-	
+	# start opponent logic
+	opponent.start_opponent_logic()
 	# enable controls
 	
 	pass
@@ -230,6 +238,7 @@ func start_round() -> void:
 func end_round(player:String) -> void:
 	print("game round ended!")
 	
+	opponent.stop_opponent_logic()
 	timer_round.stop()
 	# disable controls
 	_toggle_input_block(true)
