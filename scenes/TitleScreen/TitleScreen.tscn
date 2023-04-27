@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://test_scenes/prototype/texture-test-1x1.png" type="Texture" id=1]
 
@@ -8,7 +8,23 @@ albedo_texture = ExtResource( 1 )
 uv1_offset = Vector3( 0.5, 0.5, 0.5 )
 uv1_triplanar = true
 
-[node name="MainMenu" type="Spatial"]
+[sub_resource type="GDScript" id=2]
+script/source = "extends Position3D
+
+export var rotation_speed = 24 # in degrees
+
+
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+func _process(delta: float) -> void:
+	var rotation_rad = deg2rad(rotation_speed)
+	rotate_y(rotation_rad * delta)
+	pass
+"
+
+[node name="TitleScreen" type="Spatial"]
 
 [node name="Interior" type="CSGBox" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
@@ -21,8 +37,11 @@ height = 3.0
 depth = 9.0
 material = SubResource( 1 )
 
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 0.951606, -0.0235661, 0.306417, 0, 0.997056, 0.0766821, -0.307321, -0.0729711, 0.948804, 0.978957, 0.688046, 1.62566 )
+[node name="RotationPoint" type="Position3D" parent="."]
+script = SubResource( 2 )
+
+[node name="Camera" type="Camera" parent="RotationPoint"]
+transform = Transform( 0.912493, -0.110343, 0.393931, 0, 0.962937, 0.269725, -0.409093, -0.246122, 0.878673, 0.338069, 1.73148, 0.754071 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -31,24 +50,6 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="StartGame" type="Button" parent="CanvasLayer/HBoxContainer"]
-margin_right = 83.0
+margin_right = 169.0
 margin_bottom = 40.0
-text = "Start Game"
-
-[node name="HowToPlay" type="Button" parent="CanvasLayer/HBoxContainer"]
-margin_left = 87.0
-margin_right = 176.0
-margin_bottom = 40.0
-text = "How To Play"
-
-[node name="Options" type="Button" parent="CanvasLayer/HBoxContainer"]
-margin_left = 180.0
-margin_right = 243.0
-margin_bottom = 40.0
-text = "Options"
-
-[node name="Credits" type="Button" parent="CanvasLayer/HBoxContainer"]
-margin_left = 247.0
-margin_right = 304.0
-margin_bottom = 40.0
-text = "Credits"
+text = "Press any button to start"
