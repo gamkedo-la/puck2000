@@ -11,7 +11,8 @@ onready var pucks = $"../Pucks"
 var table:Node
 var opponent_tick = null # dictates speed of opponent's actions
 var selectable_pucks = []
-var opponent_markers = []
+var opponent_markers_aim = []
+var opponent_markers_rdy = []
 
 func _ready() -> void:
 	_setup_field()
@@ -20,14 +21,24 @@ func _ready() -> void:
 
 func opp_tick_timeout() -> void:
 #	print("opponent AI tick!")
+
+	# check if there are any pucks with clearance to Aim locations
+	# keep looping through available pucks until one is free
+
+	# if there are no pucks with clearance to Aim locations
+	# check if there are any with clearance to Rdy locations
+	
+	# if there are no pucks with clearance to Rdy locations
+	# then select the first puck closest to an Aim location
+
 	var random_num1 = randi() % selectable_pucks.size()
 	# select puck currently on opponent side
 	var current_puck = selectable_pucks[random_num1]
 	current_puck.isSelected = true
 	# set target destination based on OpponentMarkers
 	
-	var random_num2 = randi() % opponent_markers.size()
-	var aim_target = opponent_markers[random_num2].transform.origin
+	var random_num2 = randi() % opponent_markers_aim.size()
+	var aim_target = opponent_markers_aim[random_num2].transform.origin
 	
 	prints(current_puck.transform.origin, aim_target)
 	
@@ -47,9 +58,25 @@ func opp_tick_timeout() -> void:
 func table_setup() -> void:
 	table = $"../Table".get_child(0)
 	# get position nodes from current table
-	var opp_markers = table.get_node("OpponentMarkers").get_children()
-	for marker in opp_markers:
-		opponent_markers.append(marker)
+	var opp_markers = table.get_node("OpponentMarkers")
+	
+	var markers_aim = opp_markers.get_node("Aim").get_children()
+	var markers_rdy = opp_markers.get_node("Rdy").get_children()
+	
+	for marker in markers_aim:
+		opponent_markers_aim.append(marker)
+	for marker in markers_rdy:
+		opponent_markers_rdy.append(marker)
+	
+	# P2Rdy is an Area node in table scenes that help the AI set up puck shots - they're otherwise stuck in the top half of their field and are unable to compete with the player without this.
+	# connect P2Rdy signals
+	var p2_rdy_area = table.get_node("P2Rdy")
+	if not p2_rdy_area.is_connected("body_entered", self, "_count_puck"):
+		var table_check = p2_rdy_area.connect("body_entered", self, "_count_puck", [true, "P2Area"])
+		assert(table_check == OK)
+	if not p2_rdy_area.is_connected("body_exited", self, "_count_puck"):
+		var table_check = p2_rdy_area.connect("body_exited", self, "_count_puck", [false, "P2Area"])
+		assert(table_check == OK)
 	pass
 
 
