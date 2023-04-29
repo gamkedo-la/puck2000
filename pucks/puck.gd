@@ -1,5 +1,12 @@
 extends RigidBody
 
+# 1. find_target_pos() to set targetDest Vector3
+# 2. _integrate_forces(), if isSelected, look_follow() takes targetDest
+# 3. _integrate_forces() also runs check_force(), which takes targetDest - deciding how powerful the puck shot is
+# 4. look_follow() rotates puck to face where player is aiming
+# 5. puck_push(cur_dir) fires when player Input.is_action_just_released("select")
+# 6. KEEP IN MIND, you push the puck based on cur_dir, not targetDest - this means the puck will not go where you intend perfectly, you have to pay attention to the rotation of the puck and let go of the button at the right time when the puck is in alignment with the aim (a timing and observational skill check).
+
 # warning-ignore:unused_signal
 signal puck_selected
 
