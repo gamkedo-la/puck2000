@@ -178,7 +178,6 @@ func find_target_pos() -> void:
 
 
 func find_target_pos_auto(target:Vector3) -> void:
-	var pos = Vector3(target.x, 0.0, target.z)
 	var look_here = Vector3(target.x, translation.y, target.z)
 	targetDest = look_here
 	pass
