@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://tables/classic/Table-Classic-Placeholder.material" type="Material" id=1]
 
@@ -21,7 +21,10 @@ surfaces/0 = {
 extents = Vector3( 7, 1, 6 )
 
 [sub_resource type="BoxShape" id=7]
-extents = Vector3( 7, 1, 3 )
+extents = Vector3( 7, 1, 2 )
+
+[sub_resource type="BoxShape" id=8]
+extents = Vector3( 7, 1, 4 )
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 48.9013, 1, 34.6785 )
@@ -104,13 +107,21 @@ collision_mask = 2
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -6 )
 shape = SubResource( 4 )
 
-[node name="P2Rdy" type="Area" parent="."]
+[node name="P2Rtt" type="Area" parent="."]
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape" type="CollisionShape" parent="P2Rdy"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -3 )
+[node name="CollisionShape" type="CollisionShape" parent="P2Rtt"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2 )
 shape = SubResource( 7 )
+
+[node name="P2Adv" type="Area" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="P2Adv"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -8 )
+shape = SubResource( 8 )
 
 [node name="Board" type="StaticBody" parent="."]
 
@@ -124,18 +135,18 @@ shape = SubResource( 5 )
 
 [node name="OpponentMarkers" type="Spatial" parent="."]
 
-[node name="Aim" type="Spatial" parent="OpponentMarkers"]
+[node name="Adv" type="Spatial" parent="OpponentMarkers"]
 
-[node name="Aim1" type="Position3D" parent="OpponentMarkers/Aim"]
+[node name="Adv1" type="Position3D" parent="OpponentMarkers/Adv"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.05, -0.665 )
 
-[node name="Aim2" type="Position3D" parent="OpponentMarkers/Aim"]
+[node name="Adv2" type="Position3D" parent="OpponentMarkers/Adv"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, -0.665194 )
 
-[node name="Aim3" type="Position3D" parent="OpponentMarkers/Aim"]
+[node name="Adv3" type="Position3D" parent="OpponentMarkers/Adv"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.05, -0.665 )
 
-[node name="Rdy" type="Spatial" parent="OpponentMarkers"]
+[node name="Rtt" type="Spatial" parent="OpponentMarkers"]
 
-[node name="Aim4" type="Position3D" parent="OpponentMarkers/Rdy"]
+[node name="Rtt1" type="Position3D" parent="OpponentMarkers/Rtt"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, -10 )
