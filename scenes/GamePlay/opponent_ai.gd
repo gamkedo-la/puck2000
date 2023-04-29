@@ -21,6 +21,8 @@ var opponent_markers_rtt = []
 var pucks_adv = []
 var pucks_rtt = []
 
+#var current_puck:Node = null
+
 func _ready() -> void:
 	_setup_field()
 	pass
@@ -42,6 +44,8 @@ func opp_tick_timeout() -> void:
 	# if there are no pucks with clearance to Adv locations
 	# then select the first puck closest to an Att location
 
+	
+
 	var random_num1 = randi() % selectable_pucks.size()
 	# select puck currently on opponent side
 	var current_puck = selectable_pucks[random_num1]
@@ -51,7 +55,8 @@ func opp_tick_timeout() -> void:
 	var random_num2 = randi() % opponent_markers_adv.size()
 	var aim_target = opponent_markers_adv[random_num2].transform.origin
 	
-	prints(current_puck.transform.origin, aim_target)
+	check_clearance(current_puck, aim_target)
+#	prints(current_puck.transform.origin, aim_target)
 	
 #	current_puck.targetDest = aim_target
 #	print(current_puck.targetDest)
@@ -63,6 +68,32 @@ func opp_tick_timeout() -> void:
 	current_puck.puck_push(current_puck.cur_dir, 9.0)
 	
 	current_puck.isSelected = false
+	pass
+
+
+func check_clearance(puck:Node, target:Vector3) -> void:
+	var rayOrigin = Vector3.ZERO
+	var rayEnd = Vector3.ZERO
+	# get current physics state
+	var space_state = puck.get_world().direct_space_state
+	# set the ray origin
+	rayOrigin = puck.transform.origin
+	# set the ray end point
+	rayEnd = rayOrigin + target
+
+	if puck.isDebug:
+		DebugDraw.draw_line_3d(puck.get_global_transform().origin + Vector3(0,0.2,0), target + Vector3(0,0.2,0), Color(0, 1, 0))
+
+	# get the ray hit
+	var intersection = space_state.intersect_ray(rayOrigin, rayEnd, [], 1)
+#	var intersection = space_state.intersect_ray(rayOrigin, rayEnd)
+	# we want to exclude anything marked on Collision layer 3 "wall" because it messes with the mouse raycast
+	# if there is a proper ray hit get its position and rotate towards it
+	if not intersection.empty():
+		print("asdjaosidj")
+#		var pos = Vector3(intersection.position.x, 0.0, intersection.position.z)
+#		var look_here = Vector3(pos.x, rayOrigin.translation.y, pos.z)
+	
 	pass
 
 
