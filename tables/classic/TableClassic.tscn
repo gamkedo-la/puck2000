@@ -119,7 +119,7 @@ shape = SubResource( 3 )
 
 [node name="OpponentMarkers" type="Spatial" parent="."]
 
-[node name="Aim" type="Position3D" parent="OpponentMarkers"]
+[node name="Aim1" type="Position3D" parent="OpponentMarkers"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.05, -0.665 )
 
 [node name="Aim2" type="Position3D" parent="OpponentMarkers"]

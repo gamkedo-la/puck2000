@@ -104,6 +104,10 @@ func _spawn_table() -> void:
 	if not p2_area.is_connected("body_exited", self, "_count_puck"):
 		var table_check = p2_area.connect("body_exited", self, "_count_puck", [false, "P2Area"])
 		assert(table_check == OK)
+	
+	# tell $OpponentAI to set up table related things
+	opponent.table_setup()
+	
 	pass
 
 

@@ -21,6 +21,8 @@ var rayOrigin = Vector3.ZERO
 var rayEnd = Vector3.ZERO
 var targetDest = Vector3.ZERO
 
+var opponent_aiming_at = Vector3.ZERO
+
 var cur_dir:Vector3
 
 var isSelected:bool = false
@@ -62,7 +64,10 @@ func look_follow(state, current_transform, target_position):
 	var target_dir = (target_position - current_transform.origin).normalized()
 	
 	# unary minus operator
-	target_dir = Vector3(-target_dir.x, 0.0, -target_dir.z)
+	if !isOpponent:
+		target_dir = Vector3(-target_dir.x, 0.0, -target_dir.z)
+	else:
+		target_dir = Vector3(target_dir.x, 0.0, target_dir.z)
 	
 	if isDebug:
 		DebugDraw.set_text("target_dir", target_dir)
@@ -125,10 +130,8 @@ func _process(_delta: float) -> void:
 		pass
 	
 	if isSelected && isOpponent:
-		find_target_pos() # todo: to be removed
-		# put on a timer
 		# set areas to deem priority of pucks
-#		find_target_pos_auto()
+		find_target_pos_auto(opponent_aiming_at)
 		pass
 
 
@@ -174,14 +177,17 @@ func find_target_pos() -> void:
 	pass
 
 
-func find_target_pos_auto() -> void:
-	var look_here = Vector3(0, translation.y, -1)
+func find_target_pos_auto(target:Vector3) -> void:
+	var pos = Vector3(target.x, 0.0, target.z)
+	var look_here = Vector3(target.x, translation.y, target.z)
 	targetDest = look_here
 	pass
 
-func puck_push(direction:Vector3) -> void:
+
+func puck_push(direction:Vector3, force:float) -> void:
+#	print("pushed")
 	var position = self.translation
-	apply_impulse(position, direction * push_force)
+	apply_impulse(position, direction * force)
 
 
 func reset_inertia() -> void:
@@ -197,7 +203,7 @@ func _unhandled_input(event: InputEvent) -> void:
 #		print("deselect")
 		pointer.visible = false
 		isSelected = false
-		puck_push(cur_dir)
+		puck_push(cur_dir, push_force)
 
 
 # warning-ignore:unused_argument
