@@ -45,8 +45,6 @@ func opp_tick_timeout() -> void:
 	# if there are no pucks with clearance to Adv locations
 	# then select the first puck closest to an Att location
 
-	
-
 	var random_num1 = randi() % selectable_pucks.size()
 	# select puck currently on opponent side
 	var current_puck = selectable_pucks[random_num1]
@@ -58,9 +56,12 @@ func opp_tick_timeout() -> void:
 	
 	current_puck.opponent_aiming_at = aim_target
 
+	# give the puck time to rotate
 	yield(get_tree().create_timer(0.5), "timeout")
-
-	if not check_clearance(current_puck, aim_target):
+	
+	var isClear = check_clearance(current_puck, aim_target)
+	
+	if !isClear:
 		print("I couldn't line up a clear shot")
 	else:
 		print("Taking the shot!")
@@ -104,14 +105,6 @@ func check_clearance(puck:Node, target:Vector3) -> bool:
 	# get current physics state
 	var space_state = puck.get_world().direct_space_state
 	
-	var rayOrigin = Vector3.ZERO
-	var rayEnd = Vector3.ZERO
-	# set the ray origin
-	rayOrigin = puck.transform.origin + Vector3(0, 0.2, 0) # lifts up the raycast a little, otherwise it shoots under all the puck rigidbody colliders
-	# set the ray end point
-	rayEnd = Vector3(target.x, rayOrigin.y, target.z)
-
-
 	var collision_mask = (1 << 1) | (1 << 2) | (1 << 3)
 	
 	var results = []
@@ -127,12 +120,13 @@ func check_clearance(puck:Node, target:Vector3) -> bool:
 	for result in results:
 		if not result.empty():
 #			print("I hit something")
-			return true
+			print(result.collider, " is blocking the way")
+			return false
 		else:
 #			print("Nothing in the way")
 			pass
 	
-	return false
+	return true
 
 
 func table_setup() -> void:
