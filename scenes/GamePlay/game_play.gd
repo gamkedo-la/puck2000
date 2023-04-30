@@ -52,7 +52,7 @@ func _toggle_input_block(isVisible:bool) -> void:
 	# disable unhandled inputs
 	# disable mouse inputs
 	# TODO: deselect any pucks if still selected
-	$InputBlock.visible = isVisible
+	$CanvasLayer/InputBlock.visible = isVisible
 	pass
 
 
@@ -70,6 +70,9 @@ func setup_field() -> void:
 
 
 func reset_round() -> void:
+	
+	$CanvasLayer/BtnPlayAgain.visible = false
+	
 	set_label_text(3) # reset the countdown label text
 	_reset_puck_physics()
 	yield(get_tree().create_timer(0.5), "timeout") # give the game enough time to pass the physics calculation frames
@@ -298,5 +301,15 @@ func end_game(winner:String) -> void:
 	print(winner + " is the winner")
 #	end_cinematic()
 #	progress to next scene
+	# temporary code to replay match
+	$CanvasLayer/BtnPlayAgain.visible = true
 	pass
 
+
+
+func _on_BtnPlayAgain_pressed() -> void:
+	p1_round_wins = 0
+	p2_round_wins = 0
+	reset_round()
+	start_game()
+	pass # Replace with function body.

@@ -57,13 +57,26 @@ margin_right = 172.0
 margin_bottom = 304.0
 text = "P2: 0"
 
+[node name="OpponentAI" type="Node" parent="."]
+script = ExtResource( 5 )
+opponent_tick_rate = 0.5
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="InputBlock" type="CenterContainer" parent="."]
+[node name="InputBlock" type="CenterContainer" parent="CanvasLayer"]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="OpponentAI" type="Node" parent="."]
-script = ExtResource( 5 )
-opponent_tick_rate = 2.0
+[node name="BtnPlayAgain" type="Button" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -98.0
+margin_top = -39.0
+margin_right = 98.0
+margin_bottom = 39.0
+text = "Play Again"
+
+[connection signal="pressed" from="CanvasLayer/BtnPlayAgain" to="." method="_on_BtnPlayAgain_pressed"]
