@@ -18,6 +18,7 @@ config/icon="res://icon.png"
 
 SceneManager="*res://managers/scene_manager.gd"
 DebugDraw="*res://addons/debug_draw.gd"
+SFXManager="*res://managers/sfx_manager.gd"
 
 [display]
 

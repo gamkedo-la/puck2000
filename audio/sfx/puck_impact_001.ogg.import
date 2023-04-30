@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/puck_impact_001.ogg-665f1a2df190c893330ee7ae61df53ea.oggstr"
+
+[deps]
+
+source_file="res://audio/sfx/puck_impact_001.ogg"
+dest_files=[ "res://.import/puck_impact_001.ogg-665f1a2df190c893330ee7ae61df53ea.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

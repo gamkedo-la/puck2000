@@ -17,6 +17,8 @@ export var push_force:float
 export var isDebug:bool = false
 export var isOpponent:bool = false
 
+const SFX_PUCK_COLLISION_0 = preload("res://audio/sfx/puck_impact_000.ogg")
+
 var rayOrigin = Vector3.ZERO
 var rayEnd = Vector3.ZERO
 var targetDest = Vector3.ZERO
@@ -56,6 +58,7 @@ func check_collision(body:Node) -> void:
 	last_hit = body
 	if body.is_in_group("pucks"):
 		isSelected = false
+	SFXManager.play_sfx(SFX_PUCK_COLLISION_0, get_tree().current_scene, Vector2(0.7,0.9))
 
 
 func look_follow(state, current_transform, target_position):
