@@ -54,53 +54,85 @@ func opp_tick_timeout() -> void:
 	# set target destination based on OpponentMarkers
 	
 	var random_num2 = randi() % opponent_markers_adv.size()
-	var aim_target = opponent_markers_adv[random_num2].transform.origin
+	var aim_target = opponent_markers_adv[random_num2].global_transform.origin
 	
-	check_clearance(current_puck, aim_target)
-#	prints(current_puck.transform.origin, aim_target)
-	
-#	current_puck.targetDest = aim_target
-#	print(current_puck.targetDest)
 	current_puck.opponent_aiming_at = aim_target
 
 	yield(get_tree().create_timer(0.5), "timeout")
 
-	# set push force
-	current_puck.puck_push(current_puck.cur_dir, 9.0)
-	
+	if not check_clearance(current_puck, aim_target):
+		print("I couldn't line up a clear shot")
+	else:
+		print("Taking the shot!")
+		# set push force
+		current_puck.puck_push(current_puck.cur_dir, 9.0)
+
 	current_puck.isSelected = false
 	pass
 
 
-func check_clearance(puck:Node, target:Vector3) -> void:
+func check_clearance(puck:Node, target:Vector3) -> bool:
+	
+	# Get all RayOrigins locations
+	var puck_ray_origins = puck.get_node("RayOrigins").get_children()
+	
+	# Rays are ordered as 0 = front, 1 = left, 2 = right
+	var ray_origins = []
+	for i in puck_ray_origins.size():
+		var ray_origin_pos = puck_ray_origins[i].global_transform.origin
+		ray_origins.append(ray_origin_pos)
+	
+	# The ray_ends are so raycasts are parallel - to reflect the width of the puck
+	var ray_ends = []
+	ray_ends.append(Vector3(target.x, ray_origins[0].y, target.z)) # the 3DPosition node in the table scene as is
+	ray_ends.append(Vector3(target.x + puck_ray_origins[1].transform.origin.x, ray_origins[1].y, target.z)) # to the left of that node
+	ray_ends.append(Vector3(target.x + puck_ray_origins[2].transform.origin.x, ray_origins[2].y, target.z)) # to the left of that node
+	# TODO: There's still an issue with the raycast vector maths here - what happens if the raycasts are fired when the puck hasn't had time to turn to face the target yet?
+	
+	var all_ray_points = [ray_origins, ray_ends]
+	
+#	print("ray_origins: ", ray_origins)
+#	print("ray_ends: ", ray_ends)
+
+	if puck.isDebug:
+		
+		for i in all_ray_points[0].size():
+			var ray_origin = all_ray_points[0][i]
+			var ray_end = all_ray_points[1][i]
+			DebugDraw.draw_line_3d(ray_origin, ray_end, Color(0, 1, 0))
+
+	# get current physics state
+	var space_state = puck.get_world().direct_space_state
 	
 	var rayOrigin = Vector3.ZERO
 	var rayEnd = Vector3.ZERO
-	# get current physics state
-	var space_state = puck.get_world().direct_space_state
 	# set the ray origin
 	rayOrigin = puck.transform.origin + Vector3(0, 0.2, 0) # lifts up the raycast a little, otherwise it shoots under all the puck rigidbody colliders
-	prints("rayOrigin:", rayOrigin)
 	# set the ray end point
 	rayEnd = Vector3(target.x, rayOrigin.y, target.z)
-	prints("rayEnd:", rayEnd)
-
-	if puck.isDebug:
-		DebugDraw.draw_line_3d(rayOrigin + Vector3(0,0.2,0), rayEnd + Vector3(0,0.2,0), Color(0, 1, 0))
 
 
 	var collision_mask = (1 << 1) | (1 << 2) | (1 << 3)
-
-	# get the ray hit
-	var result = space_state.intersect_ray(rayOrigin, rayEnd, [], collision_mask)
-	prints("intersect result", result)
-
-	if not result.empty():
-		print("I hit something")
-	else:
-		print("Nothing in the way")
 	
-	pass
+	var results = []
+	# get the ray hits
+	for i in all_ray_points[0].size():
+		var ray_origin = all_ray_points[0][i]
+		var ray_end = all_ray_points[1][i]
+		var temp_result = space_state.intersect_ray(ray_origin, ray_end, [], collision_mask)
+		results.append(temp_result)
+
+#	print("raycast intersect results: ", results)
+
+	for result in results:
+		if not result.empty():
+#			print("I hit something")
+			return true
+		else:
+#			print("Nothing in the way")
+			pass
+	
+	return false
 
 
 func table_setup() -> void:

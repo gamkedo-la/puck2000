@@ -66,4 +66,4 @@ anchor_bottom = 1.0
 
 [node name="OpponentAI" type="Node" parent="."]
 script = ExtResource( 5 )
-opponent_tick_rate = 3.0
+opponent_tick_rate = 2.0
