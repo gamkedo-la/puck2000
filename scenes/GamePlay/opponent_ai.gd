@@ -23,6 +23,7 @@ var pucks_rtt = []
 
 #var current_puck:Node = null
 
+
 func _ready() -> void:
 	_setup_field()
 	pass
