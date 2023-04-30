@@ -73,27 +73,32 @@ func opp_tick_timeout() -> void:
 
 
 func check_clearance(puck:Node, target:Vector3) -> void:
+	
 	var rayOrigin = Vector3.ZERO
 	var rayEnd = Vector3.ZERO
 	# get current physics state
 	var space_state = puck.get_world().direct_space_state
 	# set the ray origin
-	rayOrigin = puck.transform.origin
+	rayOrigin = puck.transform.origin + Vector3(0, 0.2, 0) # lifts up the raycast a little, otherwise it shoots under all the puck rigidbody colliders
+	prints("rayOrigin:", rayOrigin)
 	# set the ray end point
-	rayEnd = rayOrigin + target
+	rayEnd = Vector3(target.x, rayOrigin.y, target.z)
+	prints("rayEnd:", rayEnd)
 
 	if puck.isDebug:
-		DebugDraw.draw_line_3d(puck.get_global_transform().origin + Vector3(0,0.2,0), target + Vector3(0,0.2,0), Color(0, 1, 0))
+		DebugDraw.draw_line_3d(rayOrigin + Vector3(0,0.2,0), rayEnd + Vector3(0,0.2,0), Color(0, 1, 0))
+
+
+	var collision_mask = (1 << 1) | (1 << 2) | (1 << 3)
 
 	# get the ray hit
-	var intersection = space_state.intersect_ray(rayOrigin, rayEnd, [], 1)
-#	var intersection = space_state.intersect_ray(rayOrigin, rayEnd)
-	# we want to exclude anything marked on Collision layer 3 "wall" because it messes with the mouse raycast
-	# if there is a proper ray hit get its position and rotate towards it
-	if not intersection.empty():
-		print("asdjaosidj")
-#		var pos = Vector3(intersection.position.x, 0.0, intersection.position.z)
-#		var look_here = Vector3(pos.x, rayOrigin.translation.y, pos.z)
+	var result = space_state.intersect_ray(rayOrigin, rayEnd, [], collision_mask)
+	prints("intersect result", result)
+
+	if not result.empty():
+		print("I hit something")
+	else:
+		print("Nothing in the way")
 	
 	pass
 

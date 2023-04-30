@@ -26,3 +26,4 @@ transform = Transform( 0.708366, -0.349159, 0.613437, 0, 0.869082, 0.494668, -0.
 script = SubResource( 1 )
 
 [node name="PuckStd" parent="PlaceModelHere" instance=ExtResource( 1 )]
+camera_node_path = NodePath("../../Camera")
