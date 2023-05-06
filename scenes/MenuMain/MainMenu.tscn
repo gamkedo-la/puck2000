@@ -54,5 +54,3 @@ margin_left = 247.0
 margin_right = 304.0
 margin_bottom = 40.0
 text = "Credits"
-
-[connection signal="pressed" from="CanvasLayer/HBoxContainer/StartGame" to="CanvasLayer/HBoxContainer/StartGame" method="_on_StartGame_pressed"]
