@@ -20,16 +20,16 @@ var isInputEnabled = true
 func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_pressed(\"ui_accept\") && isInputEnabled:
 		var tween = get_tree().create_tween()
-		var value = get_position() - Vector2(get_viewport_rect().size.x, 0)
+		var value = slides.get_position() - Vector2(get_viewport_rect().size.x, 0)
 		isInputEnabled = false
-		tween.tween_property(self, \"rect_position\", value, 0.5).set_trans(Tween.TRANS_SINE)
+		tween.tween_property(slides, \"rect_position\", value, 0.5).set_trans(Tween.TRANS_SINE)
 		tween.connect(\"finished\", self, \"_enable_input\")
 		
 	if Input.is_action_pressed(\"ui_cancel\") && isInputEnabled:
 		var tween = get_tree().create_tween()
-		var value = get_position() + Vector2(get_viewport_rect().size.x, 0)
+		var value = slides.get_position() + Vector2(get_viewport_rect().size.x, 0)
 		isInputEnabled = false
-		tween.tween_property(self, \"rect_position\", value, 0.5).set_trans(Tween.TRANS_SINE)
+		tween.tween_property(slides, \"rect_position\", value, 0.5).set_trans(Tween.TRANS_SINE)
 		tween.connect(\"finished\", self, \"_enable_input\")
 
 
@@ -42,6 +42,7 @@ size = Vector3( 0.5, 0.5, 0.5 )
 
 [sub_resource type="SpatialMaterial" id=13]
 flags_unshaded = true
+albedo_color = Color( 0.937255, 0.792157, 0.227451, 1 )
 
 [sub_resource type="GDScript" id=3]
 script/source = "extends Spatial
@@ -60,11 +61,11 @@ func _process(_delta: float) -> void:
 
 [sub_resource type="SpatialMaterial" id=4]
 flags_unshaded = true
-albedo_color = Color( 1, 0, 0, 1 )
+albedo_color = Color( 0.929412, 0.447059, 0.12549, 1 )
 
 [sub_resource type="SpatialMaterial" id=5]
 flags_unshaded = true
-albedo_color = Color( 0, 0.552941, 1, 1 )
+albedo_color = Color( 1, 0, 0, 1 )
 
 [sub_resource type="SpatialMaterial" id=6]
 flags_unshaded = true
@@ -315,10 +316,10 @@ handle_input_locally = false
 render_target_update_mode = 3
 
 [node name="Camera" type="Camera" parent="Interface/Slides/SelectOpp/ViewportContainer/Viewport"]
-transform = Transform( 0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, -6, -3, 1 )
+transform = Transform( 0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, -10, -3, 5 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Interface/Slides/SelectOpp/ViewportContainer/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, -3.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11, -3.5, 4 )
 mesh = SubResource( 2 )
 material/0 = SubResource( 13 )
 script = SubResource( 3 )
@@ -335,10 +336,10 @@ handle_input_locally = false
 render_target_update_mode = 3
 
 [node name="Camera" type="Camera" parent="Interface/Slides/SelectOpp/ViewportContainer2/Viewport"]
-transform = Transform( 0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, -6, -6, 1 )
+transform = Transform( 0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, -10, -6, 5 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Interface/Slides/SelectOpp/ViewportContainer2/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, -6.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11, -6.5, 4 )
 mesh = SubResource( 2 )
 material/0 = SubResource( 4 )
 script = SubResource( 3 )
@@ -355,10 +356,10 @@ handle_input_locally = false
 render_target_update_mode = 3
 
 [node name="Camera" type="Camera" parent="Interface/Slides/SelectOpp/ViewportContainer3/Viewport"]
-transform = Transform( 0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, -6, -9, 1 )
+transform = Transform( 0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, -10, -9, 5 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Interface/Slides/SelectOpp/ViewportContainer3/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, -9.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11, -9.5, 4 )
 mesh = SubResource( 2 )
 material/0 = SubResource( 5 )
 script = SubResource( 3 )
