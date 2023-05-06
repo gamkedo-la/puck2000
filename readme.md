@@ -42,14 +42,6 @@ Open up the scene, replace/add your model as a child of the `PlaceModelHere` nod
 
 The scene hierarchy is as follows:
 
-```
-root
-	DebugDraw
-	SFXManager
-	SceneManager
-		[current scene]
-		TransitionPlayer
-		CanvasLayer
-```
+![alt text](https://github.com/gamkedo-la/puck2000/blob/main/_assets_src/readme/project_node_hierarchy.png "Screenshot of project node hierarchy")
 
-The [current scene] is where game scenes will be swapped in e.g. the title screen, main menu, gameplay scene etc.
+The TitleScreen node is where other game scenes will be swapped in e.g. main menu, gameplay scene etc.
