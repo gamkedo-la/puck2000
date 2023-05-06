@@ -1,0 +1,79 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scenes/MenuGameSetup/menu_game_setup.gd" type="Script" id=1]
+[ext_resource path="res://test_scenes/prototype/texture-test-1x1.png" type="Texture" id=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+flags_unshaded = true
+albedo_texture = ExtResource( 2 )
+uv1_offset = Vector3( 0.5, 0.5, 0.5 )
+uv1_triplanar = true
+
+[sub_resource type="CubeMesh" id=2]
+size = Vector3( 0.5, 0.5, 0.5 )
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends Spatial
+# Simple script to rotate object for inspection
+
+export var rotation_speed = 0.025 # in radians
+
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+func _process(_delta: float) -> void:
+	rotate_y(rotation_speed)
+	pass
+"
+
+[node name="MenuGameSetup" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="Viewer" type="Spatial" parent="."]
+
+[node name="Interior" type="CSGBox" parent="Viewer"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
+use_collision = true
+collision_layer = 0
+collision_mask = 0
+invert_faces = true
+width = 7.0
+height = 3.0
+depth = 9.0
+material = SubResource( 1 )
+
+[node name="Camera" type="Camera" parent="Viewer"]
+transform = Transform( 0.951606, -0.0235661, 0.306417, 0, 0.997056, 0.0766821, -0.307321, -0.0729711, 0.948804, 0.978957, 0.688046, 1.62566 )
+
+[node name="Interface" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="ViewportContainer" type="ViewportContainer" parent="Interface"]
+margin_left = 640.0
+margin_top = 167.0
+margin_right = 941.0
+margin_bottom = 512.0
+
+[node name="Viewport" type="Viewport" parent="Interface/ViewportContainer"]
+size = Vector2( 320, 480 )
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="Camera" type="Camera" parent="Interface/ViewportContainer/Viewport"]
+transform = Transform( 0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, -6, 1, -5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Interface/ViewportContainer/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0.5, -6 )
+mesh = SubResource( 2 )
+script = SubResource( 3 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Interface"]
+
+[node name="Button" type="Button" parent="Interface/CanvasLayer"]
+margin_left = 195.0
+margin_top = 330.0
+margin_right = 405.0
+margin_bottom = 393.0
+text = "Temporary Start Button"

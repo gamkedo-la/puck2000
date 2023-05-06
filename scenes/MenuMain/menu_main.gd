@@ -8,4 +8,4 @@ func _ready() -> void:
 
 
 func goto_gameplay() -> void:
-	SceneTransition.change_scene("res://scenes/GamePlay/GamePlay.tscn")
+	SceneTransition.change_scene("res://scenes/MenuGameSetup/MenuGameSetup.tscn")

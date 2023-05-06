@@ -8,4 +8,4 @@ func _ready() -> void:
 
 
 func goto_main_menu() -> void:
-	SceneTransition.change_scene("res://scenes/MenuMain/MainMenu.tscn")
+	SceneTransition.change_scene("res://scenes/MenuMain/MenuMain.tscn")
