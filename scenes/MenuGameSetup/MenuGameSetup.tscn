@@ -47,33 +47,106 @@ material = SubResource( 1 )
 transform = Transform( 0.951606, -0.0235661, 0.306417, 0, 0.997056, 0.0766821, -0.307321, -0.0729711, 0.948804, 0.978957, 0.688046, 1.62566 )
 
 [node name="Interface" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 1280.0
+margin_bottom = 720.0
 
-[node name="ViewportContainer" type="ViewportContainer" parent="Interface"]
-margin_left = 640.0
-margin_top = 167.0
-margin_right = 941.0
-margin_bottom = 512.0
+[node name="MarginContainer" type="MarginContainer" parent="Interface"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 80.0
+margin_top = -240.0
+margin_right = -80.0
+margin_bottom = 240.0
 
-[node name="Viewport" type="Viewport" parent="Interface/ViewportContainer"]
-size = Vector2( 320, 480 )
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface/MarginContainer"]
+margin_right = 1120.0
+margin_bottom = 480.0
+custom_constants/separation = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Interface/MarginContainer/HBoxContainer"]
+margin_right = 250.0
+margin_bottom = 480.0
+custom_constants/separation = 20
+
+[node name="ViewportContainer" type="ViewportContainer" parent="Interface/MarginContainer/HBoxContainer/VBoxContainer"]
+margin_right = 250.0
+margin_bottom = 480.0
+
+[node name="Viewport" type="Viewport" parent="Interface/MarginContainer/HBoxContainer/VBoxContainer/ViewportContainer"]
+size = Vector2( 250, 480 )
 handle_input_locally = false
 render_target_update_mode = 3
 
-[node name="Camera" type="Camera" parent="Interface/ViewportContainer/Viewport"]
+[node name="Camera" type="Camera" parent="Interface/MarginContainer/HBoxContainer/VBoxContainer/ViewportContainer/Viewport"]
 transform = Transform( 0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, -6, 1, -5 )
 
-[node name="MeshInstance" type="MeshInstance" parent="Interface/ViewportContainer/Viewport"]
+[node name="MeshInstance" type="MeshInstance" parent="Interface/MarginContainer/HBoxContainer/VBoxContainer/ViewportContainer/Viewport"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0.5, -6 )
 mesh = SubResource( 2 )
 script = SubResource( 3 )
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Interface"]
+[node name="CanvasLayer" type="CanvasLayer" parent="Interface/MarginContainer/HBoxContainer/VBoxContainer"]
 
-[node name="Button" type="Button" parent="Interface/CanvasLayer"]
-margin_left = 195.0
-margin_top = 330.0
-margin_right = 405.0
-margin_bottom = 393.0
-text = "Temporary Start Button"
+[node name="ClassicBtn" type="Button" parent="Interface/MarginContainer/HBoxContainer/VBoxContainer/CanvasLayer"]
+margin_left = 80.0
+margin_top = 620.0
+margin_right = 330.0
+margin_bottom = 640.0
+text = "Temporary Start Btn"
+
+[node name="ViewportContainer2" type="ViewportContainer" parent="Interface/MarginContainer/HBoxContainer"]
+margin_left = 290.0
+margin_right = 540.0
+margin_bottom = 480.0
+
+[node name="Viewport" type="Viewport" parent="Interface/MarginContainer/HBoxContainer/ViewportContainer2"]
+size = Vector2( 250, 480 )
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="Camera" type="Camera" parent="Interface/MarginContainer/HBoxContainer/ViewportContainer2/Viewport"]
+transform = Transform( 0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, -6, 1, -5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Interface/MarginContainer/HBoxContainer/ViewportContainer2/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0.5, -6 )
+mesh = SubResource( 2 )
+script = SubResource( 3 )
+
+[node name="ViewportContainer3" type="ViewportContainer" parent="Interface/MarginContainer/HBoxContainer"]
+margin_left = 580.0
+margin_right = 830.0
+margin_bottom = 480.0
+
+[node name="Viewport" type="Viewport" parent="Interface/MarginContainer/HBoxContainer/ViewportContainer3"]
+size = Vector2( 250, 480 )
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="Camera" type="Camera" parent="Interface/MarginContainer/HBoxContainer/ViewportContainer3/Viewport"]
+transform = Transform( 0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, -6, 1, -5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Interface/MarginContainer/HBoxContainer/ViewportContainer3/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0.5, -6 )
+mesh = SubResource( 2 )
+script = SubResource( 3 )
+
+[node name="ViewportContainer4" type="ViewportContainer" parent="Interface/MarginContainer/HBoxContainer"]
+margin_left = 870.0
+margin_right = 1120.0
+margin_bottom = 480.0
+
+[node name="Viewport" type="Viewport" parent="Interface/MarginContainer/HBoxContainer/ViewportContainer4"]
+size = Vector2( 250, 480 )
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="Camera" type="Camera" parent="Interface/MarginContainer/HBoxContainer/ViewportContainer4/Viewport"]
+transform = Transform( 0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, -6, 1, -5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Interface/MarginContainer/HBoxContainer/ViewportContainer4/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0.5, -6 )
+mesh = SubResource( 2 )
+script = SubResource( 3 )
+
+[connection signal="pressed" from="Interface/MarginContainer/HBoxContainer/VBoxContainer/CanvasLayer/ClassicBtn" to="." method="_on_ClassicBtn_pressed"]

@@ -1,11 +1,4 @@
 extends Spatial
 
-onready var btn_startgame = $Interface/CanvasLayer/Button
-
-
-func _ready() -> void:
-	btn_startgame.connect("pressed", self, "goto_gameplay")
-
-
-func goto_gameplay() -> void:
+func _on_ClassicBtn_pressed():
 	SceneTransition.change_scene("res://scenes/GamePlay/GamePlay.tscn")
