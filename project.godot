@@ -8,26 +8,17 @@
 
 config_version=4
 
-_global_script_classes=[ {
-"base": "Node",
-"class": "GameScene",
-"language": "GDScript",
-"path": "res://classes/game_scene.gd"
-} ]
-_global_script_class_icons={
-"GameScene": ""
-}
-
 [application]
 
 config/name="Puck2000"
-run/main_scene="res://SceneManager.tscn"
+run/main_scene="res://scenes/TitleScreen/TitleScreen.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 DebugDraw="*res://addons/debug_draw.gd"
 SFXManager="*res://managers/sfx_manager.gd"
+SceneTransition="*res://scenes/SceneTransition/SceneTransition.tscn"
 
 [display]
 
