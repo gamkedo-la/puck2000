@@ -37,3 +37,19 @@ Please remember to set the `unshaded` flag to on for the `.material` of any impo
 You can use the asset viewer test scene to preview how your model will look in game. You can find it at `\puck2000\test_scenes\asset_viewer\AssetViewer.tscn`
 Open up the scene, replace/add your model as a child of the `PlaceModelHere` node and press F6 to play current scene. A script is attached to the `PlaceModelHere` node that controls its rotation in play mode.  
 ![alt text](https://github.com/gamkedo-la/puck2000/blob/main/_assets_src/readme/assetviewer01.png "Screenshot of unshaded flag option")
+
+# Main Scene
+
+The scene hierarchy is as follows:
+
+```
+root
+	DebugDraw
+	SFXManager
+	SceneManager
+		[current scene]
+		TransitionPlayer
+		CanvasLayer
+```
+
+The [current scene] is where game scenes will be swapped in e.g. the title screen, main menu, gameplay scene etc.
