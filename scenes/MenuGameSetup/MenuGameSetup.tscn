@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/MenuGameSetup/menu_game_setup.gd" type="Script" id=1]
 [ext_resource path="res://test_scenes/prototype/texture-test-1x1.png" type="Texture" id=2]
@@ -11,6 +11,9 @@ uv1_triplanar = true
 
 [sub_resource type="CubeMesh" id=2]
 size = Vector3( 0.5, 0.5, 0.5 )
+
+[sub_resource type="SpatialMaterial" id=13]
+flags_unshaded = true
 
 [sub_resource type="GDScript" id=3]
 script/source = "extends Spatial
@@ -26,6 +29,63 @@ func _process(_delta: float) -> void:
 	rotate_y(rotation_speed)
 	pass
 "
+
+[sub_resource type="SpatialMaterial" id=4]
+flags_unshaded = true
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_unshaded = true
+albedo_color = Color( 0, 0.552941, 1, 1 )
+
+[sub_resource type="SpatialMaterial" id=6]
+flags_unshaded = true
+albedo_color = Color( 0.054902, 1, 0, 1 )
+
+[sub_resource type="GDScript" id=15]
+script/source = "extends Camera
+
+func _unhandled_input(event: InputEvent) -> void:
+	
+	var tween = get_tree().create_tween()
+	var value:Vector3
+	if Input.is_action_pressed(\"ui_down\"):
+		print(transform.origin.y)
+		value = get_global_transform().origin + Vector3.DOWN
+#		set_global_translation(value)
+		tween.tween_property(self, \"translation\", value, 0.5).set_trans(Tween.TRANS_SINE)
+	if Input.is_action_pressed(\"ui_up\"):
+		print(transform.origin.y)
+		value = get_global_transform().origin + Vector3.UP
+#		set_global_translation(value)
+		tween.tween_property(self, \"translation\", value, 0.5).set_trans(Tween.TRANS_SINE)
+	
+	
+"
+
+[sub_resource type="CylinderMesh" id=7]
+top_radius = 0.3
+bottom_radius = 0.3
+height = 0.2
+
+[sub_resource type="SpatialMaterial" id=14]
+flags_unshaded = true
+
+[sub_resource type="SpatialMaterial" id=8]
+flags_unshaded = true
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="SpatialMaterial" id=9]
+flags_unshaded = true
+albedo_color = Color( 0.00784314, 1, 0, 1 )
+
+[sub_resource type="SpatialMaterial" id=10]
+flags_unshaded = true
+albedo_color = Color( 0, 0.392157, 1, 1 )
+
+[sub_resource type="SpatialMaterial" id=11]
+flags_unshaded = true
+albedo_color = Color( 0.992157, 1, 0, 1 )
 
 [node name="MenuGameSetup" type="Spatial"]
 script = ExtResource( 1 )
@@ -47,33 +107,167 @@ material = SubResource( 1 )
 transform = Transform( 0.951606, -0.0235661, 0.306417, 0, 0.997056, 0.0766821, -0.307321, -0.0729711, 0.948804, 0.978957, 0.688046, 1.62566 )
 
 [node name="Interface" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 
-[node name="ViewportContainer" type="ViewportContainer" parent="Interface"]
-margin_left = 640.0
-margin_top = 167.0
-margin_right = 941.0
-margin_bottom = 512.0
+[node name="SelectTables" type="Control" parent="Interface"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
 
-[node name="Viewport" type="Viewport" parent="Interface/ViewportContainer"]
-size = Vector2( 320, 480 )
+[node name="ViewportContainer" type="ViewportContainer" parent="Interface/SelectTables"]
+margin_left = 61.0
+margin_top = 201.0
+margin_right = 321.0
+margin_bottom = 571.0
+
+[node name="Viewport" type="Viewport" parent="Interface/SelectTables/ViewportContainer"]
+size = Vector2( 260, 370 )
+handle_input_locally = false
+render_target_update_mode = 0
+
+[node name="Camera" type="Camera" parent="Interface/SelectTables/ViewportContainer/Viewport"]
+transform = Transform( 0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, -6, -3, 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Interface/SelectTables/ViewportContainer/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, -3.5, 0 )
+mesh = SubResource( 2 )
+material/0 = SubResource( 13 )
+script = SubResource( 3 )
+
+[node name="ViewportContainer2" type="ViewportContainer" parent="Interface/SelectTables"]
+margin_left = 360.0
+margin_top = 201.0
+margin_right = 620.0
+margin_bottom = 571.0
+
+[node name="Viewport" type="Viewport" parent="Interface/SelectTables/ViewportContainer2"]
+size = Vector2( 260, 370 )
+handle_input_locally = false
+render_target_update_mode = 0
+
+[node name="Camera" type="Camera" parent="Interface/SelectTables/ViewportContainer2/Viewport"]
+transform = Transform( 0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, -6, -6, 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Interface/SelectTables/ViewportContainer2/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, -6.5, 0 )
+mesh = SubResource( 2 )
+material/0 = SubResource( 4 )
+script = SubResource( 3 )
+
+[node name="ViewportContainer3" type="ViewportContainer" parent="Interface/SelectTables"]
+margin_left = 659.0
+margin_top = 201.0
+margin_right = 919.0
+margin_bottom = 571.0
+
+[node name="Viewport" type="Viewport" parent="Interface/SelectTables/ViewportContainer3"]
+size = Vector2( 260, 370 )
+handle_input_locally = false
+render_target_update_mode = 0
+
+[node name="Camera" type="Camera" parent="Interface/SelectTables/ViewportContainer3/Viewport"]
+transform = Transform( 0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, -6, -9, 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Interface/SelectTables/ViewportContainer3/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, -9.5, 0 )
+mesh = SubResource( 2 )
+material/0 = SubResource( 5 )
+script = SubResource( 3 )
+
+[node name="ViewportContainer4" type="ViewportContainer" parent="Interface/SelectTables"]
+margin_left = 958.0
+margin_top = 201.0
+margin_right = 1218.0
+margin_bottom = 571.0
+
+[node name="Viewport" type="Viewport" parent="Interface/SelectTables/ViewportContainer4"]
+size = Vector2( 260, 370 )
+handle_input_locally = false
+render_target_update_mode = 0
+
+[node name="Camera" type="Camera" parent="Interface/SelectTables/ViewportContainer4/Viewport"]
+transform = Transform( 0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, -6, -12, 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Interface/SelectTables/ViewportContainer4/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, -12.5, 0 )
+mesh = SubResource( 2 )
+material/0 = SubResource( 6 )
+script = SubResource( 3 )
+
+[node name="Label" type="Label" parent="Interface/SelectTables"]
+margin_left = 25.0
+margin_top = 42.0
+margin_right = 301.0
+margin_bottom = 190.0
+text = "Start Game"
+
+[node name="Label2" type="Label" parent="Interface/SelectTables"]
+margin_left = 373.0
+margin_top = 42.0
+margin_right = 649.0
+margin_bottom = 190.0
+text = "Select Table"
+
+[node name="SelectPucks" type="Control" parent="Interface"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ViewportContainer" type="ViewportContainer" parent="Interface/SelectPucks"]
+margin_left = 656.0
+margin_right = 1126.0
+margin_bottom = 720.0
+
+[node name="Viewport" type="Viewport" parent="Interface/SelectPucks/ViewportContainer"]
+size = Vector2( 470, 720 )
+transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 3
 
-[node name="Camera" type="Camera" parent="Interface/ViewportContainer/Viewport"]
-transform = Transform( 0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, -6, 1, -5 )
+[node name="Camera" type="Camera" parent="Interface/SelectPucks/ViewportContainer/Viewport"]
+transform = Transform( 0.707107, -0.353553, 0.612372, 0, 0.866025, 0.5, -0.707107, -0.353553, 0.612372, -2, -2.7, -3 )
+fov = 50.0
+script = SubResource( 15 )
 
-[node name="MeshInstance" type="MeshInstance" parent="Interface/ViewportContainer/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0.5, -6 )
-mesh = SubResource( 2 )
+[node name="MeshInstance" type="MeshInstance" parent="Interface/SelectPucks/ViewportContainer/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -3.5, -4 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 14 )
 script = SubResource( 3 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="Interface/SelectPucks/ViewportContainer/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -4.5, -4 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 8 )
+script = SubResource( 3 )
+
+[node name="MeshInstance3" type="MeshInstance" parent="Interface/SelectPucks/ViewportContainer/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -5.5, -4 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 9 )
+script = SubResource( 3 )
+
+[node name="MeshInstance4" type="MeshInstance" parent="Interface/SelectPucks/ViewportContainer/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -6.5, -4 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 10 )
+script = SubResource( 3 )
+
+[node name="MeshInstance5" type="MeshInstance" parent="Interface/SelectPucks/ViewportContainer/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -7.5, -4 )
+mesh = SubResource( 7 )
+material/0 = SubResource( 11 )
+script = SubResource( 3 )
+
+[node name="SelectOpp" type="Control" parent="Interface"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Interface"]
 
 [node name="Button" type="Button" parent="Interface/CanvasLayer"]
-margin_left = 195.0
-margin_top = 330.0
-margin_right = 405.0
-margin_bottom = 393.0
+margin_left = 1022.0
+margin_top = 617.0
+margin_right = 1232.0
+margin_bottom = 680.0
 text = "Temporary Start Button"
