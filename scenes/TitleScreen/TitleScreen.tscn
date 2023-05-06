@@ -1,6 +1,24 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://test_scenes/prototype/texture-test-1x1.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends GameScene
+
+# Declare member variables here. Examples:
+# var a: int = 2
+# var b: String = \"text\"
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta: float) -> void:
+#	pass
+"
 
 [sub_resource type="SpatialMaterial" id=1]
 flags_unshaded = true
@@ -25,6 +43,7 @@ func _process(delta: float) -> void:
 "
 
 [node name="TitleScreen" type="Spatial"]
+script = SubResource( 3 )
 
 [node name="Interior" type="CSGBox" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
