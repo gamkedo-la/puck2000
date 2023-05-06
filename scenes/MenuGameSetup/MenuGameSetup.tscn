@@ -24,7 +24,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		isInputEnabled = false
 		tween.tween_property(self, \"rect_position\", value, 0.5).set_trans(Tween.TRANS_SINE)
 		tween.connect(\"finished\", self, \"_enable_input\")
-
+		
 	if Input.is_action_pressed(\"ui_cancel\") && isInputEnabled:
 		var tween = get_tree().create_tween()
 		var value = get_position() + Vector2(get_viewport_rect().size.x, 0)
@@ -363,13 +363,13 @@ mesh = SubResource( 2 )
 material/0 = SubResource( 5 )
 script = SubResource( 3 )
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Interface/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Interface"]
 
-[node name="Button" type="Button" parent="Interface/CanvasLayer"]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="."]
 margin_left = 1022.0
 margin_top = 617.0
 margin_right = 1232.0
 margin_bottom = 680.0
 text = "Temporary Start Button"
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Interface"]
