@@ -24,7 +24,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		isInputEnabled = false
 		tween.tween_property(self, \"rect_position\", value, 0.5).set_trans(Tween.TRANS_SINE)
 		tween.connect(\"finished\", self, \"_enable_input\")
-		
+
 	if Input.is_action_pressed(\"ui_cancel\") && isInputEnabled:
 		var tween = get_tree().create_tween()
 		var value = get_position() + Vector2(get_viewport_rect().size.x, 0)
@@ -78,7 +78,7 @@ var isInputEnabled:bool = true
 
 
 func _unhandled_input(_event: InputEvent) -> void:
-	
+
 	if Input.is_action_pressed(\"ui_down\") && isInputEnabled:
 #		print(transform.origin.y)
 		isInputEnabled = false
@@ -363,7 +363,7 @@ mesh = SubResource( 2 )
 material/0 = SubResource( 5 )
 script = SubResource( 3 )
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Interface"]
+[node name="CanvasLayer" type="CanvasLayer" parent="Interface/MarginContainer/HBoxContainer/VBoxContainer"]
 
 [node name="Button" type="Button" parent="Interface/CanvasLayer"]
 margin_left = 1022.0
