@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://pucks/standard_variations/marble/PuckStd-marble.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenery/palm_tree/palm_tree.glb" type="PackedScene" id=1]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Spatial
@@ -25,5 +25,5 @@ transform = Transform( 0.708366, -0.349159, 0.613437, 0, 0.869082, 0.494668, -0.
 [node name="PlaceModelHere" type="Spatial" parent="."]
 script = SubResource( 1 )
 
-[node name="PuckStd" parent="PlaceModelHere" instance=ExtResource( 1 )]
-camera_node_path = NodePath("../../Camera")
+[node name="palm_tree" parent="PlaceModelHere" instance=ExtResource( 1 )]
+transform = Transform( 0.432715, 0, 0, 0, 0.432715, 0, 0, 0, 0.432715, 0, 0, 0 )
