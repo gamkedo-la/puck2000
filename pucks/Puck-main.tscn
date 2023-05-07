@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://pucks/standard/puck-standard-placeholder.material" type="Material" id=1]
+[ext_resource path="res://pucks/puck.gd" type="Script" id=2]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "puck-std_Cylinder002"
@@ -17,6 +18,69 @@ surfaces/0 = {
 "vertex_count": 52
 }
 
-[node name="PuckStd" type="MeshInstance"]
+[sub_resource type="SpatialMaterial" id=4]
+flags_unshaded = true
+albedo_color = Color( 0.917647, 0.239216, 1, 1 )
+
+[sub_resource type="PrismMesh" id=2]
+size = Vector3( 0.04, 0.25, 0.025 )
+
+[sub_resource type="SpatialMaterial" id=3]
+flags_unshaded = true
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="CylinderShape" id=5]
+height = 0.4
+radius = 0.5
+
+[node name="Puck" type="RigidBody" groups=["pucks"]]
+collision_layer = 2
+collision_mask = 7
+continuous_cd = true
+contacts_reported = 1
+contact_monitor = true
+can_sleep = false
+axis_lock_linear_y = true
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+angular_damp = 20.0
+script = ExtResource( 2 )
+push_force = 9.0
+
+[node name="Mesh" type="Spatial" parent="."]
+
+[node name="DebugCylinder" type="MeshInstance" parent="Mesh"]
 mesh = SubResource( 1 )
-skeleton = NodePath("")
+material/0 = SubResource( 4 )
+
+[node name="DebugPointer" type="MeshInstance" parent="."]
+transform = Transform( -1, 3.38151e-07, 3.82137e-15, 0, -1.69076e-07, 1, 8.74228e-08, 3.868, 4.37114e-08, 0, 0.431392, 0.474271 )
+visible = false
+mesh = SubResource( 2 )
+material/0 = SubResource( 3 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.202574, 0 )
+shape = SubResource( 5 )
+
+[node name="Pointer" type="Spatial" parent="."]
+
+[node name="MeshInstance" type="MeshInstance" parent="Pointer"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -3.868, -1.69076e-07, 0, 0.431392, -0.485949 )
+visible = false
+mesh = SubResource( 2 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 3 )
+
+[node name="RayOrigins" type="Spatial" parent="."]
+
+[node name="RayOrigin1" type="Position3D" parent="RayOrigins"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0.5 )
+
+[node name="RayOrigin2" type="Position3D" parent="RayOrigins"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.25, 0 )
+
+[node name="RayOrigin3" type="Position3D" parent="RayOrigins"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.25, 0 )
+
+[connection signal="input_event" from="." to="." method="_on_Puck_input_event"]

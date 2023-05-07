@@ -5,8 +5,9 @@ extends Spatial
 # warning-ignore:unused_signal
 signal puck_spawn_finished
 
-export (PackedScene) var Table
-export (PackedScene) var Puck
+export (PackedScene) var table_scene
+export (PackedScene) var puck_scene
+export (PackedScene) var puck_cosmetic
 export var isDebug:bool = false
 
 export var round_time:float = 90.0
@@ -82,7 +83,7 @@ func reset_round() -> void:
 
 
 func _spawn_table() -> void:
-	table = Table.instance()
+	table = table_scene.instance()
 	table_holder.add_child(table)
 	
 	p1_area = table.get_node("P1Area")
@@ -145,14 +146,22 @@ func _spawn_pucks() -> void:
 		puck_spawn_pos.append(positionNode)
 		var puck = _get_puck_instance(positionNode)
 		pucks.add_child(puck)
-#	$Pucks.setup_field()
 	pass
 
 
 func _get_puck_instance(positionNode:Position3D) -> RigidBody:
-		var puck = Puck.instance()
+		
+		var puck = puck_scene.instance()
 		puck.transform.origin = positionNode.transform.origin
 		puck.camera_node_path = "../../Camera"
+		
+		# inject cosmetic instance
+		if puck_cosmetic:
+			var puck_looks = puck_cosmetic.instance()
+			var puck_cosmetic_holder = puck.get_node("Mesh")
+			puck_cosmetic_holder.get_node("DebugCylinder").queue_free()
+			puck_cosmetic_holder.add_child(puck_looks)
+		
 		if isDebug:
 			puck.isDebug = true
 		return puck
