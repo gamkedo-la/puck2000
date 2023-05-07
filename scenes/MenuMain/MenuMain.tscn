@@ -1,30 +1,15 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/MenuMain/menu_main.gd" type="Script" id=1]
-[ext_resource path="res://test_scenes/prototype/texture-test-1x1.png" type="Texture" id=2]
-
-[sub_resource type="SpatialMaterial" id=1]
-flags_unshaded = true
-albedo_texture = ExtResource( 2 )
-uv1_offset = Vector3( 0.5, 0.5, 0.5 )
-uv1_triplanar = true
+[ext_resource path="res://scenes/Common/ScreenBG.tscn" type="PackedScene" id=2]
 
 [node name="MenuMain" type="Spatial"]
 script = ExtResource( 1 )
 
-[node name="Interior" type="CSGBox" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0 )
-use_collision = true
-collision_layer = 0
-collision_mask = 0
-invert_faces = true
-width = 7.0
-height = 3.0
-depth = 9.0
-material = SubResource( 1 )
-
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 0.951606, -0.0235661, 0.306417, 0, 0.997056, 0.0766821, -0.307321, -0.0729711, 0.948804, 0.978957, 0.688046, 1.62566 )
+transform = Transform( 0.951606, -0.023566, 0.306416, 0, 0.997056, 0.0766821, -0.307321, -0.0729711, 0.948804, 0.978957, 0.688046, 1.62566 )
+
+[node name="ScreenBG" parent="." instance=ExtResource( 2 )]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

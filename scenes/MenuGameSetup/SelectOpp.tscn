@@ -1,0 +1,97 @@
+[gd_scene load_steps=6 format=2]
+
+[sub_resource type="CubeMesh" id=2]
+size = Vector3( 0.5, 0.5, 0.5 )
+
+[sub_resource type="SpatialMaterial" id=13]
+flags_unshaded = true
+albedo_color = Color( 0.937255, 0.792157, 0.227451, 1 )
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends Spatial
+# Simple script to rotate object for inspection
+
+export var rotation_speed = 0.025 # in radians
+
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+func _process(_delta: float) -> void:
+	rotate_y(rotation_speed)
+	pass
+"
+
+[sub_resource type="SpatialMaterial" id=4]
+flags_unshaded = true
+albedo_color = Color( 0.929412, 0.447059, 0.12549, 1 )
+
+[sub_resource type="SpatialMaterial" id=5]
+flags_unshaded = true
+albedo_color = Color( 1, 0, 0, 1 )
+
+[node name="SelectOpp" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2560.0
+margin_right = 2560.0
+
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+margin_left = 213.0
+margin_top = 201.0
+margin_right = 473.0
+margin_bottom = 571.0
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer"]
+size = Vector2( 260, 370 )
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="Camera" type="Camera" parent="ViewportContainer/Viewport"]
+transform = Transform( 0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, -10, -3, 5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="ViewportContainer/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11, -3.5, 4 )
+mesh = SubResource( 2 )
+material/0 = SubResource( 13 )
+script = SubResource( 3 )
+
+[node name="ViewportContainer2" type="ViewportContainer" parent="."]
+margin_left = 512.0
+margin_top = 201.0
+margin_right = 772.0
+margin_bottom = 571.0
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer2"]
+size = Vector2( 260, 370 )
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="Camera" type="Camera" parent="ViewportContainer2/Viewport"]
+transform = Transform( 0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, -10, -6, 5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="ViewportContainer2/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11, -6.5, 4 )
+mesh = SubResource( 2 )
+material/0 = SubResource( 4 )
+script = SubResource( 3 )
+
+[node name="ViewportContainer3" type="ViewportContainer" parent="."]
+margin_left = 811.0
+margin_top = 201.0
+margin_right = 1071.0
+margin_bottom = 571.0
+
+[node name="Viewport" type="Viewport" parent="ViewportContainer3"]
+size = Vector2( 260, 370 )
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="Camera" type="Camera" parent="ViewportContainer3/Viewport"]
+transform = Transform( 0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, -10, -9, 5 )
+
+[node name="MeshInstance" type="MeshInstance" parent="ViewportContainer3/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11, -9.5, 4 )
+mesh = SubResource( 2 )
+material/0 = SubResource( 5 )
+script = SubResource( 3 )
