@@ -201,7 +201,7 @@ func reset_inertia() -> void:
 # warning-ignore:unused_argument
 func _unhandled_input(event: InputEvent) -> void:
 	
-	if Input.is_action_just_released("select") && isSelected:
+	if Input.is_action_just_released("select") && isSelected && !isOpponent:
 #		print("deselect")
 		pointer.visible = false
 		isSelected = false
