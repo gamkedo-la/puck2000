@@ -17,6 +17,6 @@ surfaces/0 = {
 "vertex_count": 52
 }
 
-[node name="PuckStd" type="MeshInstance"]
+[node name="PStd-Standard" type="MeshInstance"]
 mesh = SubResource( 1 )
 skeleton = NodePath("")

@@ -22,6 +22,6 @@ surfaces/0 = {
 flags_unshaded = true
 albedo_texture = ExtResource( 3 )
 
-[node name="Cylinder" type="MeshInstance"]
+[node name="PStd-Ocean" type="MeshInstance"]
 mesh = SubResource( 1 )
 material/0 = SubResource( 4 )

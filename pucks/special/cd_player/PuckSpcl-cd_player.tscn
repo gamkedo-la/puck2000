@@ -17,5 +17,5 @@ surfaces/0 = {
 "vertex_count": 134
 }
 
-[node name="CD_Player" type="MeshInstance"]
+[node name="PSpc-CDWalkman" type="MeshInstance"]
 mesh = SubResource( 1 )

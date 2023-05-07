@@ -68,8 +68,12 @@ anchor_bottom = 1.0
 [node name="SelectTables" parent="Interface/Slides" instance=ExtResource( 5 )]
 
 [node name="SelectPucks" parent="Interface/Slides" instance=ExtResource( 3 )]
+margin_left = 1280.0
+margin_right = 1280.0
 
 [node name="SelectOpp" parent="Interface/Slides" instance=ExtResource( 4 )]
+margin_left = 2560.0
+margin_right = 2560.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Interface"]
 

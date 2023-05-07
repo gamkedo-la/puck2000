@@ -1,64 +1,30 @@
 [gd_scene load_steps=8 format=2]
 
-[sub_resource type="GDScript" id=15]
-script/source = "extends Camera
+[ext_resource path="res://pucks/standard/PuckStd.tscn" type="PackedScene" id=1]
+[ext_resource path="res://pucks/standard_variations/marble/PuckStd-marble.tscn" type="PackedScene" id=2]
+[ext_resource path="res://pucks/standard_variations/ocean/PuckStd-ocean.tscn" type="PackedScene" id=3]
+[ext_resource path="res://pucks/standard_variations/cdplayer/PuckStd-cd-walkman.tscn" type="PackedScene" id=4]
+[ext_resource path="res://pucks/special/cd_player/PuckSpcl-cd_player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/MenuGameSetup/camera_axis.gd" type="Script" id=6]
 
-export var interval_value:float = 1.0
-var isInputEnabled:bool = true
+[sub_resource type="GDScript" id=1]
+script/source = "extends Spatial
+# Simple script to rotate object for inspection
 
+export var rotation_speed = 0.025 # in radians
 
-func _unhandled_input(_event: InputEvent) -> void:
-
-	if Input.is_action_pressed(\"ui_down\") && isInputEnabled:
-#		print(transform.origin.y)
-		isInputEnabled = false
-		var tween = get_tree().create_tween()
-		var value = get_global_transform().origin - Vector3(0, interval_value, 0)
-		tween.tween_property(self, \"translation\", value, 0.25).set_trans(Tween.TRANS_SINE)
-		tween.connect(\"finished\", self, \"_enable_input\")
-
-	if Input.is_action_pressed(\"ui_up\") && isInputEnabled:
-#		print(transform.origin.y)
-		isInputEnabled = false
-		var tween = get_tree().create_tween()
-		var value = get_global_transform().origin + Vector3(0, interval_value, 0)
-		tween.tween_property(self, \"translation\", value, 0.25).set_trans(Tween.TRANS_SINE)
-		tween.connect(\"finished\", self, \"_enable_input\")
+func _ready() -> void:
+	pass # Replace with function body.
 
 
-func _enable_input() -> void:
-	isInputEnabled = true
+func _process(_delta: float) -> void:
+	rotate_y(rotation_speed)
+	pass
 "
-
-[sub_resource type="CylinderMesh" id=7]
-top_radius = 0.3
-bottom_radius = 0.3
-height = 0.2
-
-[sub_resource type="SpatialMaterial" id=14]
-flags_unshaded = true
-
-[sub_resource type="SpatialMaterial" id=8]
-flags_unshaded = true
-albedo_color = Color( 1, 0, 0, 1 )
-
-[sub_resource type="SpatialMaterial" id=9]
-flags_unshaded = true
-albedo_color = Color( 0.00784314, 1, 0, 1 )
-
-[sub_resource type="SpatialMaterial" id=10]
-flags_unshaded = true
-albedo_color = Color( 0, 0.392157, 1, 1 )
-
-[sub_resource type="SpatialMaterial" id=11]
-flags_unshaded = true
-albedo_color = Color( 0.992157, 1, 0, 1 )
 
 [node name="SelectPucks" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 1280.0
-margin_right = 1280.0
 
 [node name="ViewportContainer" type="ViewportContainer" parent="."]
 margin_left = 656.0
@@ -71,32 +37,35 @@ transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 3
 
-[node name="Camera" type="Camera" parent="ViewportContainer/Viewport"]
-transform = Transform( 0.707107, -0.353553, 0.612372, 0, 0.866025, 0.5, -0.707107, -0.353553, 0.612372, -2, -2.7, -3 )
-fov = 50.0
-script = SubResource( 15 )
+[node name="CameraAxis" type="Spatial" parent="ViewportContainer/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -3, -14 )
+script = ExtResource( 6 )
 
-[node name="MeshInstance" type="MeshInstance" parent="ViewportContainer/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -3.5, -4 )
-mesh = SubResource( 7 )
-material/0 = SubResource( 14 )
+[node name="Camera" type="Camera" parent="ViewportContainer/Viewport/CameraAxis"]
+transform = Transform( 0.707107, -0.353553, 0.612373, 0, 0.866026, 0.5, -0.707107, -0.353553, 0.612373, 2.225, 2, 2.225 )
+fov = 42.0
 
-[node name="MeshInstance2" type="MeshInstance" parent="ViewportContainer/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -4.5, -4 )
-mesh = SubResource( 7 )
-material/0 = SubResource( 8 )
+[node name="Pucks" type="Spatial" parent="ViewportContainer/Viewport"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -3, -14 )
+script = SubResource( 1 )
 
-[node name="MeshInstance3" type="MeshInstance" parent="ViewportContainer/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -5.5, -4 )
-mesh = SubResource( 7 )
-material/0 = SubResource( 9 )
+[node name="PStd-Standard" parent="ViewportContainer/Viewport/Pucks" instance=ExtResource( 1 )]
 
-[node name="MeshInstance4" type="MeshInstance" parent="ViewportContainer/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -6.5, -4 )
-mesh = SubResource( 7 )
-material/0 = SubResource( 10 )
+[node name="PStd-CDWalkman" parent="ViewportContainer/Viewport/Pucks" instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0 )
+skeleton = NodePath("../..")
 
-[node name="MeshInstance5" type="MeshInstance" parent="ViewportContainer/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -7.5, -4 )
-mesh = SubResource( 7 )
-material/0 = SubResource( 11 )
+[node name="PStd-Marble" parent="ViewportContainer/Viewport/Pucks" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0 )
+skeleton = NodePath("../..")
+
+[node name="PStd-Ocean" parent="ViewportContainer/Viewport/Pucks" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6, 0 )
+skeleton = NodePath("../..")
+
+[node name="PSpc-CDWalkman" parent="ViewportContainer/Viewport/Pucks" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, 0 )
+skeleton = NodePath("../..")
+
+[node name="PSpc-CDWalkman2" parent="ViewportContainer/Viewport/Pucks" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0 )

@@ -33,8 +33,6 @@ albedo_color = Color( 1, 0, 0, 1 )
 [node name="SelectOpp" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 2560.0
-margin_right = 2560.0
 
 [node name="ViewportContainer" type="ViewportContainer" parent="."]
 margin_left = 213.0
@@ -48,10 +46,10 @@ handle_input_locally = false
 render_target_update_mode = 3
 
 [node name="Camera" type="Camera" parent="ViewportContainer/Viewport"]
-transform = Transform( 0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, -10, -3, 5 )
+transform = Transform( 0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, -25, -3, 15 )
 
 [node name="MeshInstance" type="MeshInstance" parent="ViewportContainer/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11, -3.5, 4 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -26, -3.5, 14 )
 mesh = SubResource( 2 )
 material/0 = SubResource( 13 )
 script = SubResource( 3 )
@@ -68,10 +66,10 @@ handle_input_locally = false
 render_target_update_mode = 3
 
 [node name="Camera" type="Camera" parent="ViewportContainer2/Viewport"]
-transform = Transform( 0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, -10, -6, 5 )
+transform = Transform( 0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, -25, -6, 15 )
 
 [node name="MeshInstance" type="MeshInstance" parent="ViewportContainer2/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11, -6.5, 4 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -26, -6.5, 14 )
 mesh = SubResource( 2 )
 material/0 = SubResource( 4 )
 script = SubResource( 3 )
@@ -88,10 +86,10 @@ handle_input_locally = false
 render_target_update_mode = 3
 
 [node name="Camera" type="Camera" parent="ViewportContainer3/Viewport"]
-transform = Transform( 0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, -10, -9, 5 )
+transform = Transform( 0.707107, -0.183013, 0.683013, 0, 0.965926, 0.258819, -0.707107, -0.183013, 0.683013, -25, -9, 15 )
 
 [node name="MeshInstance" type="MeshInstance" parent="ViewportContainer3/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11, -9.5, 4 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -26, -9.5, 14 )
 mesh = SubResource( 2 )
 material/0 = SubResource( 5 )
 script = SubResource( 3 )
