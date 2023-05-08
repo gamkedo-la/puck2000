@@ -1,6 +1,6 @@
 extends Spatial
 
-onready var start_button = $CanvasLayer/HBoxContainer/StartGame
+onready var start_button = $CanvasLayer/Control/HBoxContainer/StartGame
 
 
 func _ready() -> void:

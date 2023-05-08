@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/Common/ScreenBG.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/TitleScreen/title_screen.gd" type="Script" id=2]
+[ext_resource path="res://fonts/rocket-rinder-font/RocketRinder-yV5d.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="GDScript" id=2]
 script/source = "extends Position3D
@@ -19,6 +20,10 @@ func _process(delta: float) -> void:
 	pass
 "
 
+[sub_resource type="DynamicFont" id=3]
+size = 128
+font_data = ExtResource( 3 )
+
 [node name="TitleScreen" type="Spatial"]
 script = ExtResource( 2 )
 
@@ -32,11 +37,27 @@ transform = Transform( 0.912493, -0.110343, 0.393931, 0, 0.962937, 0.269725, -0.
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
-margin_right = 40.0
+[node name="Control" type="Control" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
+margin_right = 169.0
 margin_bottom = 40.0
 
-[node name="StartGame" type="Button" parent="CanvasLayer/HBoxContainer"]
+[node name="StartGame" type="Button" parent="CanvasLayer/Control/HBoxContainer"]
 margin_right = 169.0
 margin_bottom = 40.0
 text = "Press any button to start"
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/CenterContainer"]
+margin_left = 264.0
+margin_top = 292.0
+margin_right = 1016.0
+margin_bottom = 427.0
+custom_fonts/font = SubResource( 3 )
+text = "Puck2000"
