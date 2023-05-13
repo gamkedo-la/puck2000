@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://pucks/standard/puck-standard-placeholder.material" type="Material" id=1]
-[ext_resource path="res://pucks/standard_variations/ocean/puck-std-ocean.jpg" type="Texture" id=3]
+[ext_resource path="res://pucks/standard_variations/sakura/puck-std-sakura.jpg" type="Texture" id=2]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "puck-std_Cylinder002"
@@ -20,8 +20,8 @@ surfaces/0 = {
 
 [sub_resource type="SpatialMaterial" id=4]
 flags_unshaded = true
-albedo_texture = ExtResource( 3 )
+albedo_texture = ExtResource( 2 )
 
-[node name="PStd-Ocean" type="MeshInstance"]
+[node name="PStd-Sakura" type="MeshInstance"]
 mesh = SubResource( 1 )
 material/0 = SubResource( 4 )

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/puck-std-skin_template.jpg-d9b2151ec77ecded2a50097b1720fd97.s3tc.stex"
-path.etc="res://.import/puck-std-skin_template.jpg-d9b2151ec77ecded2a50097b1720fd97.etc.stex"
+path.s3tc="res://.import/puck-std-sakura.jpg-32d8e9edba1ff48f55187487b39ad05c.s3tc.stex"
+path.etc="res://.import/puck-std-sakura.jpg-32d8e9edba1ff48f55187487b39ad05c.etc.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://pucks/standard_variations/ocean/puck-std-skin_template.jpg"
-dest_files=[ "res://.import/puck-std-skin_template.jpg-d9b2151ec77ecded2a50097b1720fd97.s3tc.stex", "res://.import/puck-std-skin_template.jpg-d9b2151ec77ecded2a50097b1720fd97.etc.stex" ]
+source_file="res://pucks/standard_variations/sakura/puck-std-sakura.jpg"
+dest_files=[ "res://.import/puck-std-sakura.jpg-32d8e9edba1ff48f55187487b39ad05c.s3tc.stex", "res://.import/puck-std-sakura.jpg-32d8e9edba1ff48f55187487b39ad05c.etc.stex" ]
 
 [params]
 
