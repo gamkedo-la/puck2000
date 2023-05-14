@@ -44,3 +44,4 @@ func select_puck(selected_puck:String) -> void:
 func goto_gameplay() -> void:
 	emit_signal("send_selections", selections)
 	SceneTransition.change_scene("res://scenes/GamePlay/GamePlay.tscn")
+	BGMManager.stop_bgm()

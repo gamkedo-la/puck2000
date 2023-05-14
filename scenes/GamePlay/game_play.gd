@@ -30,6 +30,8 @@ var current_round:int
 
 var table:Spatial
 
+const GAME_BGM = preload("res://audio/bgm/bgm_dx7_dreams_v2.mp3")
+
 onready var pucks = $Pucks
 onready var table_holder = $Table
 onready var timer_round = $TimerRoundDuration
@@ -37,6 +39,8 @@ onready var opponent = $OpponentAI
 
 
 func _ready() -> void:
+
+	BGMManager.play_bgm(GAME_BGM)
 
 	if table_scene == null:
 #		print($"../SceneTransition/DataBus".selections)
