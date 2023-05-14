@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/BGM-microwaves.mp3-077b8fb2a1cb41ef22d45d57f045f7f7.mp3str"
+
+[deps]
+
+source_file="res://audio/bgm/BGM-microwaves.mp3"
+dest_files=[ "res://.import/BGM-microwaves.mp3-077b8fb2a1cb41ef22d45d57f045f7f7.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

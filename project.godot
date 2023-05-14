@@ -20,6 +20,8 @@ DebugDraw="*res://addons/debug_draw.gd"
 SFXManager="*res://managers/sfx_manager.gd"
 SceneTransition="*res://scenes/SceneTransition/SceneTransition.tscn"
 PuckDirectory="*res://pucks/puck_directory.gd"
+BgmDirectory="*res://audio/bgm/bgm_directory.gd"
+BgmManager="*res://managers/bgm_manager.gd"
 
 [display]
 
