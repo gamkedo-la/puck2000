@@ -2,7 +2,7 @@ extends Spatial
 
 export(Array, PackedScene) var table_scenes = [
 	preload("res://tables/classic/TableClassic.tscn"),
-	preload("res://tables/beyond_classic/TableBeyondClassic.tscn")
+	preload("res://tables/beyond_classic/TableBeyondClassic.tscn"), null, null
 ]
 onready var btn_startgame = $Interface/CanvasLayer/Button
 
@@ -16,9 +16,10 @@ func _ready() -> void:
 		child.connect("clicked_on_viewport_container", self, "_on_viewport_container_clicked")
 
 
-func _on_viewport_container_clicked(container) -> void:
-	prints("got clicked", container.name)
-	
+func _on_viewport_container_clicked(container, index) -> void:
+	prints("got clicked", index)
+	selections["table"] = table_scenes[index]
+	print(selections["table"].instance().name)
 
 
 func select_table() -> void:
