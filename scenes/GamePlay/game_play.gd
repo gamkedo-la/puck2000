@@ -5,12 +5,16 @@ extends Spatial
 # warning-ignore:unused_signal
 signal puck_spawn_finished
 
-export (PackedScene) var table_scene
+# exported variables for debug
+# comment out when not in use
+#export (PackedScene) var table_scene
 export (PackedScene) var puck_scene
 export (PackedScene) var puck_cosmetic
 export var isDebug:bool = false
 
 export var round_time:float = 90.0
+
+var table_scene:PackedScene = null
 
 var puck_spawn_pos = []
 
@@ -33,6 +37,11 @@ onready var opponent = $OpponentAI
 
 
 func _ready() -> void:
+
+	if table_scene == null:
+#		print($"../SceneTransition/DataBus".selections)
+		table_scene = $"../SceneTransition/DataBus".selections["table"]
+
 #	isFirstRound = true
 	current_round = 0
 	# disable controls
