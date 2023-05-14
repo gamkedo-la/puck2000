@@ -19,6 +19,7 @@ config/icon="res://icon.png"
 DebugDraw="*res://addons/debug_draw.gd"
 SFXManager="*res://managers/sfx_manager.gd"
 SceneTransition="*res://scenes/SceneTransition/SceneTransition.tscn"
+PuckDirectory="*res://pucks/puck_directory.gd"
 
 [display]
 

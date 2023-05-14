@@ -17,7 +17,7 @@ func _ready() -> void:
 #	prints(factor, max_depth)
 
 
-func _unhandled_input(_event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	
 	if Input.is_action_pressed("ui_down") && isInputEnabled && current_height > max_depth:
 #		print(transform.origin.y)
