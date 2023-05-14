@@ -21,10 +21,10 @@ func _ready() -> void:
 
 
 func play_bgm(
-	sound: AudioStream, parent: Node,
+	sound: AudioStream, parent: Node = get_tree().current_scene,
 	pitch_range: Vector2 = Vector2(1.0,1.0), 
 	volume_db: float = bgm_vol,
-	pause_behaviour = PAUSE_MODE_INHERIT, audiobus: String = "SFX"
+	pause_behaviour = PAUSE_MODE_INHERIT, audiobus: String = "BGM"
 ) -> void:
 	
 	if sound != null and parent != null:
