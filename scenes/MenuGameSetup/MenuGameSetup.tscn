@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/MenuGameSetup/menu_game_setup.gd" type="Script" id=1]
 [ext_resource path="res://scenes/Common/ScreenBG.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/MenuGameSetup/SelectPucks.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/MenuGameSetup/SelectOpp.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/MenuGameSetup/SelectTables.tscn" type="PackedScene" id=5]
+[ext_resource path="res://fonts/rocket-rinder-font/RocketRinder-yV5d.ttf" type="DynamicFontData" id=6]
 
 [sub_resource type="GDScript" id=16]
 script/source = "extends Control
@@ -34,6 +35,14 @@ func _enable_input() -> void:
 	isInputEnabled = true
 "
 
+[sub_resource type="DynamicFont" id=17]
+size = 64
+font_data = ExtResource( 6 )
+
+[sub_resource type="DynamicFont" id=18]
+size = 32
+font_data = ExtResource( 6 )
+
 [node name="MenuGameSetup" type="Spatial"]
 script = ExtResource( 1 )
 
@@ -46,20 +55,6 @@ transform = Transform( 0.951606, -0.023566, 0.306416, 0, 0.997056, 0.0766821, -0
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = SubResource( 16 )
-
-[node name="Label" type="Label" parent="Interface"]
-margin_left = 25.0
-margin_top = 42.0
-margin_right = 301.0
-margin_bottom = 190.0
-text = "Start Game"
-
-[node name="Label2" type="Label" parent="Interface"]
-margin_left = 373.0
-margin_top = 42.0
-margin_right = 649.0
-margin_bottom = 190.0
-text = "Select Table"
 
 [node name="Slides" type="Control" parent="Interface"]
 anchor_right = 1.0
@@ -85,3 +80,24 @@ margin_bottom = 680.0
 text = "Temporary Start Button"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Interface"]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Interface"]
+margin_left = 50.0
+margin_top = 50.0
+margin_right = 152.0
+margin_bottom = 40.0
+custom_constants/separation = 64
+
+[node name="Label" type="Label" parent="Interface/HBoxContainer"]
+margin_right = 439.0
+margin_bottom = 68.0
+custom_fonts/font = SubResource( 17 )
+text = "Start Game"
+
+[node name="Label2" type="Label" parent="Interface/HBoxContainer"]
+margin_left = 503.0
+margin_top = 17.0
+margin_right = 764.0
+margin_bottom = 51.0
+custom_fonts/font = SubResource( 18 )
+text = "Select Table"
