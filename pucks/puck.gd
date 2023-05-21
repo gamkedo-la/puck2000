@@ -26,13 +26,25 @@ var targetDest = Vector3.ZERO
 var opponent_aiming_at = Vector3.ZERO
 
 var cur_dir:Vector3
+var cur_sector:Area
+
+# start_move_to() -> _integrate_forces()
+var target_position: Vector3
+var initial_position: Vector3
+var final_position: Vector3
+var elapsed_time: float
+var move_duration: float = 1.0
+var moveStarted: bool = false
 
 var isSelected:bool = false
+var isADV:bool = true # a check for opp ai to decide what kind of target marker to aim at - check oponent_ai.gd
 #var isReset:bool = false
+var isPreparing:bool = false
 var last_hit:Node = null
 
 onready var camera = get_node(camera_node_path)
 onready var pointer = $Pointer
+onready var table = $"../../Table".get_child(0)
 
 
 func _ready() -> void:
@@ -42,8 +54,15 @@ func _ready() -> void:
 	if not self.is_connected("body_entered", self, "check_collision"):
 		var puck_collide = self.connect("body_entered", self, "check_collision")
 		assert(puck_collide == OK)
+	
+#	for area in table.get_node("OpponentSectors").get_children():
+#		if not area.is_connected("area_entered", self, "check_area"):
+#			var sector_area = area.connect("area_entered", self, "check_area")
+#			assert(sector_area == OK)
+	
 	if isOpponent:
 		_opponent_setup()
+	
 	pass # Replace with function body.
 
 
@@ -59,6 +78,12 @@ func check_collision(body:Node) -> void:
 	if body.is_in_group("pucks"):
 		isSelected = false
 	SFXManager.play_sfx(SFX_PUCK_COLLISION_0, get_tree().current_scene, Vector2(0.7,0.9))
+
+
+func check_area(area:Node) -> void:
+	cur_sector = area
+	prints(area, cur_sector)
+	pass
 
 
 func look_follow(state, current_transform, target_position):
@@ -117,6 +142,19 @@ func _integrate_forces(state: PhysicsDirectBodyState) -> void:
 		set_linear_velocity(Vector3.ZERO)
 		look_follow(state, get_global_transform(), targetDest)
 		check_force(get_global_transform(), targetDest)
+
+#		move_to_bakedpos(state, Vector3(0.0, 1.05, -9.0))
+	if moveStarted:
+		elapsed_time += state.get_step()
+		var t = clamp(elapsed_time / move_duration, 0.0, 1.0)
+		global_transform.origin = initial_position.linear_interpolate(target_position, t)
+		
+		if t>= 1.0:
+			global_transform.origin = target_position
+			final_position = target_position
+			moveStarted = false
+			mode = MODE_RIGID
+			state.set_transform(global_transform) # Update physics state
 	pass
 
 
@@ -134,8 +172,17 @@ func _process(_delta: float) -> void:
 	
 	if isSelected && isOpponent:
 		# set areas to deem priority of pucks
-		find_target_pos_auto(opponent_aiming_at)
+		find_target_pos_auto(opponent_aiming_at)		
 		pass
+
+
+# called from opponent_ai.gd
+func start_move_to(target:Vector3) -> void:
+	initial_position = global_transform.origin
+	target_position = target
+	elapsed_time = 0.0
+	moveStarted = true
+	mode = MODE_KINEMATIC
 
 
 func find_target_pos() -> void:
@@ -183,6 +230,11 @@ func find_target_pos() -> void:
 func find_target_pos_auto(target:Vector3) -> void:
 	var look_here = Vector3(target.x, translation.y, target.z)
 	targetDest = look_here
+	pass
+
+
+func move_to_bakedpos(target_pos:Vector3) -> void:
+	global_transform.origin = target_pos
 	pass
 
 

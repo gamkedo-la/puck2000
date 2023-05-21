@@ -21,6 +21,13 @@ var opponent_markers_rtt = []
 var pucks_adv = []
 var pucks_rtt = []
 
+var pucks_fwd_l = []
+var pucks_fwd_m = []
+var pucks_fwd_r = []
+var pucks_bkd_l = []
+var pucks_bkd_m = []
+var pucks_bkd_r = []
+
 #var current_puck:Node = null
 
 
@@ -45,30 +52,56 @@ func opp_tick_timeout() -> void:
 	# if there are no pucks with clearance to Adv locations
 	# then select the first puck closest to an Att location
 
-	var random_num1 = randi() % selectable_pucks.size()
-	# select puck currently on opponent side
-	var current_puck = selectable_pucks[random_num1]
+	## SELECT PUCK ##
+	
+	
+	var current_puck = null
+	var random_num = randi() % selectable_pucks.size()
+	current_puck = selectable_pucks[random_num]
+	current_puck.isADV = true
+	
+#	if pucks_adv.size() > 0:
+#		# select puck currently detected in P2Adv
+#		var random_num = randi() % pucks_adv.size()
+#		current_puck = pucks_adv[random_num]
+#		current_puck.isADV = true
+#	else:
+#		# select puck currently detected in P2Rtt
+#		var random_num = randi() % pucks_rtt.size()
+#		current_puck = pucks_rtt[random_num]
+#		current_puck.isADV = false
+	
+	current_puck.start_move_to(Vector3(0.0, 1.05, -9.0))
+	
 	current_puck.isSelected = true
-	# set target destination based on OpponentMarkers
+#	prints("current selected puck is in", current_puck.cur_sector)
 	
-	var random_num2 = randi() % opponent_markers_adv.size()
-	var aim_target = opponent_markers_adv[random_num2].global_transform.origin
 	
-	current_puck.opponent_aiming_at = aim_target
-
-	# give the puck time to rotate
-	yield(get_tree().create_timer(0.5), "timeout")
-	
-	var isClear = check_clearance(current_puck, aim_target)
-	
-	if !isClear:
-		print("I couldn't line up a clear shot")
-	else:
-		print("Taking the shot!")
-		# set push force
-		current_puck.puck_push(current_puck.cur_dir, 9.0)
-
-	current_puck.isSelected = false
+#	## SELECT MARKER ##
+#	# set target destination based on OpponentMarkers
+#	var aim_target = null
+#	if current_puck.isADV:
+#		var random_num2 = randi() % opponent_markers_adv.size()
+#		aim_target = opponent_markers_adv[random_num2].global_transform.origin
+#	else:
+#		var random_num2 = randi() % opponent_markers_rtt.size()
+#		aim_target = opponent_markers_rtt[random_num2].global_transform.origin
+#
+#	current_puck.opponent_aiming_at = aim_target
+#
+#	# give the puck time to rotate
+#	yield(get_tree().create_timer(0.5), "timeout")
+#
+#	var isClear = check_clearance(current_puck, aim_target)
+#
+#	if !isClear:
+#		print("I couldn't line up a clear shot")
+#	else:
+#		print("Taking the shot!")
+#		# set push force
+#		current_puck.puck_push(current_puck.cur_dir, 9.0)
+#
+#	current_puck.isSelected = false
 	pass
 
 
@@ -141,46 +174,6 @@ func table_setup() -> void:
 		opponent_markers_adv.append(marker)
 	for marker in markers_rtt:
 		opponent_markers_rtt.append(marker)
-	
-	# P2Rtt is an Area node in table scenes that help the AI set up puck shots - they're otherwise stuck in the top half of their field and are unable to compete with the player without this.
-	# connect P2Rtt signals
-	var p2_rtt_area = table.get_node("P2Rtt")
-	if not p2_rtt_area.is_connected("body_entered", self, "_update_rtt_adv"):
-		var table_check = p2_rtt_area.connect("body_entered", self, "_update_rtt_adv", [true, p2_rtt_area.name])
-		assert(table_check == OK)
-	if not p2_rtt_area.is_connected("body_exited", self, "_update_rtt_adv"):
-		var table_check = p2_rtt_area.connect("body_exited", self, "_update_rtt_adv", [false, p2_rtt_area.name])
-		assert(table_check == OK)
-		
-	var p2_adv_area = table.get_node("P2Adv")
-	if not p2_adv_area.is_connected("body_entered", self, "_update_rtt_adv"):
-		var table_check = p2_adv_area.connect("body_entered", self, "_update_rtt_adv", [true, p2_adv_area.name])
-		assert(table_check == OK)
-	if not p2_adv_area.is_connected("body_exited", self, "_update_rtt_adv"):
-		var table_check = p2_adv_area.connect("body_exited", self, "_update_rtt_adv", [false, p2_adv_area.name])
-		assert(table_check == OK)
-	
-	pass
-
-
-func _update_rtt_adv(body:Node, isEnter:bool, area:String) -> void:
-	if body.is_in_group("pucks"):
-		if isEnter:
-			if area == "P2Rtt":
-				# append body to pucks_rtt
-				pucks_rtt.append(body)
-			else:
-				# append body to pucks_adv
-				pucks_adv.append(body)
-		else:
-			if area == "P2Rtt":
-				# remove body from pucks_rtt
-				remove_item(pucks_rtt, body)
-			else:
-				# remove body from pucks_adv
-				remove_item(pucks_adv, body)
-#	prints("pucks_rtt:", pucks_rtt)
-#	prints("pucks_adv", pucks_adv)
 
 
 func _setup_field() -> void:

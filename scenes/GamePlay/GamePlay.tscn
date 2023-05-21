@@ -1,12 +1,14 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/GamePlay/game_play.gd" type="Script" id=1]
+[ext_resource path="res://tables/classic/TableClassic.tscn" type="PackedScene" id=2]
 [ext_resource path="res://pucks/Puck-main.tscn" type="PackedScene" id=3]
 [ext_resource path="res://pucks/special/love_candy/PuckSpcl-love_heart.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/GamePlay/opponent_ai.gd" type="Script" id=5]
 
 [node name="GamePlay" type="Spatial"]
 script = ExtResource( 1 )
+table_scene = ExtResource( 2 )
 puck_scene = ExtResource( 3 )
 puck_cosmetic = ExtResource( 4 )
 isDebug = true
@@ -59,7 +61,7 @@ text = "P2: 0"
 
 [node name="OpponentAI" type="Node" parent="."]
 script = ExtResource( 5 )
-opponent_tick_rate = 0.5
+opponent_tick_rate = 1.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

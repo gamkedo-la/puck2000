@@ -1,21 +1,33 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://tables/classic/TableClassicMesh.tscn" type="PackedScene" id=1]
 
 [sub_resource type="BoxShape" id=4]
 extents = Vector3( 7, 1, 6 )
 
-[sub_resource type="BoxShape" id=7]
-extents = Vector3( 7, 1, 2 )
-
-[sub_resource type="BoxShape" id=8]
-extents = Vector3( 7, 1, 4 )
-
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 48.9013, 1, 34.6785 )
 
 [sub_resource type="ConcavePolygonShape" id=5]
 data = PoolVector3Array( -5, -0.0015, -12.0214, 5, 1.9985, -12.0214, -5, 1.9985, -12.0214, -5, -0.0015, -12.0214, 5, -0.0015, -12.0214, 5, 1.9985, -12.0214, 7, -0.0015, -10.0214, 7, 1.9985, 9.9786, 7, 1.9985, -10.0214, 7, -0.0015, -10.0214, 7, -0.0015, 9.9786, 7, 1.9985, 9.9786, 5, -0.0015, 11.9786, -5, 1.9985, 11.9786, 5, 1.9985, 11.9786, 5, -0.0015, 11.9786, -5, -0.0015, 11.9786, -5, 1.9985, 11.9786, 7, 1.9985, 9.9786, 5, -0.0015, 11.9786, 5, 1.9985, 11.9786, 7, 1.9985, 9.9786, 7, -0.0015, 9.9786, 5, -0.0015, 11.9786, -4.9985, 0, -1, -5, 1.9985, -10.0214, -5, -0.0015, -10.0214, -4.9985, 0, -1, -4.9985, 2, -1, -5, 1.9985, -10.0214, 5, 1.9985, -10.0214, -5, 1.9985, -12.0214, 5, 1.9985, -12.0214, 5, 1.9985, -10.0214, -5, 1.9985, -10.0214, -5, 1.9985, -12.0214, 5, -0.0015, -10.0214, -5, 1.9985, -10.0214, 5, 1.9985, -10.0214, 5, -0.0015, -10.0214, -5, -0.0015, -10.0214, -5, 1.9985, -10.0214, -4.9985, 0, 1, -5, 1.9985, 9.9786, -4.9985, 2, 1, -4.9985, 0, 1, -5, -0.0015, 9.9786, -5, 1.9985, 9.9786, -5, 1.9985, 9.9786, 5, 1.9985, 11.9786, -5, 1.9985, 11.9786, -5, 1.9985, 9.9786, 5, 1.9985, 9.9786, 5, 1.9985, 11.9786, -5, -0.0015, 9.9786, 5, 1.9985, 9.9786, -5, 1.9985, 9.9786, -5, -0.0015, 9.9786, 5, -0.0015, 9.9786, 5, 1.9985, 9.9786, 7, 1.9985, 9.9786, 5, 1.9985, 11.9786, 5, 1.9985, 9.9786, -7, -0.0015, 9.9786, -5, 1.9985, 11.9786, -5, -0.0015, 11.9786, -7, -0.0015, 9.9786, -7, 1.9985, 9.9786, -5, 1.9985, 11.9786, -5, 1.9985, 9.9786, -5, 1.9985, 11.9786, -7, 1.9985, 9.9786, -7, -0.0015, -10.0214, -5, 1.9985, -12.0214, -7, 1.9985, -10.0214, -7, -0.0015, -10.0214, -5, -0.0015, -12.0214, -5, 1.9985, -12.0214, -7, 1.9985, -10.0214, -5, 1.9985, -12.0214, -5, 1.9985, -10.0214, 5, -0.0015, -12.0214, 7, 1.9985, -10.0214, 5, 1.9985, -12.0214, 5, -0.0015, -12.0214, 7, -0.0015, -10.0214, 7, 1.9985, -10.0214, 5, 1.9985, -12.0214, 7, 1.9985, -10.0214, 5, 1.9985, -10.0214, 5, -0.0015, 9.9786, 4.9985, 2, 1, 5, 1.9985, 9.9786, 5, -0.0015, 9.9786, 4.9985, 0, 1, 4.9985, 2, 1, 0.991, 0, -1, 4.9985, 2, -1, 0.991, 2, -1, 0.991, 0, -1, 4.9985, 0, -1, 4.9985, 2, -1, 5, -0.0015, -10.0214, 4.9985, 2, -1, 4.9985, 0, -1, 5, -0.0015, -10.0214, 5, 1.9985, -10.0214, 4.9985, 2, -1, -0.991, 0, 1, -4.9985, 2, 1, -0.991, 2, 1, -0.991, 0, 1, -4.9985, 0, 1, -4.9985, 2, 1, 4.9985, 0, 1, 0.991, 2, 1, 4.9985, 2, 1, 4.9985, 0, 1, 0.991, 0, 1, 0.991, 2, 1, 0.991, 2, 1, 0.991, 0, -1, 0.991, 2, -1, 0.991, 2, 1, 0.991, 0, 1, 0.991, 0, -1, -4.9985, 0, -1, -0.991, 2, -1, -4.9985, 2, -1, -4.9985, 0, -1, -0.991, 0, -1, -0.991, 2, -1, -0.991, 2, 1, -0.991, 0, -1, -0.991, 0, 1, -0.991, 2, 1, -0.991, 2, -1, -0.991, 0, -1, -7, -0.0015, 9.9786, -7, 1.9985, -10.0214, -7, 1.9985, 9.9786, -7, -0.0015, 9.9786, -7, -0.0015, -10.0214, -7, 1.9985, -10.0214, 5, -0.0015, 9.9786, 5, -0.0015, 11.9786, 7, -0.0015, 9.9786, -7, -0.0015, 9.9786, -5, -0.0015, 11.9786, -5, -0.0015, 9.9786, -5, -0.0015, -10.0214, -5, -0.0015, -12.0214, -7, -0.0015, -10.0214, 5, -0.0015, -10.0214, 7, -0.0015, -10.0214, 5, -0.0015, -12.0214, 4.9985, 0, 1, 7, -0.0015, 9.9786, 4.9985, 0, -1, -5, -0.0015, 9.9786, 5, -0.0015, 11.9786, 5, -0.0015, 9.9786, -5, -0.0015, 9.9786, -5, -0.0015, 11.9786, 5, -0.0015, 11.9786, -4.9985, 0, -1, -4.9985, 0, 1, -0.991, 0, 1, 5, -0.0015, -10.0214, -5, -0.0015, -12.0214, -5, -0.0015, -10.0214, 5, -0.0015, -10.0214, 5, -0.0015, -12.0214, -5, -0.0015, -12.0214, 4.9985, 0, 1, 0.991, 0, -1, 0.991, 0, 1, 4.9985, 0, -1, 7, -0.0015, -10.0214, 5, -0.0015, -10.0214, 4.9985, 0, 1, 4.9985, 0, -1, 0.991, 0, -1, 7, -0.0015, 9.9786, 4.9985, 0, 1, 5, -0.0015, 9.9786, 4.9985, 0, -1, 7, -0.0015, 9.9786, 7, -0.0015, -10.0214, -5, -0.0015, 9.9786, -4.9985, 0, 1, -7, -0.0015, 9.9786, -7, -0.0015, 9.9786, -4.9985, 0, -1, -7, -0.0015, -10.0214, -4.9985, 0, 1, -4.9985, 0, -1, -7, -0.0015, 9.9786, -7, -0.0015, -10.0214, -4.9985, 0, -1, -5, -0.0015, -10.0214, -4.9985, 0, -1, -0.991, 0, 1, -0.991, 0, -1, -4.9985, 2, 1, -4.9985, 2, -1, -0.991, 2, -1, -4.9985, 2, -1, -7, 1.9985, -10.0214, -5, 1.9985, -10.0214, -7, 1.9985, -10.0214, -4.9985, 2, -1, -7, 1.9985, 9.9786, -7, 1.9985, 9.9786, -4.9985, 2, 1, -5, 1.9985, 9.9786, -4.9985, 2, 1, -0.991, 2, -1, -0.991, 2, 1, -7, 1.9985, 9.9786, -4.9985, 2, -1, -4.9985, 2, 1, 4.9985, 2, 1, 4.9985, 2, -1, 7, 1.9985, 9.9786, 4.9985, 2, 1, 7, 1.9985, 9.9786, 5, 1.9985, 9.9786, 7, 1.9985, 9.9786, 4.9985, 2, -1, 7, 1.9985, -10.0214, 7, 1.9985, -10.0214, 4.9985, 2, -1, 5, 1.9985, -10.0214, 4.9985, 2, -1, 0.991, 2, 1, 0.991, 2, -1, 4.9985, 2, -1, 4.9985, 2, 1, 0.991, 2, 1 )
+
+[sub_resource type="BoxShape" id=7]
+extents = Vector3( 1, 1, 2.5 )
+
+[sub_resource type="BoxShape" id=8]
+extents = Vector3( 1, 1, 2.5 )
+
+[sub_resource type="BoxShape" id=9]
+extents = Vector3( 2, 1, 2.5 )
+
+[sub_resource type="BoxShape" id=10]
+extents = Vector3( 2, 1, 2.5 )
+
+[sub_resource type="BoxShape" id=11]
+extents = Vector3( 2, 1, 2 )
+
+[sub_resource type="BoxShape" id=12]
+extents = Vector3( 2, 1, 2 )
 
 [node name="TableClassic" type="Spatial"]
 
@@ -91,22 +103,6 @@ collision_mask = 2
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -6 )
 shape = SubResource( 4 )
 
-[node name="P2Rtt" type="Area" parent="."]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape" type="CollisionShape" parent="P2Rtt"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2 )
-shape = SubResource( 7 )
-
-[node name="P2Adv" type="Area" parent="."]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape" type="CollisionShape" parent="P2Adv"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -8 )
-shape = SubResource( 8 )
-
 [node name="Board" type="StaticBody" parent="."]
 
 [node name="CollisionTable" type="CollisionShape" parent="Board"]
@@ -122,15 +118,60 @@ shape = SubResource( 5 )
 [node name="Adv" type="Spatial" parent="OpponentMarkers"]
 
 [node name="Adv1" type="Position3D" parent="OpponentMarkers/Adv"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.05, -0.665 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.05, 0.335 )
 
 [node name="Adv2" type="Position3D" parent="OpponentMarkers/Adv"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, -0.665194 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0.334806 )
 
 [node name="Adv3" type="Position3D" parent="OpponentMarkers/Adv"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.05, -0.665 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.05, 0.335 )
 
 [node name="Rtt" type="Spatial" parent="OpponentMarkers"]
 
 [node name="Rtt1" type="Position3D" parent="OpponentMarkers/Rtt"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, -10 )
+
+[node name="OpponentSectors" type="Spatial" parent="."]
+
+[node name="FWD-M" type="Area" parent="OpponentSectors" groups=["sectors"]]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="OpponentSectors/FWD-M"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -2.5 )
+shape = SubResource( 7 )
+
+[node name="BKD-M" type="Area" parent="OpponentSectors" groups=["sectors"]]
+
+[node name="CollisionShape" type="CollisionShape" parent="OpponentSectors/BKD-M"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -7.5 )
+shape = SubResource( 8 )
+
+[node name="BKD-L" type="Area" parent="OpponentSectors" groups=["sectors"]]
+
+[node name="CollisionShape" type="CollisionShape" parent="OpponentSectors/BKD-L"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, -7.5 )
+shape = SubResource( 9 )
+
+[node name="BKD-R" type="Area" parent="OpponentSectors" groups=["sectors"]]
+
+[node name="CollisionShape" type="CollisionShape" parent="OpponentSectors/BKD-R"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, -7.5 )
+shape = SubResource( 10 )
+
+[node name="FWD-L" type="Area" parent="OpponentSectors" groups=["sectors"]]
+
+[node name="CollisionShape" type="CollisionShape" parent="OpponentSectors/FWD-L"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 1, -3 )
+shape = SubResource( 11 )
+
+[node name="FWD-R" type="Area" parent="OpponentSectors" groups=["sectors"]]
+
+[node name="CollisionShape" type="CollisionShape" parent="OpponentSectors/FWD-R"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1, -3 )
+shape = SubResource( 12 )
+
+[node name="OpponentPositions" type="Spatial" parent="."]
+
+[node name="PositionShoot" type="Position3D" parent="OpponentPositions"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, -9 )

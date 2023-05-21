@@ -7,14 +7,14 @@ signal puck_spawn_finished
 
 # exported variables for debug
 # comment out when not in use
-#export (PackedScene) var table_scene
+export (PackedScene) var table_scene
 export (PackedScene) var puck_scene
 export (PackedScene) var puck_cosmetic
 export var isDebug:bool = false
 
 export var round_time:float = 90.0
 
-var table_scene:PackedScene = null
+#var table_scene:PackedScene = null
 
 var puck_spawn_pos = []
 
@@ -40,7 +40,7 @@ onready var opponent = $OpponentAI
 
 func _ready() -> void:
 
-	BGMManager.play_bgm(GAME_BGM)
+#	BGMManager.play_bgm(GAME_BGM)
 
 	if table_scene == null:
 #		print($"../SceneTransition/DataBus".selections)
