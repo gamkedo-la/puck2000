@@ -43,15 +43,20 @@ onready var camera = get_node(camera_node_path)
 onready var pointer = $Pointer
 #onready var table = $"../../Table".get_child(0)
 onready var puck_area = $Area
+onready var puck_raycasts = $Raycasts
 
 
 func _ready() -> void:
 	isSelected = false
 #	isReset = false
 	$Pointer.visible = false
+	
 	if not self.is_connected("body_entered", self, "check_collision"):
 		var puck_collide = self.connect("body_entered", self, "check_collision")
 		assert(puck_collide == OK)
+	
+	for ray in puck_raycasts.get_children():
+		ray.add_exception(self)
 	
 #	prints("found table?",table.get_node("OpponentSectors").get_children())
 	
@@ -86,7 +91,7 @@ func check_collision(body:Node) -> void:
 
 
 func check_area(area:Node) -> void:
-	prints("new area:", area, "old area:", cur_sector)
+#	prints("new area:", area, "old area:", cur_sector)
 	cur_sector = area
 	pass
 
@@ -168,6 +173,7 @@ func _process(_delta: float) -> void:
 	
 	if isSelected && isOpponent && isDebug:
 		$Debug.visible = true
+		pass
 	else:
 		$Debug.visible = false
 
