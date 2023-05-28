@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://pucks/standard/puck-standard-placeholder.material" type="Material" id=1]
 [ext_resource path="res://pucks/puck.gd" type="Script" id=2]
+[ext_resource path="res://common/lathe_rotate.gd" type="Script" id=3]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "puck-std_Cylinder002"
@@ -32,6 +33,13 @@ albedo_color = Color( 1, 0, 0, 1 )
 [sub_resource type="CylinderShape" id=5]
 height = 0.4
 radius = 0.5
+
+[sub_resource type="PrismMesh" id=6]
+size = Vector3( 0.5, 0.5, 0.1 )
+
+[sub_resource type="SpatialMaterial" id=7]
+flags_unshaded = true
+albedo_color = Color( 0.819608, 0.164706, 0.164706, 1 )
 
 [node name="Puck" type="RigidBody" groups=["pucks"]]
 collision_layer = 2
@@ -72,23 +80,36 @@ mesh = SubResource( 2 )
 skeleton = NodePath("../..")
 material/0 = SubResource( 3 )
 
-[node name="RayOrigins" type="Spatial" parent="."]
+[node name="Raycasts" type="Spatial" parent="."]
 
-[node name="RayOrigin1" type="RayCast" parent="RayOrigins"]
+[node name="Raycast1" type="RayCast" parent="Raycasts"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0.5 )
 enabled = true
 cast_to = Vector3( 0, 0, 10 )
 
-[node name="RayOrigin2" type="Position3D" parent="RayOrigins"]
+[node name="Raycast2" type="RayCast" parent="Raycasts"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.25, 0 )
+enabled = true
+cast_to = Vector3( 0, 0, 10 )
 
-[node name="RayOrigin3" type="Position3D" parent="RayOrigins"]
+[node name="Raycast3" type="RayCast" parent="Raycasts"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.25, 0 )
+enabled = true
+cast_to = Vector3( 0, 0, 10 )
 
 [node name="Area" type="Area" parent="."]
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.202574, 0 )
 shape = SubResource( 5 )
+
+[node name="Debug" type="Spatial" parent="."]
+
+[node name="Arrow" type="MeshInstance" parent="Debug"]
+transform = Transform( 1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 1, 0 )
+mesh = SubResource( 6 )
+material/0 = SubResource( 7 )
+script = ExtResource( 3 )
+rotation_speed = 0.05
 
 [connection signal="input_event" from="." to="." method="_on_Puck_input_event"]

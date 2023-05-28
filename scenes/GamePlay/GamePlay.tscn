@@ -3,7 +3,7 @@
 [ext_resource path="res://scenes/GamePlay/game_play.gd" type="Script" id=1]
 [ext_resource path="res://tables/classic/TableClassic.tscn" type="PackedScene" id=2]
 [ext_resource path="res://pucks/Puck-main.tscn" type="PackedScene" id=3]
-[ext_resource path="res://pucks/special/love_candy/PuckSpcl-love_heart.tscn" type="PackedScene" id=4]
+[ext_resource path="res://pucks/standard/PStd-Standard.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/GamePlay/opponent_ai.gd" type="Script" id=5]
 
 [node name="GamePlay" type="Spatial"]

@@ -165,6 +165,11 @@ func _process(_delta: float) -> void:
 		# set areas to deem priority of pucks
 		find_target_pos_auto(opponent_aiming_at)		
 		pass
+	
+	if isSelected && isOpponent && isDebug:
+		$Debug.visible = true
+	else:
+		$Debug.visible = false
 
 
 func find_target_pos() -> void:

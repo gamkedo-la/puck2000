@@ -103,75 +103,24 @@ func opp_tick_timeout() -> void:
 #		# set push force
 #		current_puck.puck_push(current_puck.cur_dir, 9.0)
 #
-#	current_puck.isSelected = false
+	current_puck.isSelected = false
 	pass
 
 
 func check_clearance(puck:Node, target:Vector3) -> bool:
 	
-	# TODO: Change code to make use of Raycast nodes instead of trying to check via script
-	
-	# Get all RayOrigins locations
-	var puck_ray_origins = puck.get_node("RayOrigins").get_children()
-	
-	# Rays are ordered as 0 = front, 1 = left, 2 = right
-	var ray_origins = []
-	for i in puck_ray_origins.size():
-		var ray_origin_pos = puck_ray_origins[i].global_transform.origin
-		ray_origins.append(ray_origin_pos)
-	
-	var main_direction = target - ray_origins[0]
-	var main_magnitude = main_direction.length()
-	
-	prints("main_magnitude:", main_magnitude)	
-	
-	# The ray_ends are so raycasts are parallel - to reflect the width of the puck
-	var ray_ends = []
-	ray_ends.append(Vector3(target.x, ray_origins[0].y, target.z)) # the 3DPosition node in the table scene as is
-	ray_ends.append(Vector3(target.x, ray_origins[1].y, target.z)) # to the left of that node
-	
-	ray_ends.append(Vector3(target.x + puck_ray_origins[2].transform.origin.x, ray_origins[2].y, target.z + puck_ray_origins[2].transform.origin.z)) # to the right of that node
-
-#	ray_ends.append((Vector3(target.x + puck_ray_origins[2].transform.origin.x, ray_origins[2].y, target.z) - ray_origins[2]).normalized() * main_magnitude) # to the right of that node
-	
-#	ray_ends.append(Vector3(target.x + puck_ray_origins[2].transform.origin.x, ray_origins[2].y, target.z).normalized() * main_magnitude) # to the right of that node
-	# TODO: There's still an issue with the raycast vector maths here - what happens if the raycasts are fired when the puck hasn't had time to turn to face the target yet?
-	
-	var all_ray_points = [ray_origins, ray_ends]
-	
-#	print("ray_origins: ", ray_origins)
-#	print("ray_ends: ", ray_ends)
-
-#	if puck.isDebug:
-#
-#		for i in all_ray_points[0].size():
-#			var ray_origin = all_ray_points[0][i]
-#			var ray_end = all_ray_points[1][i]
-#			DebugDraw.draw_line_3d(ray_origin, ray_end, Color(0, 1, 0))
-
-	# get current physics state
-	var space_state = puck.get_world().direct_space_state
-	
 	var collision_mask = (1 << 1) | (1 << 2) | (1 << 3)
 	
-	var results = []
-	# get the ray hits
-	for i in all_ray_points[0].size():
-		var ray_origin = all_ray_points[0][i]
-		var ray_end = all_ray_points[1][i]
-		var temp_result = space_state.intersect_ray(ray_origin, ray_end, [], collision_mask)
-		results.append(temp_result)
-
-#	print("raycast intersect results: ", results)
-
-	for result in results:
-		if not result.empty():
-#			print("I hit something")
-			print(result.collider, " is blocking the way")
-			return false
-		else:
-#			print("Nothing in the way")
-			pass
+	# TODO: Change code to make use of Raycast nodes instead of trying to check via script
+	
+	var puck_raycast = puck.get_node("Raycasts").get_node("Raycast1")
+	
+	puck_raycast.set_collision_mask(collision_mask)
+	print("puck raycast colliding with ",puck_raycast.get_collider())
+	
+	# use collision mask to check objects in the way
+	# must return true or false
+	return false
 	
 	return true
 
