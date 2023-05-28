@@ -28,6 +28,10 @@ var pucks_bkd_l = []
 var pucks_bkd_m = []
 var pucks_bkd_r = []
 
+## AI random number modifier variables ##
+var confidence_base:float = 1.0
+var confidence_sector:float = 0.0
+
 #var current_puck:Node = null
 
 
@@ -53,15 +57,36 @@ func opp_tick_timeout() -> void:
 	# then select the first puck closest to an Att location
 
 	## SELECT PUCK ##
-	
-	
 	var current_puck = null
 	var random_num = randi() % selectable_pucks.size()
 	current_puck = selectable_pucks[random_num]
 	current_puck.isADV = true
 	
+	
+	
+	
 	# check which sector selected puck is currently in
-	prints("selected puck is situated: ", current_puck.cur_sector)
+#	prints("selected puck is situated: ", current_puck.cur_sector)
+	
+	match current_puck.cur_sector.name:
+		"FWD-M":
+			print("we're in FWD-M")
+			confidence_sector = 9.0
+		"BKD-M":
+			print("we're in BKD-M")
+			confidence_sector = 7.0
+		"BKD-L":
+			print("we're in BKD-L")
+			confidence_sector = 4.0
+		"BKD-R":
+			print("we're in BKD-R")
+			confidence_sector = 4.0
+		"FWD-L":
+			print("we're in FWD-L")
+			confidence_sector = 1.0
+		"FWD-R":
+			print("we're in FWD-R")
+			confidence_sector = 1.0
 	
 #	if pucks_adv.size() > 0:
 #		# select puck currently detected in P2Adv
@@ -73,11 +98,9 @@ func opp_tick_timeout() -> void:
 #		var random_num = randi() % pucks_rtt.size()
 #		current_puck = pucks_rtt[random_num]
 #		current_puck.isADV = false
-	
-	
+
 	current_puck.isSelected = true
 #	prints("current selected puck is in", current_puck.cur_sector)
-	
 	
 #	## SELECT MARKER ##
 #	# set target destination based on OpponentMarkers
@@ -159,6 +182,19 @@ func table_setup() -> void:
 		opponent_markers_adv.append(marker)
 	for marker in markers_rtt:
 		opponent_markers_rtt.append(marker)
+	
+	# connect signals for $OpponentSectors children nodes
+	# used to check which sectors have which pucks
+	
+	var opp_sectors = table.get_node("OpponentSectors")
+	
+	var sector_fwd_m = opp_sectors.get_node("FWD-M")
+	if not sector_fwd_m.is_connected("body_entered", self, "_update_puck_sector_lists"):
+		var sector_check = sector_fwd_m.connect("body_entered", self, "_update_puck_sector_lists", ["FWD-M", true])
+		assert(sector_check == OK)
+	if not sector_fwd_m.is_connected("body_exited", self, "_update_puck_sector_lists"):
+		var sector_check = sector_fwd_m.connect("body_exited", self, "_update_puck_sector_lists", ["FWD-M", false])
+		assert(sector_check == OK)
 
 
 func _setup_field() -> void:
@@ -176,6 +212,34 @@ func update_opponent_pucklist(puck:Node) -> void:
 	else:
 #		prints("puck has exited opponent's side")
 		remove_item(selectable_pucks, puck)
+
+
+func _update_puck_sector_lists(body:Node, sector:String, isAppend:bool) -> void: 
+	
+	prints("_update_puck_sector_lists:",body,sector)
+	
+	match sector:
+		"FWD-M":
+			if isAppend:
+				pucks_fwd_m.append(body)
+				prints("add puck!", body, pucks_fwd_m)
+			else:
+				remove_item(pucks_fwd_m, body)
+				prints("remove puck!", body, pucks_fwd_m)
+		"BKD-M":
+			pucks_bkd_m.append(body)
+		"BKD-L":
+			pucks_bkd_l.append(body)
+		"BKD-R":
+			pucks_bkd_r.append(body)
+		"FWD-L":
+			pucks_fwd_l.append(body)
+		"FWD-R":
+			pucks_fwd_r.append(body)
+		_:
+			printerr("uh oh, something went wrong in _update_puck_sector_lists()")
+	
+	pass
 
 
 func remove_item(array:Array, item):

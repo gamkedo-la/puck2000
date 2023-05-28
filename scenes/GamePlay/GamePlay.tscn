@@ -20,6 +20,7 @@ current = true
 
 [node name="DebugCamera" type="Camera" parent="."]
 transform = Transform( 0.982117, 0.0656204, -0.176467, 0, 0.937294, 0.348538, 0.188273, -0.342305, 0.920533, -2.14355, 4.18367, 0.0123215 )
+visible = false
 __meta__ = {
 "_editor_description_": "Feel free to move this one around to assess the gameplay. Check the \"Current\" tickbox to enable."
 }
