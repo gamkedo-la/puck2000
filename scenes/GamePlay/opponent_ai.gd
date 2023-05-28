@@ -21,11 +21,11 @@ var opponent_markers_rtt = []
 var pucks_adv = []
 var pucks_rtt = []
 
-var pucks_fwd_l = []
 var pucks_fwd_m = []
+var pucks_bkd_m = []
+var pucks_fwd_l = []
 var pucks_fwd_r = []
 var pucks_bkd_l = []
-var pucks_bkd_m = []
 var pucks_bkd_r = []
 
 ## AI random number modifier variables ##
@@ -58,12 +58,10 @@ func opp_tick_timeout() -> void:
 
 	## SELECT PUCK ##
 	var current_puck = null
-	var random_num = randi() % selectable_pucks.size()
-	current_puck = selectable_pucks[random_num]
+#	var random_num = randi() % selectable_pucks.size()
+#	current_puck = selectable_pucks[random_num]
+	current_puck = select_puck_from_sectors()
 	current_puck.isADV = true
-	
-	
-	
 	
 	# check which sector selected puck is currently in
 #	prints("selected puck is situated: ", current_puck.cur_sector)
@@ -300,6 +298,31 @@ func _update_puck_sector_lists(body:Node, sector:String, isAppend:bool) -> void:
 #	printt(pucks_fwd_m,pucks_bkd_m,pucks_fwd_l,pucks_fwd_r,pucks_bkd_l,pucks_bkd_r)
 	
 	pass
+
+
+func select_puck_from_sectors() -> Node:
+#	selects puck in a priority order
+	if pucks_fwd_m.size() > 0:
+		var random_num = randi() % pucks_fwd_m.size()
+		return pucks_fwd_m[random_num]
+	elif pucks_bkd_m.size() > 0:
+		var random_num = randi() % pucks_bkd_m.size()
+		return pucks_bkd_m[random_num]
+	elif pucks_fwd_l.size() > 0:
+		var random_num = randi() % pucks_fwd_l.size()
+		return pucks_fwd_l[random_num]
+	elif pucks_fwd_r.size() > 0:
+		var random_num = randi() % pucks_fwd_r.size()
+		return pucks_fwd_r[random_num]
+	elif pucks_bkd_l.size() > 0:
+		var random_num = randi() % pucks_bkd_l.size()
+		return pucks_bkd_l[random_num]
+	elif pucks_bkd_r.size() > 0:
+		var random_num = randi() % pucks_bkd_r.size()
+		return pucks_bkd_r[random_num]
+	else:
+		var random_num = randi() % selectable_pucks.size()
+		return selectable_pucks[random_num]
 
 
 func remove_item(array:Array, item):
