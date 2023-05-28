@@ -195,6 +195,46 @@ func table_setup() -> void:
 	if not sector_fwd_m.is_connected("body_exited", self, "_update_puck_sector_lists"):
 		var sector_check = sector_fwd_m.connect("body_exited", self, "_update_puck_sector_lists", ["FWD-M", false])
 		assert(sector_check == OK)
+	
+	var sector_bkd_m = opp_sectors.get_node("BKD-M")
+	if not sector_bkd_m.is_connected("body_entered", self, "_update_puck_sector_lists"):
+		var sector_check = sector_bkd_m.connect("body_entered", self, "_update_puck_sector_lists", ["BKD-M", true])
+		assert(sector_check == OK)
+	if not sector_bkd_m.is_connected("body_exited", self, "_update_puck_sector_lists"):
+		var sector_check = sector_bkd_m.connect("body_exited", self, "_update_puck_sector_lists", ["BKD-M", false])
+		assert(sector_check == OK)
+
+	var sector_bkd_l = opp_sectors.get_node("BKD-L")
+	if not sector_bkd_l.is_connected("body_entered", self, "_update_puck_sector_lists"):
+		var sector_check = sector_bkd_l.connect("body_entered", self, "_update_puck_sector_lists", ["BKD-L", true])
+		assert(sector_check == OK)
+	if not sector_bkd_l.is_connected("body_exited", self, "_update_puck_sector_lists"):
+		var sector_check = sector_bkd_l.connect("body_exited", self, "_update_puck_sector_lists", ["BKD-L", false])
+		assert(sector_check == OK)
+
+	var sector_bkd_r = opp_sectors.get_node("BKD-R")
+	if not sector_bkd_r.is_connected("body_entered", self, "_update_puck_sector_lists"):
+		var sector_check = sector_bkd_r.connect("body_entered", self, "_update_puck_sector_lists", ["BKD-R", true])
+		assert(sector_check == OK)
+	if not sector_bkd_r.is_connected("body_exited", self, "_update_puck_sector_lists"):
+		var sector_check = sector_bkd_r.connect("body_exited", self, "_update_puck_sector_lists", ["BKD-R", false])
+		assert(sector_check == OK)
+
+	var sector_fwd_l = opp_sectors.get_node("FWD-L")
+	if not sector_fwd_l.is_connected("body_entered", self, "_update_puck_sector_lists"):
+		var sector_check = sector_fwd_l.connect("body_entered", self, "_update_puck_sector_lists", ["FWD-L", true])
+		assert(sector_check == OK)
+	if not sector_fwd_l.is_connected("body_exited", self, "_update_puck_sector_lists"):
+		var sector_check = sector_fwd_l.connect("body_exited", self, "_update_puck_sector_lists", ["FWD-L", false])
+		assert(sector_check == OK)
+
+	var sector_fwd_r = opp_sectors.get_node("FWD-R")
+	if not sector_fwd_r.is_connected("body_entered", self, "_update_puck_sector_lists"):
+		var sector_check = sector_fwd_r.connect("body_entered", self, "_update_puck_sector_lists", ["FWD-R", true])
+		assert(sector_check == OK)
+	if not sector_fwd_r.is_connected("body_exited", self, "_update_puck_sector_lists"):
+		var sector_check = sector_fwd_r.connect("body_exited", self, "_update_puck_sector_lists", ["FWD-R", false])
+		assert(sector_check == OK)
 
 
 func _setup_field() -> void:
@@ -216,28 +256,48 @@ func update_opponent_pucklist(puck:Node) -> void:
 
 func _update_puck_sector_lists(body:Node, sector:String, isAppend:bool) -> void: 
 	
-	prints("_update_puck_sector_lists:",body,sector)
+#	prints("_update_puck_sector_lists:",body,sector)
+	
+	if !body.is_in_group("pucks"):
+		return
 	
 	match sector:
 		"FWD-M":
 			if isAppend:
 				pucks_fwd_m.append(body)
-				prints("add puck!", body, pucks_fwd_m)
+#				prints("add puck!", body, pucks_fwd_m)
 			else:
 				remove_item(pucks_fwd_m, body)
-				prints("remove puck!", body, pucks_fwd_m)
+#				prints("remove puck!", body, pucks_fwd_m)
 		"BKD-M":
-			pucks_bkd_m.append(body)
+			if isAppend:
+				pucks_bkd_m.append(body)
+			else:
+				remove_item(pucks_bkd_m, body)
 		"BKD-L":
-			pucks_bkd_l.append(body)
+			if isAppend:
+				pucks_bkd_l.append(body)
+			else:
+				remove_item(pucks_bkd_l, body)
 		"BKD-R":
-			pucks_bkd_r.append(body)
+			if isAppend:
+				pucks_bkd_r.append(body)
+			else:
+				remove_item(pucks_bkd_r, body)
 		"FWD-L":
-			pucks_fwd_l.append(body)
+			if isAppend:
+				pucks_fwd_l.append(body)
+			else:
+				remove_item(pucks_fwd_l, body)
 		"FWD-R":
-			pucks_fwd_r.append(body)
+			if isAppend:
+				pucks_fwd_r.append(body)
+			else:
+				remove_item(pucks_fwd_r, body)
 		_:
 			printerr("uh oh, something went wrong in _update_puck_sector_lists()")
+		
+#	printt(pucks_fwd_m,pucks_bkd_m,pucks_fwd_l,pucks_fwd_r,pucks_bkd_l,pucks_bkd_r)
 	
 	pass
 
