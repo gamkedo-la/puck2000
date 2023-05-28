@@ -98,6 +98,12 @@ func opp_tick_timeout() -> void:
 
 	if !isClear:
 		print("I couldn't line up a clear shot")
+		var obstruction = check_ahead(current_puck)
+		
+		if obstruction != current_puck && obstruction.is_in_group("pucks") :
+			print("Taking the shot anyway!")
+			current_puck.puck_push(current_puck.cur_dir, 9.0)
+
 	else:
 		print("Taking the shot!")
 		# set push force
@@ -126,6 +132,19 @@ func check_clearance(puck:Node, target:Vector3) -> bool:
 	else:
 		return true
 	# must return true or false
+
+
+func check_ahead(puck:Node) -> Node:
+	var collision_mask = (1 << 1) | (1 << 2) | (1 << 3)
+	var puck_raycast = puck.get_node("Raycasts").get_node("Raycast1")
+	# use collision mask to check objects in the way
+	puck_raycast.set_collision_mask(collision_mask)
+	var raycast_result = puck_raycast.get_collider()
+
+	if raycast_result != null:
+		return raycast_result
+	else:
+		return puck
 
 
 func table_setup() -> void:
