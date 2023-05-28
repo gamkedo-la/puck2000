@@ -32,9 +32,6 @@ var cur_sector:Area
 var target_position: Vector3
 var initial_position: Vector3
 var final_position: Vector3
-var elapsed_time: float
-var move_duration: float = 1.0
-var moveStarted: bool = false
 
 var isSelected:bool = false
 var isADV:bool = true # a check for opp ai to decide what kind of target marker to aim at - check oponent_ai.gd
@@ -143,20 +140,6 @@ func _integrate_forces(state: PhysicsDirectBodyState) -> void:
 		look_follow(state, get_global_transform(), targetDest)
 		check_force(get_global_transform(), targetDest)
 
-#		move_to_bakedpos(state, Vector3(0.0, 1.05, -9.0))
-	if moveStarted:
-		elapsed_time += state.get_step()
-		var t = clamp(elapsed_time / move_duration, 0.0, 1.0)
-		global_transform.origin = initial_position.linear_interpolate(target_position, t)
-		
-		if t>= 1.0:
-			global_transform.origin = target_position
-			final_position = target_position
-			moveStarted = false
-			mode = MODE_RIGID
-			state.set_transform(global_transform) # Update physics state
-	pass
-
 
 func _process(_delta: float) -> void:
 
@@ -174,15 +157,6 @@ func _process(_delta: float) -> void:
 		# set areas to deem priority of pucks
 		find_target_pos_auto(opponent_aiming_at)		
 		pass
-
-
-# called from opponent_ai.gd
-func start_move_to(target:Vector3) -> void:
-	initial_position = global_transform.origin
-	target_position = target
-	elapsed_time = 0.0
-	moveStarted = true
-	mode = MODE_KINEMATIC
 
 
 func find_target_pos() -> void:
@@ -233,9 +207,9 @@ func find_target_pos_auto(target:Vector3) -> void:
 	pass
 
 
-func move_to_bakedpos(target_pos:Vector3) -> void:
-	global_transform.origin = target_pos
-	pass
+#func move_to_bakedpos(target_pos:Vector3) -> void:
+#	global_transform.origin = target_pos
+#	pass
 
 
 func puck_push(direction:Vector3, force:float) -> void:

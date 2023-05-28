@@ -71,7 +71,6 @@ func opp_tick_timeout() -> void:
 #		current_puck = pucks_rtt[random_num]
 #		current_puck.isADV = false
 	
-	current_puck.start_move_to(Vector3(0.0, 1.05, -9.0))
 	
 	current_puck.isSelected = true
 #	prints("current selected puck is in", current_puck.cur_sector)
