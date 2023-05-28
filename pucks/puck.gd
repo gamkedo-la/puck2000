@@ -41,7 +41,8 @@ var last_hit:Node = null
 
 onready var camera = get_node(camera_node_path)
 onready var pointer = $Pointer
-onready var table = $"../../Table".get_child(0)
+#onready var table = $"../../Table".get_child(0)
+onready var puck_area = $Area
 
 
 func _ready() -> void:
@@ -52,10 +53,17 @@ func _ready() -> void:
 		var puck_collide = self.connect("body_entered", self, "check_collision")
 		assert(puck_collide == OK)
 	
+#	prints("found table?",table.get_node("OpponentSectors").get_children())
+	
 #	for area in table.get_node("OpponentSectors").get_children():
 #		if not area.is_connected("area_entered", self, "check_area"):
 #			var sector_area = area.connect("area_entered", self, "check_area")
 #			assert(sector_area == OK)
+
+	# connect signal for area on Puck-main.tscn to detect being inside of OpponentSectors areas
+	if not puck_area.is_connected("area_entered", self, "check_area"):
+		var puck_area_check = puck_area.connect("area_entered", self, "check_area")
+		assert(puck_area_check == OK)	
 	
 	if isOpponent:
 		_opponent_setup()
@@ -78,8 +86,8 @@ func check_collision(body:Node) -> void:
 
 
 func check_area(area:Node) -> void:
+	prints("new area:", area, "old area:", cur_sector)
 	cur_sector = area
-	prints(area, cur_sector)
 	pass
 
 

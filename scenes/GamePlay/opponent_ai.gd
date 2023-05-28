@@ -60,6 +60,9 @@ func opp_tick_timeout() -> void:
 	current_puck = selectable_pucks[random_num]
 	current_puck.isADV = true
 	
+	# check which sector selected puck is currently in
+	prints("selected puck is situated: ", current_puck.cur_sector)
+	
 #	if pucks_adv.size() > 0:
 #		# select puck currently detected in P2Adv
 #		var random_num = randi() % pucks_adv.size()
@@ -78,20 +81,20 @@ func opp_tick_timeout() -> void:
 	
 #	## SELECT MARKER ##
 #	# set target destination based on OpponentMarkers
-#	var aim_target = null
-#	if current_puck.isADV:
-#		var random_num2 = randi() % opponent_markers_adv.size()
-#		aim_target = opponent_markers_adv[random_num2].global_transform.origin
-#	else:
-#		var random_num2 = randi() % opponent_markers_rtt.size()
-#		aim_target = opponent_markers_rtt[random_num2].global_transform.origin
-#
-#	current_puck.opponent_aiming_at = aim_target
-#
-#	# give the puck time to rotate
-#	yield(get_tree().create_timer(0.5), "timeout")
-#
-#	var isClear = check_clearance(current_puck, aim_target)
+	var aim_target = null
+	if current_puck.isADV:
+		var random_num2 = randi() % opponent_markers_adv.size()
+		aim_target = opponent_markers_adv[random_num2].global_transform.origin
+	else:
+		var random_num2 = randi() % opponent_markers_rtt.size()
+		aim_target = opponent_markers_rtt[random_num2].global_transform.origin
+
+	current_puck.opponent_aiming_at = aim_target
+
+	# give the puck time to rotate
+	yield(get_tree().create_timer(0.5), "timeout")
+
+	var isClear = check_clearance(current_puck, aim_target)
 #
 #	if !isClear:
 #		print("I couldn't line up a clear shot")
@@ -106,6 +109,8 @@ func opp_tick_timeout() -> void:
 
 func check_clearance(puck:Node, target:Vector3) -> bool:
 	
+	# TODO: Change code to make use of Raycast nodes instead of trying to check via script
+	
 	# Get all RayOrigins locations
 	var puck_ray_origins = puck.get_node("RayOrigins").get_children()
 	
@@ -115,11 +120,21 @@ func check_clearance(puck:Node, target:Vector3) -> bool:
 		var ray_origin_pos = puck_ray_origins[i].global_transform.origin
 		ray_origins.append(ray_origin_pos)
 	
+	var main_direction = target - ray_origins[0]
+	var main_magnitude = main_direction.length()
+	
+	prints("main_magnitude:", main_magnitude)	
+	
 	# The ray_ends are so raycasts are parallel - to reflect the width of the puck
 	var ray_ends = []
 	ray_ends.append(Vector3(target.x, ray_origins[0].y, target.z)) # the 3DPosition node in the table scene as is
-	ray_ends.append(Vector3(target.x + puck_ray_origins[1].transform.origin.x, ray_origins[1].y, target.z)) # to the left of that node
-	ray_ends.append(Vector3(target.x + puck_ray_origins[2].transform.origin.x, ray_origins[2].y, target.z)) # to the left of that node
+	ray_ends.append(Vector3(target.x, ray_origins[1].y, target.z)) # to the left of that node
+	
+	ray_ends.append(Vector3(target.x + puck_ray_origins[2].transform.origin.x, ray_origins[2].y, target.z + puck_ray_origins[2].transform.origin.z)) # to the right of that node
+
+#	ray_ends.append((Vector3(target.x + puck_ray_origins[2].transform.origin.x, ray_origins[2].y, target.z) - ray_origins[2]).normalized() * main_magnitude) # to the right of that node
+	
+#	ray_ends.append(Vector3(target.x + puck_ray_origins[2].transform.origin.x, ray_origins[2].y, target.z).normalized() * main_magnitude) # to the right of that node
 	# TODO: There's still an issue with the raycast vector maths here - what happens if the raycasts are fired when the puck hasn't had time to turn to face the target yet?
 	
 	var all_ray_points = [ray_origins, ray_ends]
@@ -127,12 +142,12 @@ func check_clearance(puck:Node, target:Vector3) -> bool:
 #	print("ray_origins: ", ray_origins)
 #	print("ray_ends: ", ray_ends)
 
-	if puck.isDebug:
-		
-		for i in all_ray_points[0].size():
-			var ray_origin = all_ray_points[0][i]
-			var ray_end = all_ray_points[1][i]
-			DebugDraw.draw_line_3d(ray_origin, ray_end, Color(0, 1, 0))
+#	if puck.isDebug:
+#
+#		for i in all_ray_points[0].size():
+#			var ray_origin = all_ray_points[0][i]
+#			var ray_end = all_ray_points[1][i]
+#			DebugDraw.draw_line_3d(ray_origin, ray_end, Color(0, 1, 0))
 
 	# get current physics state
 	var space_state = puck.get_world().direct_space_state

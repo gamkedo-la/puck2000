@@ -74,13 +74,21 @@ material/0 = SubResource( 3 )
 
 [node name="RayOrigins" type="Spatial" parent="."]
 
-[node name="RayOrigin1" type="Position3D" parent="RayOrigins"]
+[node name="RayOrigin1" type="RayCast" parent="RayOrigins"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0.5 )
+enabled = true
+cast_to = Vector3( 0, 0, 10 )
 
 [node name="RayOrigin2" type="Position3D" parent="RayOrigins"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.25, 0 )
 
 [node name="RayOrigin3" type="Position3D" parent="RayOrigins"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.25, 0 )
+
+[node name="Area" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.202574, 0 )
+shape = SubResource( 5 )
 
 [connection signal="input_event" from="." to="." method="_on_Puck_input_event"]
