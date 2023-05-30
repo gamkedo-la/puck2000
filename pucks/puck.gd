@@ -16,6 +16,7 @@ export var push_force_multiplier:float = 2.0
 export var push_force:float
 export var isDebug:bool = false
 export var isOpponent:bool = false
+export var last_touch_duration:float = 1.0
 
 const SFX_PUCK_COLLISION_0 = preload("res://audio/sfx/puck_impact_000.ogg")
 
@@ -36,8 +37,11 @@ var final_position: Vector3
 var isSelected:bool = false
 var isADV:bool = true # a check for opp ai to decide what kind of target marker to aim at - check oponent_ai.gd
 #var isReset:bool = false
+var isLastTouched = false
 var isPreparing:bool = false
 var last_hit:Node = null
+
+var last_touch_timer = null # cooldown on when AI last selected puck
 
 onready var camera = get_node(camera_node_path)
 onready var pointer = $Pointer
@@ -57,7 +61,7 @@ func _ready() -> void:
 	
 	for ray in puck_raycasts.get_children():
 		ray.add_exception(self)
-	
+	_setup_last_touch()
 #	prints("found table?",table.get_node("OpponentSectors").get_children())
 	
 #	for area in table.get_node("OpponentSectors").get_children():
@@ -250,6 +254,7 @@ func _unhandled_input(event: InputEvent) -> void:
 #		print("deselect")
 		pointer.visible = false
 		isSelected = false
+		last_touch_timeout() # reset any lingering isLastTouched
 		puck_push(cur_dir, push_force)
 
 
@@ -265,3 +270,24 @@ func _on_Puck_input_event(_camera: Node, event: InputEvent, _position: Vector3, 
 		isSelected = true
 #		emit_signal("puck_selected", self)
 
+
+func last_touch_timeout() -> void:
+	isLastTouched = false
+	last_touch_timer.stop()
+	last_touch_timer.wait_time = last_touch_duration
+
+
+func _setup_last_touch() -> void:
+	# add a timer
+	last_touch_timer = Timer.new()
+	add_child(last_touch_timer)
+	last_touch_timeout() # set the wait_time for the first time
+	last_touch_timer.connect("timeout", self, "last_touch_timeout")
+	if not last_touch_timer.is_connected("timeout", self, "last_touch_timeout"):
+		var last_touch_check = last_touch_timer.connect("timeout", self, "last_touch_timeout")
+		assert(last_touch_check == OK)
+
+
+func last_touch_start() -> void:
+	isLastTouched = true
+	last_touch_timer.start()

@@ -61,7 +61,6 @@ func opp_tick_timeout() -> void:
 #	var random_num = randi() % selectable_pucks.size()
 #	current_puck = selectable_pucks[random_num]
 	current_puck = select_puck_from_sectors()
-	current_puck.isADV = true
 	
 	# check which sector selected puck is currently in
 #	prints("selected puck is situated: ", current_puck.cur_sector)
@@ -76,13 +75,13 @@ func opp_tick_timeout() -> void:
 				confidence_sector = 9.0
 			"BKD-M":
 				print("we're in BKD-M")
-				confidence_sector = 7.0
+				confidence_sector = 8.0
 			"BKD-L":
 				print("we're in BKD-L")
-				confidence_sector = 4.0
+				confidence_sector = 8.0
 			"BKD-R":
 				print("we're in BKD-R")
-				confidence_sector = 4.0
+				confidence_sector = 8.0
 			"FWD-L":
 				print("we're in FWD-L")
 				confidence_sector = 1.0
@@ -91,7 +90,13 @@ func opp_tick_timeout() -> void:
 				confidence_sector = 1.0
 			_:
 				printerr("opponent_ai.gd: current_puck.cur_sector is null, check the match statement in opp_tick_timeout()")
+	else:
+		confidence_sector = 10.0
 	
+	if confidence_sector < 5.0:
+		current_puck.isADV = false
+	else:
+		current_puck.isADV = true
 #	if pucks_adv.size() > 0:
 #		# select puck currently detected in P2Adv
 #		var random_num = randi() % pucks_adv.size()
@@ -138,6 +143,7 @@ func opp_tick_timeout() -> void:
 
 	current_puck.isADV = false
 	current_puck.isSelected = false
+	current_puck.last_touch_start()
 	pass
 
 
@@ -245,7 +251,9 @@ func _setup_field() -> void:
 	# add a timer
 	opponent_tick = Timer.new()
 	add_child(opponent_tick)
-	opponent_tick.connect("timeout", self, "opp_tick_timeout")
+	if not opponent_tick.is_connected("timeout", self, "opp_tick_timeout"):
+		var tick_check = opponent_tick.connect("timeout", self, "opp_tick_timeout")
+		assert(tick_check == OK)
 	pass
 
 
@@ -310,32 +318,62 @@ func select_puck_from_sectors() -> Node:
 #	selects puck in a priority order
 	var selected = null
 	
-#	while selected == null:
-	if pucks_fwd_m.size() > 0:
-		var random_num = randi() % pucks_fwd_m.size()
-		selected = pucks_fwd_m[random_num]
+	var sectors_by_priority = [
+		pucks_fwd_m, pucks_bkd_m, pucks_fwd_l, pucks_fwd_r, pucks_bkd_l, pucks_bkd_r
+	]
+	
+	var isClean = false
+	
+	for sector in sectors_by_priority:
+		if sector.empty():
+			continue  # Skip to the next sector if the current sector is empty
+		
+		for puck in sector:
+			
+			if !puck.isLastTouched:
+				selected = puck
+				isClean = true
+				break  # Exit the inner loop if isLastTouched is false
+		
+		if isClean:
+			break  # Exit the outer loop if isLastTouched is false
+	if isClean:
 		return selected
-#			if !selected.isDirty:
-#				return selected
-	elif pucks_bkd_m.size() > 0:
-		var random_num = randi() % pucks_bkd_m.size()
-		return pucks_bkd_m[random_num]
-	elif pucks_fwd_l.size() > 0:
-		var random_num = randi() % pucks_fwd_l.size()
-		return pucks_fwd_l[random_num]
-	elif pucks_fwd_r.size() > 0:
-		var random_num = randi() % pucks_fwd_r.size()
-		return pucks_fwd_r[random_num]
-	elif pucks_bkd_l.size() > 0:
-		var random_num = randi() % pucks_bkd_l.size()
-		return pucks_bkd_l[random_num]
-	elif pucks_bkd_r.size() > 0:
-		var random_num = randi() % pucks_bkd_r.size()
-		return pucks_bkd_r[random_num]
 	else:
+		# just pick any available puck on opponent side
 		var random_num = randi() % selectable_pucks.size()
-		selected = selectable_pucks[random_num]
+		return selectable_pucks[random_num]
+
+#	if pucks_fwd_m.size() > 0:
+#		var random_num = randi() % pucks_fwd_m.size()
+#		selected = pucks_fwd_m[random_num]
+#		return selected
+#	elif pucks_bkd_m.size() > 0:
+#		var random_num = randi() % pucks_bkd_m.size()
+#		return pucks_bkd_m[random_num]
+#	elif pucks_fwd_l.size() > 0:
+#		var random_num = randi() % pucks_fwd_l.size()
+#		return pucks_fwd_l[random_num]
+#	elif pucks_fwd_r.size() > 0:
+#		var random_num = randi() % pucks_fwd_r.size()
+#		return pucks_fwd_r[random_num]
+#	elif pucks_bkd_l.size() > 0:
+#		var random_num = randi() % pucks_bkd_l.size()
+#		return pucks_bkd_l[random_num]
+#	elif pucks_bkd_r.size() > 0:
+#		var random_num = randi() % pucks_bkd_r.size()
+#		return pucks_bkd_r[random_num]
+#	else:
+#		var random_num = randi() % selectable_pucks.size()
+#		selected = selectable_pucks[random_num]
+#		return selected
+
+
+func check_if_last_touched(selected:Node) -> Node:
+	if selected.isLastTouched:
 		return selected
+	else:
+		return null
 
 
 func remove_item(array:Array, item):

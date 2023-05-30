@@ -58,6 +58,7 @@ axis_lock_angular_z = true
 angular_damp = 20.0
 script = ExtResource( 2 )
 push_force = 9.0
+last_touch_duration = 3.0
 
 [node name="Mesh" type="Spatial" parent="."]
 
