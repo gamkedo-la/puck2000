@@ -66,25 +66,31 @@ func opp_tick_timeout() -> void:
 	# check which sector selected puck is currently in
 #	prints("selected puck is situated: ", current_puck.cur_sector)
 	
-	match current_puck.cur_sector.name:
-		"FWD-M":
-			print("we're in FWD-M")
-			confidence_sector = 9.0
-		"BKD-M":
-			print("we're in BKD-M")
-			confidence_sector = 7.0
-		"BKD-L":
-			print("we're in BKD-L")
-			confidence_sector = 4.0
-		"BKD-R":
-			print("we're in BKD-R")
-			confidence_sector = 4.0
-		"FWD-L":
-			print("we're in FWD-L")
-			confidence_sector = 1.0
-		"FWD-R":
-			print("we're in FWD-R")
-			confidence_sector = 1.0
+	if current_puck.cur_sector == null:
+		printerr("opponent_ai.gd: current_puck.cur_sector is null")
+	
+	if current_puck.cur_sector != null:
+		match current_puck.cur_sector.name:
+			"FWD-M":
+				print("we're in FWD-M")
+				confidence_sector = 9.0
+			"BKD-M":
+				print("we're in BKD-M")
+				confidence_sector = 7.0
+			"BKD-L":
+				print("we're in BKD-L")
+				confidence_sector = 4.0
+			"BKD-R":
+				print("we're in BKD-R")
+				confidence_sector = 4.0
+			"FWD-L":
+				print("we're in FWD-L")
+				confidence_sector = 1.0
+			"FWD-R":
+				print("we're in FWD-R")
+				confidence_sector = 1.0
+			_:
+				printerr("opponent_ai.gd: current_puck.cur_sector is null, check the match statement in opp_tick_timeout()")
 	
 #	if pucks_adv.size() > 0:
 #		# select puck currently detected in P2Adv
@@ -302,9 +308,15 @@ func _update_puck_sector_lists(body:Node, sector:String, isAppend:bool) -> void:
 
 func select_puck_from_sectors() -> Node:
 #	selects puck in a priority order
+	var selected = null
+	
+#	while selected == null:
 	if pucks_fwd_m.size() > 0:
 		var random_num = randi() % pucks_fwd_m.size()
-		return pucks_fwd_m[random_num]
+		selected = pucks_fwd_m[random_num]
+		return selected
+#			if !selected.isDirty:
+#				return selected
 	elif pucks_bkd_m.size() > 0:
 		var random_num = randi() % pucks_bkd_m.size()
 		return pucks_bkd_m[random_num]
@@ -322,7 +334,8 @@ func select_puck_from_sectors() -> Node:
 		return pucks_bkd_r[random_num]
 	else:
 		var random_num = randi() % selectable_pucks.size()
-		return selectable_pucks[random_num]
+		selected = selectable_pucks[random_num]
+		return selected
 
 
 func remove_item(array:Array, item):
