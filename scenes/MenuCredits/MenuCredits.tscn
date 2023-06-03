@@ -1,13 +1,15 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/MenuCredits/credits_bg.material" type="Material" id=1]
 [ext_resource path="res://fonts/rocket-rinder-font/RocketRinder-yV5d.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://scenes/MenuCredits/MenuCredits.gd" type="Script" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 size = 128
 font_data = ExtResource( 2 )
 
 [node name="MenuCredits" type="Spatial"]
+script = ExtResource( 3 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
