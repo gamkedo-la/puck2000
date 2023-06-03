@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenery/palm_tree/palm_tree.glb" type="PackedScene" id=1]
 [ext_resource path="res://pucks/standard_variations/sakura/PuckStd-sakura.tscn" type="PackedScene" id=2]
+[ext_resource path="res://pucks/special/cd_spindle/PuckSpcl-cd_spindle.tscn" type="PackedScene" id=3]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Spatial
@@ -27,6 +28,9 @@ transform = Transform( 0.708366, -0.168809, 0.685362, 0, 0.970981, 0.239158, -0.
 script = SubResource( 1 )
 
 [node name="PStd-Sakura" parent="PlaceModelHere" instance=ExtResource( 2 )]
+visible = false
+
+[node name="PSpc-CDSpindle" parent="PlaceModelHere" instance=ExtResource( 3 )]
 
 [node name="palm_tree" parent="PlaceModelHere" instance=ExtResource( 1 )]
 transform = Transform( 0.432715, 0, 0, 0, 0.432715, 0, 0, 0, 0.432715, 0, 0, 0 )
