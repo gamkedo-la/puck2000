@@ -21,6 +21,9 @@ func _ready() -> void:
 	
 	for child in $Interface/Slides/SelectTables.get_children():
 		child.connect("clicked_on_viewport_container", self, "_on_viewport_container_clicked")
+	
+	# connect signals from "Select" nodes
+	# create function to add Node to array to send to Gameplay scene
 
 
 func _on_viewport_container_clicked(container:ViewportContainer, index:int) -> void:
