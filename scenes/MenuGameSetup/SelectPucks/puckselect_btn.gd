@@ -14,3 +14,4 @@ func setup_text() -> void:
 
 func show_arrows() -> void:
 	pass
+
