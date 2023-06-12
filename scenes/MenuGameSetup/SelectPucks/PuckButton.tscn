@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://ui/setup-ui-btn-placeholder.png" type="Texture" id=1]
 [ext_resource path="res://ui/setup-ui-btn-placeholder-hover.png" type="Texture" id=2]
 [ext_resource path="res://fonts/times-new-roman/times.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://scenes/MenuGameSetup/SelectPucks/puckselect_btn.gd" type="Script" id=4]
+[ext_resource path="res://ui/setup-ui-btn-placeholder-focus.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=2]
 size = 36
@@ -15,6 +16,7 @@ margin_right = 280.0
 margin_bottom = 92.0
 texture_normal = ExtResource( 1 )
 texture_hover = ExtResource( 2 )
+texture_focused = ExtResource( 5 )
 script = ExtResource( 4 )
 
 [node name="Label" type="Label" parent="."]

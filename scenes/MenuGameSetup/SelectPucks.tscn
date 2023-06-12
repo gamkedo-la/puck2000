@@ -43,18 +43,26 @@ custom_constants/separation = 8
 alignment = 1
 
 [node name="PuckButton" parent="HBoxContainer/VBoxContainer" instance=ExtResource( 9 )]
+focus_neighbour_bottom = NodePath("../PuckButton2")
+focus_next = NodePath("../PuckButton2")
 
 [node name="PuckButton2" parent="HBoxContainer/VBoxContainer" instance=ExtResource( 9 )]
 margin_top = 100.0
 margin_bottom = 180.0
+focus_neighbour_top = NodePath("../PuckButton")
+focus_neighbour_bottom = NodePath("../PuckButton3")
+focus_next = NodePath("../PuckButton3")
 
 [node name="PuckButton3" parent="HBoxContainer/VBoxContainer" instance=ExtResource( 9 )]
 margin_top = 188.0
 margin_bottom = 268.0
+focus_neighbour_bottom = NodePath("../PuckButton4")
+focus_next = NodePath("../PuckButton4")
 
 [node name="PuckButton4" parent="HBoxContainer/VBoxContainer" instance=ExtResource( 9 )]
 margin_top = 276.0
 margin_bottom = 356.0
+focus_neighbour_bottom = NodePath("../PuckButton5")
 
 [node name="PuckButton5" parent="HBoxContainer/VBoxContainer" instance=ExtResource( 9 )]
 margin_top = 364.0
