@@ -1,14 +1,12 @@
 extends TextureButton
 
-export(String) var text = "Button text"
+#export(String) var text = "Button text"
 # set focus neighbours relative to button
 onready var self_index = get_index()
 onready var parent = get_parent()
 
 func _ready() -> void:
-	setup_text()
 	set_focus_mode(true)
-	
 	# check if button is first in layout, and grab focus
 	# get node path of the prev and next buttons
 
@@ -20,7 +18,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		prints("selection confirmed")
 
 
-func setup_text() -> void:
+func set_text(text) -> void:
 	$Label.text = text
 
 

@@ -17,5 +17,5 @@ surfaces/0 = {
 "vertex_count": 148
 }
 
-[node name="Roomba" type="MeshInstance"]
+[node name="PSpc-Roomba" type="MeshInstance"]
 mesh = SubResource( 1 )

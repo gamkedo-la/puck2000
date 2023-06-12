@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://pucks/standard/PStd-Standard.tscn" type="PackedScene" id=1]
 [ext_resource path="res://pucks/standard_variations/marble/PuckStd-marble.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://pucks/special/love_candy/PuckSpcl-love_heart.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/MenuGameSetup/SelectPucks/PuckButton.tscn" type="PackedScene" id=9]
 [ext_resource path="res://pucks/special/cd_spindle/PuckSpcl-cd_spindle.tscn" type="PackedScene" id=10]
+[ext_resource path="res://pucks/special/roomba/PuckSpcl-roomba.tscn" type="PackedScene" id=11]
 
 [sub_resource type="GDScript" id=2]
 resource_name = "add_puck_select_btns"
@@ -24,17 +25,19 @@ onready var pucks = $\"../ViewportContainer/Viewport/Pucks\"
 
 func _ready() -> void:
 	# use children nodes in pucks to set number of buttons
-	var number_of_buttons = pucks.get_children().size()
-	for i in range(number_of_buttons):
+	var puck_items = pucks.get_children()
+	var puck_items_size = puck_items.size()
+	for i in range(puck_items_size):
 		var button_instance = button.instance()
 		add_child(button_instance)
 	
 	# after buttons have been instantiated, run their methods to set up the buttons
-	for n in range(number_of_buttons):
+	for n in range(puck_items_size):
 		var cur_btn = get_child(n)
 		cur_btn.set_focus()
 		cur_btn.set_button_neighbours()
-#		cur_btn.set_text()
+		var puck_name = puck_items[n].name
+		cur_btn.set_text(str(puck_name))
 "
 
 [sub_resource type="GDScript" id=1]
@@ -94,30 +97,34 @@ fov = 42.0
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -3, -14 )
 script = SubResource( 1 )
 
-[node name="PStd-Standard" parent="HBoxContainer/ViewportContainer/Viewport/Pucks" instance=ExtResource( 1 )]
+[node name="Standard" parent="HBoxContainer/ViewportContainer/Viewport/Pucks" instance=ExtResource( 1 )]
 
-[node name="PStd-CDWalkman" parent="HBoxContainer/ViewportContainer/Viewport/Pucks" instance=ExtResource( 4 )]
+[node name="CDWalkman" parent="HBoxContainer/ViewportContainer/Viewport/Pucks" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0 )
 skeleton = NodePath("../..")
 
-[node name="PStd-Marble" parent="HBoxContainer/ViewportContainer/Viewport/Pucks" instance=ExtResource( 2 )]
+[node name="Marble" parent="HBoxContainer/ViewportContainer/Viewport/Pucks" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0 )
 skeleton = NodePath("../..")
 
-[node name="PStd-Ocean" parent="HBoxContainer/ViewportContainer/Viewport/Pucks" instance=ExtResource( 3 )]
+[node name="Ocean" parent="HBoxContainer/ViewportContainer/Viewport/Pucks" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6, 0 )
 skeleton = NodePath("../..")
 
-[node name="PStd-Sakura" parent="HBoxContainer/ViewportContainer/Viewport/Pucks" instance=ExtResource( 7 )]
+[node name="Sakura" parent="HBoxContainer/ViewportContainer/Viewport/Pucks" instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, 0 )
 
-[node name="PSpc-CDWalkman" parent="HBoxContainer/ViewportContainer/Viewport/Pucks" instance=ExtResource( 5 )]
+[node name="CDWalkman2" parent="HBoxContainer/ViewportContainer/Viewport/Pucks" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0 )
 
 [node name="HeartCandy" parent="HBoxContainer/ViewportContainer/Viewport/Pucks" instance=ExtResource( 8 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12, 0 )
 skeleton = NodePath("")
 
-[node name="PSpc-CDSpindle" parent="HBoxContainer/ViewportContainer/Viewport/Pucks" instance=ExtResource( 10 )]
+[node name="CDSpindle" parent="HBoxContainer/ViewportContainer/Viewport/Pucks" instance=ExtResource( 10 )]
 transform = Transform( 0.88693, 0, 0, 0, 0.88693, 0, 0, 0, 0.88693, 0, -14, 0 )
 skeleton = NodePath("../HeartCandy")
+
+[node name="Roomba" parent="HBoxContainer/ViewportContainer/Viewport/Pucks" instance=ExtResource( 11 )]
+transform = Transform( 0.88693, 0, 0, 0, 0.88693, 0, 0, 0, 0.88693, 0, -16, 0 )
+skeleton = NodePath("../CDSpindle")
