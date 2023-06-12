@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://pucks/standard/PStd-Standard.tscn" type="PackedScene" id=1]
 [ext_resource path="res://pucks/standard_variations/marble/PuckStd-marble.tscn" type="PackedScene" id=2]
@@ -10,6 +10,32 @@
 [ext_resource path="res://pucks/special/love_candy/PuckSpcl-love_heart.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/MenuGameSetup/SelectPucks/PuckButton.tscn" type="PackedScene" id=9]
 [ext_resource path="res://pucks/special/cd_spindle/PuckSpcl-cd_spindle.tscn" type="PackedScene" id=10]
+
+[sub_resource type="GDScript" id=2]
+resource_name = "add_puck_select_btns"
+script/source = "extends VBoxContainer
+
+# this script will instantiate the number of buttons based on the number of pucks in $\"../ViewportContainer/Viewport/Pucks\"
+
+export (PackedScene) var button
+
+onready var pucks = $\"../ViewportContainer/Viewport/Pucks\"
+
+
+func _ready() -> void:
+	# use children nodes in pucks to set number of buttons
+	var number_of_buttons = pucks.get_children().size()
+	for i in range(number_of_buttons):
+		var button_instance = button.instance()
+		add_child(button_instance)
+	
+	# after buttons have been instantiated, run their methods to set up the buttons
+	for n in range(number_of_buttons):
+		var cur_btn = get_child(n)
+		cur_btn.set_focus()
+		cur_btn.set_button_neighbours()
+#		cur_btn.set_text()
+"
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Spatial
@@ -41,44 +67,8 @@ margin_bottom = 720.0
 rect_min_size = Vector2( 280, 720 )
 custom_constants/separation = 8
 alignment = 1
-
-[node name="PuckButton" parent="HBoxContainer/VBoxContainer" instance=ExtResource( 9 )]
-focus_neighbour_bottom = NodePath("../PuckButton2")
-focus_next = NodePath("../PuckButton2")
-
-[node name="PuckButton2" parent="HBoxContainer/VBoxContainer" instance=ExtResource( 9 )]
-margin_top = 100.0
-margin_bottom = 180.0
-focus_neighbour_top = NodePath("../PuckButton")
-focus_neighbour_bottom = NodePath("../PuckButton3")
-focus_next = NodePath("../PuckButton3")
-
-[node name="PuckButton3" parent="HBoxContainer/VBoxContainer" instance=ExtResource( 9 )]
-margin_top = 188.0
-margin_bottom = 268.0
-focus_neighbour_bottom = NodePath("../PuckButton4")
-focus_next = NodePath("../PuckButton4")
-
-[node name="PuckButton4" parent="HBoxContainer/VBoxContainer" instance=ExtResource( 9 )]
-margin_top = 276.0
-margin_bottom = 356.0
-focus_neighbour_bottom = NodePath("../PuckButton5")
-
-[node name="PuckButton5" parent="HBoxContainer/VBoxContainer" instance=ExtResource( 9 )]
-margin_top = 364.0
-margin_bottom = 444.0
-
-[node name="PuckButton6" parent="HBoxContainer/VBoxContainer" instance=ExtResource( 9 )]
-margin_top = 452.0
-margin_bottom = 532.0
-
-[node name="PuckButton7" parent="HBoxContainer/VBoxContainer" instance=ExtResource( 9 )]
-margin_top = 540.0
-margin_bottom = 620.0
-
-[node name="PuckButton8" parent="HBoxContainer/VBoxContainer" instance=ExtResource( 9 )]
-margin_top = 628.0
-margin_bottom = 708.0
+script = SubResource( 2 )
+button = ExtResource( 9 )
 
 [node name="ViewportContainer" type="ViewportContainer" parent="HBoxContainer"]
 margin_left = 284.0

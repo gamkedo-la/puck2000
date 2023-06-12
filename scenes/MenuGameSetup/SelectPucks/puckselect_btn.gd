@@ -1,29 +1,16 @@
 extends TextureButton
 
 export(String) var text = "Button text"
+# set focus neighbours relative to button
+onready var self_index = get_index()
+onready var parent = get_parent()
 
 func _ready() -> void:
 	setup_text()
-	show_arrows()
 	set_focus_mode(true)
 	
 	# check if button is first in layout, and grab focus
-	var parent = get_parent()
-	if parent:
-		var isFirst = get_index() == 0
-		if isFirst:
-			grab_focus()
-	
-	# set focus neighbours relative to button
-	var self_index = get_index()
-	
 	# get node path of the prev and next buttons
-	if parent.get_child(self_index - 1):
-		var prev_btn = parent.get_child(self_index - 1).get_path()
-		set_focus_neighbour(MARGIN_TOP, prev_btn)
-	if parent.get_child(self_index + 1):
-		var next_btn = parent.get_child(self_index + 1).get_path()
-		set_focus_neighbour(MARGIN_BOTTOM, next_btn)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -37,6 +24,22 @@ func setup_text() -> void:
 	$Label.text = text
 
 
-func show_arrows() -> void:
+func set_puck() -> void:
+	# set puck to send to gameplay scene
 	pass
 
+
+func set_focus() -> void:
+	if parent:
+		var isFirst = get_index() == 0
+		if isFirst:
+			grab_focus()
+
+
+func set_button_neighbours() -> void:
+	if parent.get_child(self_index - 1):
+		var prev_btn = parent.get_child(self_index - 1).get_path()
+		set_focus_neighbour(MARGIN_TOP, prev_btn)
+	if parent.get_child(self_index + 1):
+		var next_btn = parent.get_child(self_index + 1).get_path()
+		set_focus_neighbour(MARGIN_BOTTOM, next_btn)
