@@ -18,6 +18,26 @@ func _unhandled_input(event: InputEvent) -> void:
 		prints("selection confirmed")
 
 
+func _process(delta:float) -> void:
+	if has_focus():
+		var rect = get_rect()
+		var viewport_rect = get_viewport_rect()
+		
+		if rect.intersects(viewport_rect):
+			var intersection = rect.clip(viewport_rect)
+			var intersection_area = intersection.size.x * intersection.size.y
+			var button_area = rect.size.x * rect.size.y
+			
+			var percent_visible = intersection_area / button_area
+			
+			if percent_visible < 1.0:
+				print("button is partially off-screen")
+			else:
+				print("button is full on-screen")
+		else:
+			print("button is off-screen")
+
+
 func set_text(text) -> void:
 	$Label.text = text
 
