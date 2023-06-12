@@ -26,6 +26,13 @@ func _ready() -> void:
 		set_focus_neighbour(MARGIN_BOTTOM, next_btn)
 
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_accept") && has_focus():
+		prints("you selected a puck", self.name)
+	if event.is_action_released("ui_accept") && has_focus():
+		prints("selection confirmed")
+
+
 func setup_text() -> void:
 	$Label.text = text
 
