@@ -65,3 +65,5 @@ margin_right = 40.0
 margin_bottom = 14.0
 custom_fonts/font = SubResource( 1 )
 text = "PUCK2000"
+
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/HowToPlay" to="." method="_on_HowToPlay_pressed"]

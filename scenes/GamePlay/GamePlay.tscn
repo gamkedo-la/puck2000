@@ -1,19 +1,27 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/GamePlay/game_play.gd" type="Script" id=1]
+[ext_resource path="res://pucks/special/roomba/PuckSpcl-roomba.tscn" type="PackedScene" id=2]
 [ext_resource path="res://pucks/Puck-main.tscn" type="PackedScene" id=3]
-[ext_resource path="res://pucks/special/love_candy/PuckSpcl-love_heart.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/GamePlay/opponent_ai.gd" type="Script" id=5]
 
 [node name="GamePlay" type="Spatial"]
 script = ExtResource( 1 )
 puck_scene = ExtResource( 3 )
-puck_cosmetic = ExtResource( 4 )
+puck_cosmetic = ExtResource( 2 )
 isDebug = true
 round_time = 120.0
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.5, 0.866025, 0, -0.866026, 0.5, 0, 15, 12 )
+transform = Transform( 1, 0, 0, 0, 0.5, 0.866026, 0, -0.866026, 0.5, 0, 20.1962, 15 )
+current = true
+
+[node name="DebugCamera" type="Camera" parent="."]
+transform = Transform( 0.982117, 0.0656204, -0.176467, 0, 0.937294, 0.348538, 0.188273, -0.342305, 0.920533, -2.14355, 4.18367, 0.0123215 )
+visible = false
+__meta__ = {
+"_editor_description_": "Feel free to move this one around to assess the gameplay. Check the \"Current\" tickbox to enable."
+}
 
 [node name="Pucks" type="Spatial" parent="."]
 
@@ -59,7 +67,7 @@ text = "P2: 0"
 
 [node name="OpponentAI" type="Node" parent="."]
 script = ExtResource( 5 )
-opponent_tick_rate = 0.5
+opponent_tick_rate = 1.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

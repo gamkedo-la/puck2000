@@ -17,5 +17,5 @@ surfaces/0 = {
 "vertex_count": 261
 }
 
-[node name="HeartCandy" type="MeshInstance"]
+[node name="PSpc-HeartCandy" type="MeshInstance"]
 mesh = SubResource( 1 )

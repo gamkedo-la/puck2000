@@ -40,7 +40,7 @@ onready var opponent = $OpponentAI
 
 func _ready() -> void:
 
-	BGMManager.play_bgm(GAME_BGM)
+#	BGMManager.play_bgm(GAME_BGM)
 
 	if table_scene == null:
 #		print($"../SceneTransition/DataBus".selections)

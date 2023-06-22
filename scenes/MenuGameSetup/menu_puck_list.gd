@@ -1,3 +1,4 @@
+tool
 extends Control
 
 # The number of buttons in the menu

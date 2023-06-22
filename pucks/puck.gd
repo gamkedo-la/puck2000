@@ -16,6 +16,7 @@ export var push_force_multiplier:float = 2.0
 export var push_force:float
 export var isDebug:bool = false
 export var isOpponent:bool = false
+export var last_touch_duration:float = 1.0
 
 const SFX_PUCK_COLLISION_0 = preload("res://audio/sfx/puck_impact_000.ogg")
 
@@ -26,24 +27,56 @@ var targetDest = Vector3.ZERO
 var opponent_aiming_at = Vector3.ZERO
 
 var cur_dir:Vector3
+var cur_sector:Area
+
+# start_move_to() -> _integrate_forces()
+var target_position: Vector3
+var initial_position: Vector3
+var final_position: Vector3
 
 var isSelected:bool = false
+var isADV:bool = true # a check for opp ai to decide what kind of target marker to aim at - check oponent_ai.gd
 #var isReset:bool = false
+var isLastTouched = false
+var isPreparing:bool = false
 var last_hit:Node = null
+
+var last_touch_timer = null # cooldown on when AI last selected puck
 
 onready var camera = get_node(camera_node_path)
 onready var pointer = $Pointer
+#onready var table = $"../../Table".get_child(0)
+onready var puck_area = $Area
+onready var puck_raycasts = $Raycasts
 
 
 func _ready() -> void:
 	isSelected = false
 #	isReset = false
 	$Pointer.visible = false
+	
 	if not self.is_connected("body_entered", self, "check_collision"):
 		var puck_collide = self.connect("body_entered", self, "check_collision")
 		assert(puck_collide == OK)
+	
+	for ray in puck_raycasts.get_children():
+		ray.add_exception(self)
+	_setup_last_touch()
+#	prints("found table?",table.get_node("OpponentSectors").get_children())
+	
+#	for area in table.get_node("OpponentSectors").get_children():
+#		if not area.is_connected("area_entered", self, "check_area"):
+#			var sector_area = area.connect("area_entered", self, "check_area")
+#			assert(sector_area == OK)
+
+	# connect signal for area on Puck-main.tscn to detect being inside of OpponentSectors areas
+	if not puck_area.is_connected("area_entered", self, "check_area"):
+		var puck_area_check = puck_area.connect("area_entered", self, "check_area")
+		assert(puck_area_check == OK)	
+	
 	if isOpponent:
 		_opponent_setup()
+	
 	pass # Replace with function body.
 
 
@@ -59,6 +92,12 @@ func check_collision(body:Node) -> void:
 	if body.is_in_group("pucks"):
 		isSelected = false
 	SFXManager.play_sfx(SFX_PUCK_COLLISION_0, get_tree().current_scene, Vector2(0.7,0.9))
+
+
+func check_area(area:Node) -> void:
+#	prints("new area:", area, "old area:", cur_sector)
+	cur_sector = area
+	pass
 
 
 func look_follow(state, current_transform, target_position):
@@ -117,7 +156,6 @@ func _integrate_forces(state: PhysicsDirectBodyState) -> void:
 		set_linear_velocity(Vector3.ZERO)
 		look_follow(state, get_global_transform(), targetDest)
 		check_force(get_global_transform(), targetDest)
-	pass
 
 
 func _process(_delta: float) -> void:
@@ -134,8 +172,14 @@ func _process(_delta: float) -> void:
 	
 	if isSelected && isOpponent:
 		# set areas to deem priority of pucks
-		find_target_pos_auto(opponent_aiming_at)
+		find_target_pos_auto(opponent_aiming_at)		
 		pass
+	
+	if isSelected && isOpponent && isDebug:
+		$Debug.visible = true
+		pass
+	else:
+		$Debug.visible = false
 
 
 func find_target_pos() -> void:
@@ -186,6 +230,11 @@ func find_target_pos_auto(target:Vector3) -> void:
 	pass
 
 
+#func move_to_bakedpos(target_pos:Vector3) -> void:
+#	global_transform.origin = target_pos
+#	pass
+
+
 func puck_push(direction:Vector3, force:float) -> void:
 #	print("pushed")
 	var position = self.translation
@@ -205,6 +254,7 @@ func _unhandled_input(event: InputEvent) -> void:
 #		print("deselect")
 		pointer.visible = false
 		isSelected = false
+		last_touch_timeout() # reset any lingering isLastTouched
 		puck_push(cur_dir, push_force)
 
 
@@ -220,3 +270,24 @@ func _on_Puck_input_event(_camera: Node, event: InputEvent, _position: Vector3, 
 		isSelected = true
 #		emit_signal("puck_selected", self)
 
+
+func last_touch_timeout() -> void:
+	isLastTouched = false
+	last_touch_timer.stop()
+	last_touch_timer.wait_time = last_touch_duration
+
+
+func _setup_last_touch() -> void:
+	# add a timer
+	last_touch_timer = Timer.new()
+	add_child(last_touch_timer)
+	last_touch_timeout() # set the wait_time for the first time
+	last_touch_timer.connect("timeout", self, "last_touch_timeout")
+	if not last_touch_timer.is_connected("timeout", self, "last_touch_timeout"):
+		var last_touch_check = last_touch_timer.connect("timeout", self, "last_touch_timeout")
+		assert(last_touch_check == OK)
+
+
+func last_touch_start() -> void:
+	isLastTouched = true
+	last_touch_timer.start()

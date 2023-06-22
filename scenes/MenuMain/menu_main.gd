@@ -9,3 +9,8 @@ func _ready() -> void:
 
 func goto_gameplay() -> void:
 	SceneTransition.change_scene("res://scenes/MenuGameSetup/MenuGameSetup.tscn")
+
+
+func _on_HowToPlay_pressed():
+	SceneTransition.change_scene("res://scenes/MenuCredits/MenuCredits.tscn")
+	pass # Replace with function body.
