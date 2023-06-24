@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/GamePlay/game_play.gd" type="Script" id=1]
 [ext_resource path="res://pucks/special/roomba/PuckSpcl-roomba.tscn" type="PackedScene" id=2]
 [ext_resource path="res://pucks/Puck-main.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/GamePlay/gameplay_bg.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/GamePlay/opponent_ai.gd" type="Script" id=5]
 
 [node name="GamePlay" type="Spatial"]
@@ -86,5 +87,8 @@ margin_top = -39.0
 margin_right = 98.0
 margin_bottom = 39.0
 text = "Play Again"
+
+[node name="Room" parent="." instance=ExtResource( 4 )]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
 
 [connection signal="pressed" from="CanvasLayer/BtnPlayAgain" to="." method="_on_BtnPlayAgain_pressed"]
