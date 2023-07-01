@@ -67,3 +67,4 @@ custom_fonts/font = SubResource( 1 )
 text = "PUCK2000"
 
 [connection signal="pressed" from="CanvasLayer/HBoxContainer/HowToPlay" to="." method="_on_HowToPlay_pressed"]
+[connection signal="pressed" from="CanvasLayer/HBoxContainer/Credits" to="." method="_on_Credits_pressed"]
