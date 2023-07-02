@@ -41,6 +41,7 @@ margin_top = 201.0
 margin_right = 321.0
 margin_bottom = 571.0
 script = ExtResource( 4 )
+select_what = "table"
 
 [node name="Viewport" type="Viewport" parent="PickTable01"]
 size = Vector2( 260, 370 )
@@ -60,6 +61,7 @@ margin_top = 201.0
 margin_right = 620.0
 margin_bottom = 571.0
 script = ExtResource( 4 )
+select_what = "table"
 
 [node name="Viewport" type="Viewport" parent="PickTable02"]
 size = Vector2( 260, 370 )
@@ -79,6 +81,7 @@ margin_top = 201.0
 margin_right = 919.0
 margin_bottom = 571.0
 script = ExtResource( 4 )
+select_what = "table"
 
 [node name="Viewport" type="Viewport" parent="PickTable03"]
 size = Vector2( 260, 370 )
@@ -100,6 +103,7 @@ margin_top = 201.0
 margin_right = 1218.0
 margin_bottom = 571.0
 script = ExtResource( 4 )
+select_what = "table"
 
 [node name="Viewport" type="Viewport" parent="PickTable04"]
 size = Vector2( 260, 370 )
