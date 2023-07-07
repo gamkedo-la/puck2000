@@ -8,13 +8,16 @@ signal puck_spawn_finished
 # exported variables for debug
 # comment out when not in use
 #export (PackedScene) var table_scene
-export (PackedScene) var puck_scene
-export (PackedScene) var puck_cosmetic
+export (PackedScene) var puck_scene # keep to load in Puck-main.tscn
+#export (PackedScene) var puck_cosmetic
 export var isDebug:bool = false
 
 export var round_time:float = 90.0
 
+# actual variables that are used for instancing table and pucks
 var table_scene:PackedScene = null
+#var puck_scene:PackedScene = null
+var puck_cosmetic:PackedScene = null
 
 var puck_spawn_pos = []
 
@@ -45,7 +48,9 @@ func _ready() -> void:
 	if table_scene == null:
 #		print($"../SceneTransition/DataBus".selections)
 		table_scene = $"../SceneTransition/DataBus".selections["table"]
-
+	if puck_cosmetic == null:
+#		print($"../SceneTransition/DataBus".selections)
+		puck_cosmetic = $"../SceneTransition/DataBus".selections["puck"]
 #	isFirstRound = true
 	current_round = 0
 	# disable controls

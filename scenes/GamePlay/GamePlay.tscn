@@ -1,7 +1,6 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/GamePlay/game_play.gd" type="Script" id=1]
-[ext_resource path="res://pucks/special/roomba/PuckSpcl-roomba.tscn" type="PackedScene" id=2]
 [ext_resource path="res://pucks/Puck-main.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/GamePlay/gameplay_bg.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/GamePlay/opponent_ai.gd" type="Script" id=5]
@@ -9,8 +8,6 @@
 [node name="GamePlay" type="Spatial"]
 script = ExtResource( 1 )
 puck_scene = ExtResource( 3 )
-puck_cosmetic = ExtResource( 2 )
-isDebug = true
 round_time = 120.0
 
 [node name="Camera" type="Camera" parent="."]

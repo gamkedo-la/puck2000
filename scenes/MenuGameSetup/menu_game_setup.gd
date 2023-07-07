@@ -12,11 +12,11 @@ export(Array, PackedScene) var puck_cosmetics = [
 	preload("res://pucks/standard_variations/marble/PuckStd-marble.tscn"),
 	preload("res://pucks/standard_variations/ocean/PuckStd-ocean.tscn"),
 	preload("res://pucks/standard_variations/sakura/PuckStd-sakura.tscn"),
-	preload("res://pucks/special/burger/PuckSpcl-burger.tscn"),
 	preload("res://pucks/special/cd_player/PuckSpcl-cd_player.tscn"),
-	preload("res://pucks/special/cd_spindle/PuckSpcl-cd_spindle.tscn"),
 	preload("res://pucks/special/love_candy/PuckSpcl-love_heart.tscn"),
-	preload("res://pucks/special/roomba/PuckSpcl-roomba.tscn")
+	preload("res://pucks/special/cd_spindle/PuckSpcl-cd_spindle.tscn"),
+	preload("res://pucks/special/roomba/PuckSpcl-roomba.tscn"),
+	preload("res://pucks/special/burger/PuckSpcl-burger.tscn")
 ]
 onready var btn_startgame = $Interface/CanvasLayer/Button
 
@@ -53,14 +53,14 @@ func _on_viewport_container_clicked(container:ViewportContainer, index:int, type
 
 func select_table(index:int) -> void:
 	selections["table"] = table_scenes[index]
-	print_debug(selections)
+	print_debug(selections["table"].instance().name)
 	pass
 
 
 func select_puck(index:int) -> void:
 #	selections["puck"] = selected_puck
 	selections["puck"] = puck_cosmetics[index]
-	print_debug(selections)
+	print_debug(selections["puck"].instance().name)
 	pass
 
 

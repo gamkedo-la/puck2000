@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://pucks/standard/PStd-Standard.tscn" type="PackedScene" id=1]
 [ext_resource path="res://pucks/standard_variations/marble/PuckStd-marble.tscn" type="PackedScene" id=2]
@@ -8,8 +8,10 @@
 [ext_resource path="res://common/clickable_hotspot.gd" type="Script" id=6]
 [ext_resource path="res://pucks/standard_variations/sakura/PuckStd-sakura.tscn" type="PackedScene" id=7]
 [ext_resource path="res://pucks/special/love_candy/PuckSpcl-love_heart.tscn" type="PackedScene" id=8]
+[ext_resource path="res://common/lathe_rotate.gd" type="Script" id=9]
 [ext_resource path="res://pucks/special/cd_spindle/PuckSpcl-cd_spindle.tscn" type="PackedScene" id=10]
 [ext_resource path="res://pucks/special/roomba/PuckSpcl-roomba.tscn" type="PackedScene" id=11]
+[ext_resource path="res://pucks/special/burger/PuckSpcl-burger.tscn" type="PackedScene" id=12]
 
 [node name="SelectPucks" type="Control"]
 anchor_right = 1.0
@@ -38,54 +40,17 @@ handle_input_locally = false
 render_target_update_mode = 3
 
 [node name="CameraAxis" type="Spatial" parent="VBoxContainer/HBoxContainer/ViewportContainer/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -3, -14 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -103, -14 )
 
 [node name="Camera" type="Camera" parent="VBoxContainer/HBoxContainer/ViewportContainer/Viewport/CameraAxis"]
 transform = Transform( 0.707107, -0.353553, 0.612373, 0, 0.866026, 0.499999, -0.707107, -0.353553, 0.612373, 1.61263, 1.5, 1.61263 )
 fov = 42.0
 
 [node name="Pucks" type="Spatial" parent="VBoxContainer/HBoxContainer/ViewportContainer/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -3, -14 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -103, -14 )
+script = ExtResource( 9 )
 
 [node name="Standard" parent="VBoxContainer/HBoxContainer/ViewportContainer/Viewport/Pucks" instance=ExtResource( 1 )]
-
-[node name="CDWalkman" parent="VBoxContainer/HBoxContainer/ViewportContainer/Viewport/Pucks" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0 )
-visible = false
-skeleton = NodePath("../..")
-
-[node name="Marble" parent="VBoxContainer/HBoxContainer/ViewportContainer/Viewport/Pucks" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0 )
-visible = false
-skeleton = NodePath("../..")
-
-[node name="Ocean" parent="VBoxContainer/HBoxContainer/ViewportContainer/Viewport/Pucks" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6, 0 )
-visible = false
-skeleton = NodePath("../..")
-
-[node name="Sakura" parent="VBoxContainer/HBoxContainer/ViewportContainer/Viewport/Pucks" instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, 0 )
-visible = false
-
-[node name="CDWalkman2" parent="VBoxContainer/HBoxContainer/ViewportContainer/Viewport/Pucks" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0 )
-visible = false
-
-[node name="HeartCandy" parent="VBoxContainer/HBoxContainer/ViewportContainer/Viewport/Pucks" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12, 0 )
-visible = false
-skeleton = NodePath("")
-
-[node name="CDSpindle" parent="VBoxContainer/HBoxContainer/ViewportContainer/Viewport/Pucks" instance=ExtResource( 10 )]
-transform = Transform( 0.88693, 0, 0, 0, 0.88693, 0, 0, 0, 0.88693, 0, -14, 0 )
-visible = false
-skeleton = NodePath("../HeartCandy")
-
-[node name="Roomba" parent="VBoxContainer/HBoxContainer/ViewportContainer/Viewport/Pucks" instance=ExtResource( 11 )]
-transform = Transform( 0.88693, 0, 0, 0, 0.88693, 0, 0, 0, 0.88693, 0, -16, 0 )
-visible = false
-skeleton = NodePath("../CDSpindle")
 
 [node name="ViewportContainer2" type="ViewportContainer" parent="VBoxContainer/HBoxContainer"]
 margin_left = 204.0
@@ -102,16 +67,18 @@ handle_input_locally = false
 render_target_update_mode = 3
 
 [node name="CameraAxis" type="Spatial" parent="VBoxContainer/HBoxContainer/ViewportContainer2/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -3, -14 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8, -103, -14 )
 
 [node name="Camera" type="Camera" parent="VBoxContainer/HBoxContainer/ViewportContainer2/Viewport/CameraAxis"]
 transform = Transform( 0.707107, -0.353553, 0.612373, 0, 0.866026, 0.499999, -0.707107, -0.353553, 0.612373, 1.61263, 1.5, 1.61263 )
 fov = 42.0
 
 [node name="Pucks" type="Spatial" parent="VBoxContainer/HBoxContainer/ViewportContainer2/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -3, -14 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8, -103, -14 )
+script = ExtResource( 9 )
 
-[node name="Standard" parent="VBoxContainer/HBoxContainer/ViewportContainer2/Viewport/Pucks" instance=ExtResource( 1 )]
+[node name="CDWalkman" parent="VBoxContainer/HBoxContainer/ViewportContainer2/Viewport/Pucks" instance=ExtResource( 4 )]
+skeleton = NodePath("../../../../ViewportContainer/Viewport")
 
 [node name="ViewportContainer3" type="ViewportContainer" parent="VBoxContainer/HBoxContainer"]
 margin_left = 408.0
@@ -128,16 +95,18 @@ handle_input_locally = false
 render_target_update_mode = 3
 
 [node name="CameraAxis" type="Spatial" parent="VBoxContainer/HBoxContainer/ViewportContainer3/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -3, -14 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -103, -14 )
 
 [node name="Camera" type="Camera" parent="VBoxContainer/HBoxContainer/ViewportContainer3/Viewport/CameraAxis"]
 transform = Transform( 0.707107, -0.353553, 0.612373, 0, 0.866026, 0.499999, -0.707107, -0.353553, 0.612373, 1.61263, 1.5, 1.61263 )
 fov = 42.0
 
 [node name="Pucks" type="Spatial" parent="VBoxContainer/HBoxContainer/ViewportContainer3/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -3, -14 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3, -103, -14 )
+script = ExtResource( 9 )
 
-[node name="Standard" parent="VBoxContainer/HBoxContainer/ViewportContainer3/Viewport/Pucks" instance=ExtResource( 1 )]
+[node name="Marble" parent="VBoxContainer/HBoxContainer/ViewportContainer3/Viewport/Pucks" instance=ExtResource( 2 )]
+skeleton = NodePath("../../../../ViewportContainer/Viewport")
 
 [node name="ViewportContainer4" type="ViewportContainer" parent="VBoxContainer/HBoxContainer"]
 margin_left = 612.0
@@ -154,16 +123,18 @@ handle_input_locally = false
 render_target_update_mode = 3
 
 [node name="CameraAxis" type="Spatial" parent="VBoxContainer/HBoxContainer/ViewportContainer4/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -3, -14 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -103, -14 )
 
 [node name="Camera" type="Camera" parent="VBoxContainer/HBoxContainer/ViewportContainer4/Viewport/CameraAxis"]
 transform = Transform( 0.707107, -0.353553, 0.612373, 0, 0.866026, 0.499999, -0.707107, -0.353553, 0.612373, 1.61263, 1.5, 1.61263 )
 fov = 42.0
 
 [node name="Pucks" type="Spatial" parent="VBoxContainer/HBoxContainer/ViewportContainer4/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -3, -14 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -103, -14 )
+script = ExtResource( 9 )
 
-[node name="Standard" parent="VBoxContainer/HBoxContainer/ViewportContainer4/Viewport/Pucks" instance=ExtResource( 1 )]
+[node name="Ocean" parent="VBoxContainer/HBoxContainer/ViewportContainer4/Viewport/Pucks" instance=ExtResource( 3 )]
+skeleton = NodePath("../../../../ViewportContainer/Viewport")
 
 [node name="ViewportContainer5" type="ViewportContainer" parent="VBoxContainer/HBoxContainer"]
 margin_left = 816.0
@@ -180,16 +151,18 @@ handle_input_locally = false
 render_target_update_mode = 3
 
 [node name="CameraAxis" type="Spatial" parent="VBoxContainer/HBoxContainer/ViewportContainer5/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -3, -14 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, -103, -14 )
 
 [node name="Camera" type="Camera" parent="VBoxContainer/HBoxContainer/ViewportContainer5/Viewport/CameraAxis"]
 transform = Transform( 0.707107, -0.353553, 0.612373, 0, 0.866026, 0.499999, -0.707107, -0.353553, 0.612373, 1.61263, 1.5, 1.61263 )
 fov = 42.0
 
 [node name="Pucks" type="Spatial" parent="VBoxContainer/HBoxContainer/ViewportContainer5/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -3, -14 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7, -103, -14 )
+script = ExtResource( 9 )
 
-[node name="Standard" parent="VBoxContainer/HBoxContainer/ViewportContainer5/Viewport/Pucks" instance=ExtResource( 1 )]
+[node name="Sakura" parent="VBoxContainer/HBoxContainer/ViewportContainer5/Viewport/Pucks" instance=ExtResource( 7 )]
+skeleton = NodePath("../../../../ViewportContainer/Viewport/Pucks")
 
 [node name="ViewportContainer6" type="ViewportContainer" parent="VBoxContainer/HBoxContainer"]
 margin_left = 1020.0
@@ -206,16 +179,18 @@ handle_input_locally = false
 render_target_update_mode = 3
 
 [node name="CameraAxis" type="Spatial" parent="VBoxContainer/HBoxContainer/ViewportContainer6/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -3, -14 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -103, -14 )
 
 [node name="Camera" type="Camera" parent="VBoxContainer/HBoxContainer/ViewportContainer6/Viewport/CameraAxis"]
 transform = Transform( 0.707107, -0.353553, 0.612373, 0, 0.866026, 0.499999, -0.707107, -0.353553, 0.612373, 1.61263, 1.5, 1.61263 )
 fov = 42.0
 
 [node name="Pucks" type="Spatial" parent="VBoxContainer/HBoxContainer/ViewportContainer6/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -3, -14 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12, -103, -14 )
+script = ExtResource( 9 )
 
-[node name="Standard" parent="VBoxContainer/HBoxContainer/ViewportContainer6/Viewport/Pucks" instance=ExtResource( 1 )]
+[node name="CDWalkman2" parent="VBoxContainer/HBoxContainer/ViewportContainer6/Viewport/Pucks" instance=ExtResource( 5 )]
+skeleton = NodePath("../../../../ViewportContainer/Viewport/Pucks")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 margin_top = 204.0
@@ -236,54 +211,18 @@ handle_input_locally = false
 render_target_update_mode = 3
 
 [node name="CameraAxis" type="Spatial" parent="VBoxContainer/HBoxContainer2/ViewportContainer/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -3, -14 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17, -103, -14 )
 
 [node name="Camera" type="Camera" parent="VBoxContainer/HBoxContainer2/ViewportContainer/Viewport/CameraAxis"]
 transform = Transform( 0.707107, -0.353553, 0.612373, 0, 0.866026, 0.499999, -0.707107, -0.353553, 0.612373, 1.61263, 1.5, 1.61263 )
 fov = 42.0
 
 [node name="Pucks" type="Spatial" parent="VBoxContainer/HBoxContainer2/ViewportContainer/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -3, -14 )
-
-[node name="Standard" parent="VBoxContainer/HBoxContainer2/ViewportContainer/Viewport/Pucks" instance=ExtResource( 1 )]
-
-[node name="CDWalkman" parent="VBoxContainer/HBoxContainer2/ViewportContainer/Viewport/Pucks" instance=ExtResource( 4 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0 )
-visible = false
-skeleton = NodePath("../..")
-
-[node name="Marble" parent="VBoxContainer/HBoxContainer2/ViewportContainer/Viewport/Pucks" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4, 0 )
-visible = false
-skeleton = NodePath("../..")
-
-[node name="Ocean" parent="VBoxContainer/HBoxContainer2/ViewportContainer/Viewport/Pucks" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6, 0 )
-visible = false
-skeleton = NodePath("../..")
-
-[node name="Sakura" parent="VBoxContainer/HBoxContainer2/ViewportContainer/Viewport/Pucks" instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, 0 )
-visible = false
-
-[node name="CDWalkman2" parent="VBoxContainer/HBoxContainer2/ViewportContainer/Viewport/Pucks" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0 )
-visible = false
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17, -103, -14 )
+script = ExtResource( 9 )
 
 [node name="HeartCandy" parent="VBoxContainer/HBoxContainer2/ViewportContainer/Viewport/Pucks" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12, 0 )
-visible = false
 skeleton = NodePath("")
-
-[node name="CDSpindle" parent="VBoxContainer/HBoxContainer2/ViewportContainer/Viewport/Pucks" instance=ExtResource( 10 )]
-transform = Transform( 0.88693, 0, 0, 0, 0.88693, 0, 0, 0, 0.88693, 0, -14, 0 )
-visible = false
-skeleton = NodePath("../HeartCandy")
-
-[node name="Roomba" parent="VBoxContainer/HBoxContainer2/ViewportContainer/Viewport/Pucks" instance=ExtResource( 11 )]
-transform = Transform( 0.88693, 0, 0, 0, 0.88693, 0, 0, 0, 0.88693, 0, -16, 0 )
-visible = false
-skeleton = NodePath("../CDSpindle")
 
 [node name="ViewportContainer2" type="ViewportContainer" parent="VBoxContainer/HBoxContainer2"]
 margin_left = 204.0
@@ -300,16 +239,18 @@ handle_input_locally = false
 render_target_update_mode = 3
 
 [node name="CameraAxis" type="Spatial" parent="VBoxContainer/HBoxContainer2/ViewportContainer2/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -3, -14 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22, -103, -14 )
 
 [node name="Camera" type="Camera" parent="VBoxContainer/HBoxContainer2/ViewportContainer2/Viewport/CameraAxis"]
 transform = Transform( 0.707107, -0.353553, 0.612373, 0, 0.866026, 0.499999, -0.707107, -0.353553, 0.612373, 1.61263, 1.5, 1.61263 )
 fov = 42.0
 
 [node name="Pucks" type="Spatial" parent="VBoxContainer/HBoxContainer2/ViewportContainer2/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -3, -14 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22, -103, -14 )
+script = ExtResource( 9 )
 
-[node name="Standard" parent="VBoxContainer/HBoxContainer2/ViewportContainer2/Viewport/Pucks" instance=ExtResource( 1 )]
+[node name="CDSpindle" parent="VBoxContainer/HBoxContainer2/ViewportContainer2/Viewport/Pucks" instance=ExtResource( 10 )]
+skeleton = NodePath("../../../../ViewportContainer/Viewport/Pucks/HeartCandy")
 
 [node name="ViewportContainer3" type="ViewportContainer" parent="VBoxContainer/HBoxContainer2"]
 margin_left = 408.0
@@ -326,16 +267,19 @@ handle_input_locally = false
 render_target_update_mode = 3
 
 [node name="CameraAxis" type="Spatial" parent="VBoxContainer/HBoxContainer2/ViewportContainer3/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -3, -14 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27, -103, -14 )
 
 [node name="Camera" type="Camera" parent="VBoxContainer/HBoxContainer2/ViewportContainer3/Viewport/CameraAxis"]
 transform = Transform( 0.707107, -0.353553, 0.612373, 0, 0.866026, 0.499999, -0.707107, -0.353553, 0.612373, 1.61263, 1.5, 1.61263 )
 fov = 42.0
 
 [node name="Pucks" type="Spatial" parent="VBoxContainer/HBoxContainer2/ViewportContainer3/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -3, -14 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27, -103, -14 )
+script = ExtResource( 9 )
 
-[node name="Standard" parent="VBoxContainer/HBoxContainer2/ViewportContainer3/Viewport/Pucks" instance=ExtResource( 1 )]
+[node name="Roomba" parent="VBoxContainer/HBoxContainer2/ViewportContainer3/Viewport/Pucks" instance=ExtResource( 11 )]
+transform = Transform( 0.88693, 0, 0, 0, 0.88693, 0, 0, 0, 0.88693, 0, 0, 0 )
+skeleton = NodePath("../../../../ViewportContainer2/Viewport/Pucks/CDSpindle")
 
 [node name="ViewportContainer4" type="ViewportContainer" parent="VBoxContainer/HBoxContainer2"]
 margin_left = 612.0
@@ -352,16 +296,17 @@ handle_input_locally = false
 render_target_update_mode = 3
 
 [node name="CameraAxis" type="Spatial" parent="VBoxContainer/HBoxContainer2/ViewportContainer4/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -3, -14 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32, -103, -14 )
 
 [node name="Camera" type="Camera" parent="VBoxContainer/HBoxContainer2/ViewportContainer4/Viewport/CameraAxis"]
 transform = Transform( 0.707107, -0.353553, 0.612373, 0, 0.866026, 0.499999, -0.707107, -0.353553, 0.612373, 1.61263, 1.5, 1.61263 )
 fov = 42.0
 
 [node name="Pucks" type="Spatial" parent="VBoxContainer/HBoxContainer2/ViewportContainer4/Viewport"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13, -3, -14 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 32, -103, -14 )
+script = ExtResource( 9 )
 
-[node name="Standard" parent="VBoxContainer/HBoxContainer2/ViewportContainer4/Viewport/Pucks" instance=ExtResource( 1 )]
+[node name="burger" parent="VBoxContainer/HBoxContainer2/ViewportContainer4/Viewport/Pucks" instance=ExtResource( 12 )]
 
 [node name="ViewportContainer5" type="ViewportContainer" parent="VBoxContainer/HBoxContainer2"]
 margin_left = 816.0
