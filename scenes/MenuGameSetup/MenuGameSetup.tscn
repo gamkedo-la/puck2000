@@ -76,12 +76,19 @@ margin_right = 2560.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Interface"]
 
-[node name="Button" type="Button" parent="Interface/CanvasLayer"]
+[node name="ButtonNext" type="Button" parent="Interface/CanvasLayer"]
 margin_left = 1022.0
 margin_top = 617.0
 margin_right = 1232.0
 margin_bottom = 680.0
-text = "Temporary Start Button"
+text = "Next"
+
+[node name="ButtonPrev" type="Button" parent="Interface/CanvasLayer"]
+margin_left = 56.0
+margin_top = 617.0
+margin_right = 266.0
+margin_bottom = 680.0
+text = "Back"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Interface"]
 

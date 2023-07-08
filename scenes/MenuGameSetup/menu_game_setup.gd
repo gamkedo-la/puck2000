@@ -18,7 +18,12 @@ export(Array, PackedScene) var puck_cosmetics = [
 	preload("res://pucks/special/roomba/PuckSpcl-roomba.tscn"),
 	preload("res://pucks/special/burger/PuckSpcl-burger.tscn")
 ]
-onready var btn_startgame = $Interface/CanvasLayer/Button
+onready var btn_next = $Interface/CanvasLayer/ButtonNext
+onready var btn_prev = $Interface/CanvasLayer/ButtonPrev
+onready var interface_screen = $Interface
+
+var current_select_screen = 0
+var isInputEnabled:bool = true
 
 var selections = {
 	"table": table_scenes[0],
@@ -27,8 +32,9 @@ var selections = {
 
 
 func _ready() -> void:
-	btn_startgame.connect("button_up", self, "goto_gameplay")
-	
+#	btn_startgame.connect("button_up", self, "goto_gameplay")
+	btn_next.connect("button_up", self, "goto_animation", [true])
+	btn_prev.connect("button_up", self, "goto_animation", [false])
 	connect("send_selections", $"../SceneTransition/DataBus", "test_func")
 	
 	for child in $Interface/Slides/SelectTables.get_children():
@@ -61,6 +67,33 @@ func select_puck(index:int) -> void:
 #	selections["puck"] = selected_puck
 	selections["puck"] = puck_cosmetics[index]
 	print_debug(selections["puck"].instance().name)
+	pass
+
+
+func goto_next_slide() -> void:
+	# advances to next select screen
+	pass
+
+
+func goto_prev_slide() -> void:
+	# returns to previous select screen
+	pass
+
+
+func goto_animation(isNext:bool) -> void:
+	# handle animation tween for select screen transition
+	var slides = interface_screen.get_node("Slides")
+	var tween = get_tree().create_tween()
+	var value
+	
+	if isNext == true:
+		value = slides.get_position() - Vector2(interface_screen.get_viewport_rect().size.x, 0)
+	else:
+		value = slides.get_position() + Vector2(interface_screen.get_viewport_rect().size.x, 0)
+	
+	isInputEnabled = false
+	tween.tween_property(slides, "rect_position", value, 0.5).set_trans(Tween.TRANS_SINE)
+	tween.connect("finished", self, "_enable_input")
 	pass
 
 
