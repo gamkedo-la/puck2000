@@ -12,7 +12,11 @@ script/source = "extends Control
 
 onready var slides = $Slides
 
-var isInputEnabled = true
+
+# disabling this script for input UX reasons
+# we're not supporting controllers or keyboard input
+# this will be pure mouse game
+var isInputEnabled = false
 
 
 func _unhandled_input(event: InputEvent) -> void:

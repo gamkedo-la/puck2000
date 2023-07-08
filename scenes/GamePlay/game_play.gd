@@ -43,6 +43,7 @@ onready var opponent = $OpponentAI
 
 func _ready() -> void:
 
+# need to re-enable BGM and have it reset when game ends etc.
 #	BGMManager.play_bgm(GAME_BGM)
 
 	if table_scene == null:
