@@ -79,8 +79,7 @@ shape = SubResource( 5 )
 [node name="Pointer" type="Spatial" parent="."]
 
 [node name="MeshInstance" type="MeshInstance" parent="Pointer"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -3.868, -1.69076e-07, 0, 0.431392, -0.485949 )
-visible = false
+transform = Transform( -6, -5.74892e-07, -3.82137e-15, 0, -2.87446e-07, 1, -5.24537e-07, 6.576, 4.37114e-08, 0, 0.431392, 0.839051 )
 mesh = SubResource( 2 )
 skeleton = NodePath("../..")
 material/0 = SubResource( 3 )
