@@ -22,6 +22,7 @@ onready var btn_next = $Interface/CanvasLayer/ButtonNext
 onready var btn_prev = $Interface/CanvasLayer/ButtonPrev
 onready var btn_play = $Interface/CanvasLayer/ButtonPlay
 onready var interface_screen = $Interface
+onready var cur_screen_label = $Interface/HBoxContainer/CurScreen
 
 var current_select_screen = 0
 var isInputEnabled:bool = true
@@ -117,16 +118,19 @@ func sort_buttons() -> void:
 			btn_next.show() 
 			btn_prev.hide()
 			btn_play.hide()
+			cur_screen_label.text = "Select Table"
 			pass
 		1:
 			btn_next.show() 
 			btn_prev.show()
 			btn_play.hide()
+			cur_screen_label.text = "Select Puck"
 			pass
 		2:
 			btn_next.hide() 
 			btn_prev.show()
 			btn_play.show()
+			cur_screen_label.text = "Select Difficulty"
 			pass
 		_:
 			print_debug("Did something go wrong in sort_buttons()?")
