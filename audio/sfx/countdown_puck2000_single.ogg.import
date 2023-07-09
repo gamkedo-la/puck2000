@@ -11,5 +11,5 @@ dest_files=[ "res://.import/countdown_puck2000_single.ogg-48c02f2046a4e1c26c7aae
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

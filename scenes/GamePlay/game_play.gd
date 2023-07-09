@@ -241,10 +241,30 @@ func start_game() -> void:
 
 
 func set_label_text(value:int) -> void:
-	$CountdownText.text = str(value)
+#	$CountdownText.text = str(value)
+	var current_text = $CountdownText.text
+	var target_text = ""
+	
+	# Determine the text to display based on the current value
+	if value == 3:
+		target_text = "3"
+	elif value == 2:
+		target_text = "2"
+	elif value == 1:
+		target_text = "1"
+	elif value == 0:
+		target_text = "Go!"
+
+	# Update the text label only if it has changed
+	if current_text != target_text:
+		$CountdownText.text = target_text
+		# Play sound effect when the text label changes
+		play_countdown_sfx(0.9)
+
+
+func play_countdown_sfx(pitch:float) -> void:
 	# play sfx
-	SFXManager.play_sfx(SFX_COUNTDOWN, get_tree().current_scene, Vector2(0.8,0.9))
-	pass
+	SFXManager.play_sfx(SFX_COUNTDOWN, get_tree().current_scene, Vector2(pitch,pitch))
 
 
 func _countdown_to_round() -> void:
@@ -253,14 +273,17 @@ func _countdown_to_round() -> void:
 	$CountdownText.visible = true
 	var tween = create_tween()
 	tween.tween_method(self, "set_label_text", 3, 1, 1.5).set_delay(1)
+#	tween.tween_method(self, "play_countdown_sfx", 3, 1, 1.5).set_delay(1)
 	tween.tween_callback(self, "set_label_text_go")
 	tween.tween_callback(self, "start_round").set_delay(0.75)
-	pass
+	# Play initial sound effect
+	play_countdown_sfx(0.9)
 
 
 func set_label_text_go() -> void:
 	$CountdownText.text = "Go!"
-
+	# Play sound effect for "Go!"
+	play_countdown_sfx(1.0)
 
 func start_round() -> void:
 	$CountdownText.visible = false
