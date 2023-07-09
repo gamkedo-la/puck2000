@@ -14,6 +14,8 @@ export var isDebug:bool = false
 
 export var round_time:float = 90.0
 
+const SFX_COUNTDOWN = preload("res://audio/sfx/countdown_puck2000_single.ogg")
+
 # actual variables that are used for instancing table and pucks
 var table_scene:PackedScene = null
 #var puck_scene:PackedScene = null
@@ -240,6 +242,8 @@ func start_game() -> void:
 
 func set_label_text(value:int) -> void:
 	$CountdownText.text = str(value)
+	# play sfx
+	SFXManager.play_sfx(SFX_COUNTDOWN, get_tree().current_scene, Vector2(0.8,0.9))
 	pass
 
 
