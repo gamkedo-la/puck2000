@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/GamePlay/game_play.gd" type="Script" id=1]
+[ext_resource path="res://scenery/palm_tree/palm_tree.glb" type="PackedScene" id=2]
 [ext_resource path="res://pucks/Puck-main.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/GamePlay/gameplay_bg.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/GamePlay/opponent_ai.gd" type="Script" id=5]
@@ -15,7 +16,7 @@ transform = Transform( 1, 0, 0, 0, 0.5, 0.866026, 0, -0.866026, 0.5, 0, 14.134, 
 current = true
 
 [node name="DebugCamera" type="Camera" parent="."]
-transform = Transform( 0.982117, 0.0656204, -0.176467, 0, 0.937294, 0.348538, 0.188273, -0.342305, 0.920533, -2.14355, 4.18367, 0.0123215 )
+transform = Transform( 0.982117, 0.0656203, -0.176467, 0, 0.937295, 0.348538, 0.188273, -0.342305, 0.920533, -3.67295, 5.22928, 12.7739 )
 visible = false
 __meta__ = {
 "_editor_description_": "Feel free to move this one around to assess the gameplay. Check the \"Current\" tickbox to enable."
@@ -98,6 +99,9 @@ text = "Main Menu"
 
 [node name="Room" parent="." instance=ExtResource( 4 )]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
+
+[node name="palm_tree" parent="Room" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.33333, 0, -7.33333 )
 
 [connection signal="pressed" from="CanvasLayer/BtnPlayAgain" to="." method="_on_BtnPlayAgain_pressed"]
 [connection signal="pressed" from="CanvasLayer/BtnReturnMenu" to="." method="_on_BtnReturnMenu_pressed"]
