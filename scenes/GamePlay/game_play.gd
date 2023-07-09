@@ -94,6 +94,7 @@ func setup_field() -> void:
 func reset_round() -> void:
 	
 	$CanvasLayer/BtnPlayAgain.visible = false
+	$CanvasLayer/BtnReturnMenu.visible = false
 	
 	set_label_text(3) # reset the countdown label text
 	_reset_puck_physics()
@@ -358,6 +359,7 @@ func end_game(winner:String) -> void:
 #	progress to next scene
 	# temporary code to replay match
 	$CanvasLayer/BtnPlayAgain.visible = true
+	$CanvasLayer/BtnReturnMenu.visible = true
 	pass
 
 
@@ -366,4 +368,9 @@ func _on_BtnPlayAgain_pressed() -> void:
 	p2_round_wins = 0
 	reset_round()
 	start_game()
+	pass # Replace with function body.
+
+
+func _on_BtnReturnMenu_pressed() -> void:
+	SceneTransition.change_scene("res://scenes/MenuMain/MenuMain.tscn")
 	pass # Replace with function body.
