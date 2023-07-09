@@ -90,6 +90,13 @@ margin_right = 266.0
 margin_bottom = 680.0
 text = "Back"
 
+[node name="ButtonPlay" type="Button" parent="Interface/CanvasLayer"]
+margin_left = 1022.0
+margin_top = 617.0
+margin_right = 1232.0
+margin_bottom = 680.0
+text = "Let's Play!"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Interface"]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Interface"]
