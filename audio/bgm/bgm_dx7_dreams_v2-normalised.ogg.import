@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/bgm_dx7_dreams_v2-normalised.ogg-010d9e6acbe0f5a5c833a8e981cd7765.oggstr"
+
+[deps]
+
+source_file="res://audio/bgm/bgm_dx7_dreams_v2-normalised.ogg"
+dest_files=[ "res://.import/bgm_dx7_dreams_v2-normalised.ogg-010d9e6acbe0f5a5c833a8e981cd7765.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -19,6 +19,7 @@ export var isOpponent:bool = false
 export var last_touch_duration:float = 1.0
 
 const SFX_PUCK_COLLISION_0 = preload("res://audio/sfx/puck_impact_000.ogg")
+const SFX_PUCK_DESELECT = preload("res://audio/sfx/puck_deselect_chord_in_B.ogg")
 
 var rayOrigin = Vector3.ZERO
 var rayEnd = Vector3.ZERO
@@ -90,7 +91,10 @@ func check_collision(body:Node) -> void:
 		DebugDraw.set_text("Puck last collided with", body)
 	last_hit = body
 	if body.is_in_group("pucks"):
-		isSelected = false
+		if isSelected:
+			isSelected = false
+			SFXManager.play_sfx(SFX_PUCK_DESELECT, get_tree().current_scene)
+		pointer.visible = false
 	SFXManager.play_sfx(SFX_PUCK_COLLISION_0, get_tree().current_scene, Vector2(0.7,0.9))
 
 
@@ -172,7 +176,7 @@ func _process(_delta: float) -> void:
 	
 	if isSelected && isOpponent:
 		# set areas to deem priority of pucks
-		find_target_pos_auto(opponent_aiming_at)		
+		find_target_pos_auto(opponent_aiming_at)
 		pass
 	
 	if isSelected && isOpponent && isDebug:

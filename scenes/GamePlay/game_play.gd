@@ -35,7 +35,7 @@ var current_round:int
 
 var table:Spatial
 
-const GAME_BGM = preload("res://audio/bgm/bgm_dx7_dreams_v2.mp3")
+const GAME_BGM = preload("res://audio/bgm/bgm_dx7_dreams_v2-normalised.ogg")
 
 onready var pucks = $Pucks
 onready var table_holder = $Table
@@ -46,7 +46,7 @@ onready var opponent = $OpponentAI
 func _ready() -> void:
 
 # need to re-enable BGM and have it reset when game ends etc.
-#	BGMManager.play_bgm(GAME_BGM)
+	BGMManager.play_bgm(GAME_BGM)
 
 	if table_scene == null:
 #		print($"../SceneTransition/DataBus".selections)
@@ -359,7 +359,6 @@ func end_game(winner:String) -> void:
 	# temporary code to replay match
 	$CanvasLayer/BtnPlayAgain.visible = true
 	pass
-
 
 
 func _on_BtnPlayAgain_pressed() -> void:

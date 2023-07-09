@@ -13,7 +13,7 @@ onready var audiobus_sfx := AudioServer.get_bus_index(audiobus_sfx_name)
 func _ready() -> void:
 #	isMute = false
 	# setup initial volumes
-	sfx_vol = 0.85
+	sfx_vol = 0.55
 	
 	AudioServer.set_bus_volume_db(audiobus_sfx, linear2db(sfx_vol))
 	
